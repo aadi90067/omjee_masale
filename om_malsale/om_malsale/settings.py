@@ -1,12 +1,19 @@
 from pathlib import Path
 import os
 
+# BASE DIRECTORY
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# SECURITY
 SECRET_KEY = 'django-insecure-e=1%d6fhk646lkbej#qx*v_ad_$6&*2kh!&eq8ul7k+$#k5zya'
-DEBUG = True
+
+DEBUG = False
+
 ALLOWED_HOSTS = ['*']
 
+
+# INSTALLED APPS
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -14,10 +21,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'om_malsale_app',  # ← YE APP
-    
+
+    'om_malsale_app',
 ]
 
+
+# MIDDLEWARE
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -28,8 +37,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# URL CONFIG
 ROOT_URLCONF = 'om_malsale.urls'
 
+
+# TEMPLATES
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -46,8 +59,12 @@ TEMPLATES = [
     },
 ]
 
+
+# WSGI
 WSGI_APPLICATION = 'om_malsale.wsgi.application'
 
+
+# DATABASE
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -55,21 +72,42 @@ DATABASES = {
     }
 }
 
+
+# PASSWORD VALIDATION
+AUTH_PASSWORD_VALIDATORS = [
+]
+
+
+# INTERNATIONAL SETTINGS
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'Asia/Kolkata'
+
+USE_I18N = True
+
+USE_TZ = True
+
+
 # STATIC FILES
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
 
-# MEDIA FILES (IMAGES)
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+# MEDIA FILES (Images)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Asia/Kolkata'
-USE_I18N = True
-USE_TZ = True
 
+# DEFAULT PRIMARY KEY
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# EMAIL SETTINGS
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = "smtp.gmail.com"
@@ -80,9 +118,6 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = "omjeemasale123@gmail.com"
 
-
 EMAIL_HOST_PASSWORD = "lcix fdjj qtvb mmqg"
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
