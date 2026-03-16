@@ -15,7 +15,6 @@ class Product(models.Model):
         return self.name
 
     # ⭐ Per unit price calculation
-
     @property
     def pack3_unit_price(self):
         return round(self.pack3_price / 3, 2)
@@ -30,6 +29,9 @@ class Order(models.Model):
     name = models.CharField(max_length=200)
     phone = models.CharField(max_length=20)
     address = models.TextField()
+
+    items = models.TextField()  # ⭐ ordered items
+
     total = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
 

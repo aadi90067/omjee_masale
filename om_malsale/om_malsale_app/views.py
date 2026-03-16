@@ -1,28 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from django.conf import settings
-from django.core.mail import send_mail
 from .models import Product, Order
 
 
 # HOME PAGE
 def index(request):
-
     products = Product.objects.all()
-
-    return render(request, "index.html", {
-        "products": products
-    })
+    return render(request, "index.html", {"products": products})
 
 
-# PRODUCT DETAIL
+# PRODUCT DETAIL PAGE
 def product_detail(request, id):
-
     p = get_object_or_404(Product, id=id)
-
-    return render(request, "product_detail.html", {
-        "p": p
-    })
+    return render(request, "product_detail.html", {"p": p})
 
 
 # ADD TO CART
@@ -136,15 +126,18 @@ def remove_item(request, key):
     return redirect("cart")
 
 
-# CHECKOUT / PLACE ORDER
+# CHECKOUT
 def checkout(request):
 
     cart = request.session.get("cart", {})
 
-    items_text = ""
-    total = 0
+    if not cart:
+        return redirect("cart")
 
-    for key, item in cart.items():
+    total = 0
+    items_text = ""
+
+    for item in cart.values():
 
         subtotal = item["price"] * item["qty"]
         total += subtotal
@@ -157,47 +150,16 @@ def checkout(request):
         phone = request.POST.get("phone")
         address = request.POST.get("address")
 
-        # SAVE ORDER
         Order.objects.create(
             name=name,
             phone=phone,
             address=address,
+            items=items_text,
             total=total
         )
 
-        # EMAIL MESSAGE
-        message = f"""
-New Order Received - Om Masale
-
-Customer Name: {name}
-Phone: {phone}
-
-Address:
-{address}
-
-Items Ordered:
-{items_text}
-
-Total Amount: ₹{total}
-"""
-
-        # SEND EMAIL
-        try:
-            send_mail(
-                subject="New Order - Om Masale",
-                message=message,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[settings.EMAIL_HOST_USER],
-                fail_silently=False,
-            )
-        except Exception as e:
-            print("Email error:", e)
-
-        # CLEAR CART
         request.session["cart"] = {}
 
         return render(request, "success.html")
 
-    return render(request, "checkout.html", {
-        "total": total
-    })
+    return render(request, "checkout.html", {"total": total})

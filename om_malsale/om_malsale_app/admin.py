@@ -22,7 +22,6 @@ class OrderAdmin(admin.ModelAdmin):
         "id",
         "name",
         "phone",
-        "address",
-        "total",      # correct field
-        "created",    # correct field
+        "total",
+        "created",
     )
