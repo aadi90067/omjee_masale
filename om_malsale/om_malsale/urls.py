@@ -8,6 +8,6 @@ urlpatterns = [
     path('', include('om_malsale_app.urls')),
 ]
 
-# ← MEDIA FILES KE LIYE (IMAGES Dikhane ke liye)
+# MEDIA FILES KE LIYE (IMAGES dikhane ke liye)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
