@@ -118,6 +118,6 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = "omjeemasale123@gmail.com"
 
-EMAIL_HOST_PASSWORD = "lcix fdjj qtvb mmqg"
+EMAIL_HOST_PASSWORD = "eczn ygmj ynic apzw"
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
