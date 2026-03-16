@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<title>Secure Checkout | Om Masale</title>
+<style>
+/* ===== RESET & GLOBAL ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --success-gradient: linear-gradient(135deg, #10b981, #059669);
+  --warning-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+}
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f3f4f6 100%);
+  color: #1f2937;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(25px);
+  box-shadow: var(--shadow-lg);
+  border-radius: 24px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--glass-border);
+}
+.logo {
+  font-weight: 800;
+  font-size: 1.75rem;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.back-btn {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+}
+
+/* ===== CHECKOUT CONTAINER ===== */
+.checkout-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(30px);
+  border-radius: 32px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-section {
+  background: rgba(16, 185, 129, 0.1);
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--success-gradient);
+  width: 75%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  position: relative;
+}
+.progress-fill::after {
+  content: '3/4 Complete';
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* ===== ORDER SUMMARY ===== */
+.order-summary {
+  background: var(--success-gradient);
+  color: white;
+  padding: 1.75rem;
+  text-align: center;
+}
+.order-total {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+}
+.order-label {
+  font-size: 1rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+.security-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  opacity: 0.9;
+}
+
+/* ===== FORM CONTAINER ===== */
+.form-container {
+  padding: 2.5rem;
+}
+
+/* ===== FORM FIELDS ===== */
+.form-group {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.form-group label {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  background: var(--glass-bg);
+  padding: 0 0.5rem;
+}
+.form-group input:focus + label,
+.form-group input:valid + label,
+.form-group textarea:focus + label,
+.form-group textarea:valid + label {
+  top: -0.5rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  color: #3b82f6;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.form-input {
+  width: 100%;
+  padding: 1.25rem 1.5rem 1.25rem;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-radius: 20px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(15px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.form-input.valid {
+  border-color: #10b981;
+}
+.form-input.error {
+  border-color: #ef4444;
+}
+.textarea-group {
+  position: relative;
+}
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  padding-top: 1.25rem;
+}
+
+/* ===== PLACE ORDER BUTTON ===== */
+.place-order-btn {
+  width: 100%;
+  padding: 1.5rem 2rem;
+  background: var(--success-gradient);
+  color: white;
+  border: none;
+  border-radius: 28px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.place-order-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.7s;
+}
+.place-order-btn:hover::before { left: 100%; }
+.place-order-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 40px 80px rgba(16, 185, 129, 0.5);
+}
+.place-order-btn:active {
+  transform: translateY(-2px) scale(1);
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  body { padding: 0.5rem; }
+  header { padding: 1rem; margin-bottom: 1rem; }
+  .logo { font-size: 1.5rem; }
+  .checkout-container { margin: 0; border-radius: 24px; }
+  .form-container { padding: 1.5rem; }
+  .order-summary { padding: 1.25rem; }
+  .order-total { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .progress-section { padding: 1rem; }
+  .form-group { margin-bottom: 1.5rem; }
+  .form-input, .form-textarea { padding: 1rem; font-size: 1rem; }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <i class="fas fa-spa"></i> Om Masale
+  </div>
+  <button class="back-btn" onclick="history.back()">
+    <i class="fas fa-arrow-left"></i> Back to Cart
+  </button>
+</header>
+
+<div class="checkout-container">
+  <!-- Progress Bar -->
+  <div class="progress-section">
+    <div style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem;">
+      <i class="fas fa-shipping-fast"></i> Delivery Details
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="order-summary">
+    <div class="order-total">₹{{total}}</div>
+    <div class="order-label">Total Amount</div>
+    <div class="security-badge">
+      <i class="fas fa-lock"></i>
+      Secure Checkout • Free Delivery
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form method="post" class="form-container">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <input type="text" name="name" class="form-input" required>
+      <label>Full Name</label>
+    </div>
+
+    <div class="form-group">
+      <input type="tel" name="phone" class="form-input" placeholder="+91" required>
+      <label>Phone Number</label>
+    </div>
+
+    <div class="form-group textarea-group">
+      <textarea name="address" class="form-input form-textarea" required></textarea>
+      <label>Complete Address</label>
+    </div>
+
+    <button type="submit" class="place-order-btn">
+      <i class="fas fa-check-circle"></i>
+      Place Order Now
+    </button>
+  </form>
+</div>
+
+<script>
+// Floating label animation + validation
+document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
+  input.addEventListener('blur', function() {
+    if (this.value) this.classList.add('valid');
+  });
+  
+  input.addEventListener('focus', function() {
+    this.parentElement.classList.add('focused');
+  });
+  
+  input.addEventListener('blur', function() {
+    this.parentElement.classList.remove('focused');
+  });
+});
+</script>
+</body>
+</html>
