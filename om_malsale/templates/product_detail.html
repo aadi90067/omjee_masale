@@ -330,7 +330,9 @@ header {
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0,0,0,.2);
 }
-
+.bbb{
+  color: red;
+}
 /* Total Price */
 .total-price {
   font-size: clamp(28px, 8vw, 40px);
@@ -411,7 +413,7 @@ header {
   <div class="logo">
     <i class="fas fa-pepper-hot"></i> Om Masale
   </div>
-  <a href="/my-orders/">My Orders</a>
+  <a class="bbbb" href="/my-orders/">My Orders</a>
   <a href="/cart/" class="cart-btn">
     <i class="fas fa-shopping-cart"></i> Cart ({{ request.session.cart|length|default:0 }})
   </a>
