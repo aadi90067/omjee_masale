@@ -86,9 +86,9 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 cloudinary.config(
-    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
-    api_key=os.environ.get("CLOUDINARY_API_KEY"),
-    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
+    cloud_name="djpimbw9j",
+    api_key="778116741471298",
+    api_secret="AdOjGJ0cdvKKQzvrtuSOga60pk0",
     secure=True
 )
 JAZZMIN_SETTINGS = {
