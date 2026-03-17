@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome | Om Masale</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,12 +17,12 @@
 
     body{
       min-height:100vh;
-      overflow:hidden;
       background:
         radial-gradient(circle at top left, rgba(255, 213, 128, 0.35), transparent 35%),
         radial-gradient(circle at bottom right, rgba(255, 107, 107, 0.25), transparent 35%),
         linear-gradient(135deg, #fff7e6, #ffe7cc, #fff1dc);
       position:relative;
+      padding:20px;
     }
 
     .bg-blur{
@@ -32,64 +32,21 @@
       border-radius:50%;
       filter:blur(80px);
       opacity:.55;
-      animation: floatBlob 8s ease-in-out infinite;
     }
 
-    .blur1{
-      top:-80px;
-      left:-80px;
-      background:#ffb347;
-    }
-
-    .blur2{
-      bottom:-90px;
-      right:-50px;
-      background:#ff6b6b;
-      animation-delay:2s;
-    }
-
-    .blur3{
-      top:30%;
-      left:55%;
-      background:#ffd166;
-      width:220px;
-      height:220px;
-      animation-delay:4s;
-    }
-
-    @keyframes floatBlob{
-      0%,100%{transform:translateY(0) translateX(0) scale(1);}
-      50%{transform:translateY(-20px) translateX(15px) scale(1.08);}
-    }
-
-    .spice{
-      position:absolute;
-      font-size:26px;
-      opacity:.18;
-      animation: floatSpice linear infinite;
-      user-select:none;
-    }
-
-    @keyframes floatSpice{
-      0%{
-        transform:translateY(110vh) rotate(0deg);
-        opacity:0;
-      }
-      10%{opacity:.18;}
-      100%{
-        transform:translateY(-20vh) rotate(360deg);
-        opacity:0;
-      }
-    }
+    .blur1{ top:-80px; left:-80px; background:#ffb347; }
+    .blur2{ bottom:-90px; right:-50px; background:#ff6b6b; }
+    .blur3{ top:30%; left:55%; background:#ffd166; width:220px; height:220px; }
 
     .wrapper{
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:20px;
       position:relative;
       z-index:2;
+      max-width:1200px;
+      margin:0 auto;
     }
 
     .card{
@@ -103,22 +60,11 @@
       overflow:hidden;
       display:grid;
       grid-template-columns:1.1fr .9fr;
-      animation: cardIn 1.2s ease;
-    }
-
-    @keyframes cardIn{
-      from{
-        opacity:0;
-        transform:translateY(40px) scale(.96);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-      }
+      gap:0;
     }
 
     .left{
-      padding:60px 50px;
+      padding:clamp(40px,8vw,60px) clamp(30px,6vw,50px);
       display:flex;
       flex-direction:column;
       justify-content:center;
@@ -131,22 +77,16 @@
       gap:10px;
       background:linear-gradient(135deg,#ff9f43,#ff6b6b);
       color:#fff;
-      padding:10px 18px;
+      padding:12px 20px;
       border-radius:999px;
-      font-size:14px;
+      font-size:clamp(14px,2.5vw,16px);
       font-weight:600;
       box-shadow:0 10px 25px rgba(255,107,107,.28);
       margin-bottom:22px;
-      animation: pulseSoft 2.4s infinite;
-    }
-
-    @keyframes pulseSoft{
-      0%,100%{transform:scale(1);}
-      50%{transform:scale(1.03);}
     }
 
     .title{
-      font-size:56px;
+      font-size:clamp(36px,8vw,56px);
       line-height:1.05;
       font-weight:800;
       color:#7a3100;
@@ -162,7 +102,7 @@
     }
 
     .subtitle{
-      font-size:18px;
+      font-size:clamp(16px,3vw,18px);
       color:#6b4b2a;
       line-height:1.8;
       margin-bottom:28px;
@@ -172,27 +112,29 @@
     .typing{
       color:#a84300;
       font-weight:700;
-      min-height:34px;
-      font-size:20px;
+      min-height:clamp(28px,5vw,34px);
+      font-size:clamp(18px,4vw,20px);
       margin-bottom:30px;
+      font-style:italic;
     }
 
     .buttons{
       display:flex;
       gap:16px;
       flex-wrap:wrap;
+      margin-bottom:24px;
     }
 
     .btn{
       text-decoration:none;
-      padding:14px 24px;
+      padding:clamp(14px,3vw,16px) clamp(20px,4vw,24px);
       border-radius:16px;
       font-weight:700;
-      transition:.35s ease;
+      font-size:clamp(14px,3vw,15px);
       display:inline-flex;
       align-items:center;
       gap:10px;
-      font-size:15px;
+      transition:all .3s ease;
     }
 
     .btn-primary{
@@ -202,7 +144,7 @@
     }
 
     .btn-primary:hover{
-      transform:translateY(-4px);
+      transform:translateY(-2px);
       box-shadow:0 18px 36px rgba(255, 102, 0, .35);
     }
 
@@ -213,42 +155,36 @@
     }
 
     .btn-secondary:hover{
-      transform:translateY(-4px);
+      transform:translateY(-2px);
       background:#fff;
     }
 
     .right{
       position:relative;
-      min-height:580px;
+      min-height:clamp(350px,70vh,580px);
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:40px 25px;
+      padding:clamp(30px,6vw,40px) clamp(20px,4vw,25px);
       background:linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.3));
     }
 
     .circle{
-      width:320px;
-      height:320px;
+      width:clamp(220px,45vw,320px);
+      height:clamp(220px,45vw,320px);
       border-radius:50%;
       background:radial-gradient(circle at 30% 30%, #fff3cd, #ffcf7d 55%, #ff8f5a 100%);
       box-shadow:
         inset -18px -20px 45px rgba(160, 70, 10, .18),
         0 30px 60px rgba(190, 90, 0, .22);
       position:absolute;
-      animation: rotateSlow 18s linear infinite;
-    }
-
-    @keyframes rotateSlow{
-      from{transform:rotate(0deg);}
-      to{transform:rotate(360deg);}
     }
 
     .masala-bowl{
       position:relative;
       z-index:3;
-      width:270px;
-      height:270px;
+      width:clamp(200px,40vw,270px);
+      height:clamp(200px,40vw,270px);
       border-radius:50%;
       background:
         radial-gradient(circle at 50% 45%, #ffcf66 0 18%, #f39c12 18% 30%, #c0392b 30% 42%, #8e4400 42% 52%, #e67e22 52% 63%, #9b2d00 63% 75%, #704214 75% 100%);
@@ -256,7 +192,6 @@
       box-shadow:
         0 25px 45px rgba(0,0,0,.18),
         inset 0 8px 12px rgba(255,255,255,.25);
-      animation: bowlFloat 4s ease-in-out infinite;
     }
 
     .masala-bowl::before{
@@ -265,7 +200,6 @@
       inset:-18px;
       border-radius:50%;
       border:2px dashed rgba(255,132,0,.35);
-      animation: rotateSlow 16s linear infinite reverse;
     }
 
     .masala-bowl::after{
@@ -273,18 +207,7 @@
       position:absolute;
       top:18px;
       right:20px;
-      font-size:28px;
-      animation: twinkle 1.6s infinite;
-    }
-
-    @keyframes bowlFloat{
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-14px);}
-    }
-
-    @keyframes twinkle{
-      0%,100%{opacity:1; transform:scale(1);}
-      50%{opacity:.4; transform:scale(1.3);}
+      font-size:clamp(20px,5vw,28px);
     }
 
     .mini-card{
@@ -297,123 +220,56 @@
       padding:12px 16px;
       box-shadow:0 12px 25px rgba(0,0,0,.09);
       color:#7a3100;
-      font-size:14px;
+      font-size:clamp(12px,2.5vw,14px);
       font-weight:700;
-      animation: miniUpDown 3.2s ease-in-out infinite;
     }
 
-    .mini1{
-      top:70px;
-      left:28px;
-    }
-
-    .mini2{
-      bottom:95px;
-      right:24px;
-      animation-delay:1.2s;
-    }
-
-    .mini3{
-      bottom:28px;
-      left:58px;
-      animation-delay:2s;
-    }
-
-    @keyframes miniUpDown{
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-8px);}
-    }
+    .mini1{ top:70px; left:28px; }
+    .mini2{ bottom:95px; right:24px; }
+    .mini3{ bottom:28px; left:58px; }
 
     .footer-note{
       margin-top:24px;
       color:#8d5a2b;
-      font-size:14px;
+      font-size:clamp(13px,2.5vw,14px);
       font-weight:500;
+      text-align:center;
     }
 
-    .shine{
-      position:relative;
-      overflow:hidden;
-    }
-
-    .shine::after{
-      content:"";
-      position:absolute;
-      top:0;
-      left:-120%;
-      width:80%;
-      height:100%;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
-      transform:skewX(-20deg);
-      animation: shineMove 3s infinite;
-    }
-
-    @keyframes shineMove{
-      0%{left:-120%;}
-      100%{left:140%;}
-    }
-
+    /* MOBILE PERFECTION */
     @media(max-width:900px){
-      .card{
-        grid-template-columns:1fr;
-      }
-      .right{
-        min-height:380px;
-      }
-      .title{
-        font-size:42px;
-      }
-      .left{
-        padding:42px 26px 20px;
-      }
+      .card{ grid-template-columns:1fr; }
+      .right{ min-height:400px; }
+      .left{ padding:40px 30px 30px; }
     }
 
     @media(max-width:520px){
-      .title{
-        font-size:34px;
-      }
-      .subtitle{
-        font-size:15px;
-      }
-      .typing{
-        font-size:17px;
-      }
-      header{
-        padding:12px;
-      }
-      .masala-bowl{
-        width:220px;
-        height:220px;
-      }
-      .circle{
-        width:260px;
-        height:260px;
-      }
-      .mini-card{
-        font-size:12px;
-        padding:10px 12px;
-      }
+      body{ padding:15px; }
+      .title{ font-size:clamp(28px,9vw,36px); }
+      .subtitle{ font-size:clamp(14px,4vw,16px); }
+      .masala-bowl{ width:clamp(180px,45vw,220px); height:clamp(180px,45vw,220px); }
+      .circle{ width:clamp(200px,50vw,260px); height:clamp(200px,50vw,260px); }
+      .mini-card{ padding:10px 12px; font-size:12px; }
+      .buttons{ flex-direction:column; }
+      .btn{ width:100%; justify-content:center; }
+    }
+
+    @media(max-width:360px){
+      .wrapper{ padding:10px; }
+      .card{ border-radius:25px; }
     }
   </style>
 </head>
 <body>
-
+  <!-- Background Blobs (Static) -->
   <div class="bg-blur blur1"></div>
   <div class="bg-blur blur2"></div>
   <div class="bg-blur blur3"></div>
 
-  <div class="spice" style="left:7%; animation-duration:12s;">🌶️</div>
-  <div class="spice" style="left:18%; animation-duration:15s; animation-delay:2s;">✨</div>
-  <div class="spice" style="left:32%; animation-duration:14s; animation-delay:5s;">🌿</div>
-  <div class="spice" style="left:48%; animation-duration:17s; animation-delay:1s;">🧡</div>
-  <div class="spice" style="left:62%; animation-duration:11s; animation-delay:4s;">🌶️</div>
-  <div class="spice" style="left:76%; animation-duration:16s; animation-delay:3s;">✨</div>
-  <div class="spice" style="left:89%; animation-duration:13s; animation-delay:6s;">🌿</div>
-
   <div class="wrapper">
     <div class="card">
       <div class="left">
-        <div class="badge shine">🌼 Welcome to Pure Taste</div>
+        <div class="badge">🌼 Welcome to Pure Taste</div>
 
         <div class="title">
           Welcome to
@@ -426,7 +282,7 @@
           and the real taste of Indian spices to your kitchen.
         </div>
 
-        <div class="typing" id="typingText"></div>
+        <div class="typing" id="typingText">Fresh Spices, Lovely Welcome ✨</div>
 
         <div class="buttons">
           <a href="/home/" class="btn btn-primary">🌶️ Explore Products</a>       
@@ -449,46 +305,21 @@
   </div>
 
   <script>
-    const textList = [
+    // Simple static text rotation (no typing animation)
+    const texts = [
       "Fresh Spices, Lovely Welcome ✨",
-      "Pure Taste for Every Kitchen 🌶️",
+      "Pure Taste for Every Kitchen 🌶️", 
       "Khushboo jo dil jeet le ❤️",
       "Apne ghar jaisa swaad 💛"
     ];
-
-    let textIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
-    const typingText = document.getElementById("typingText");
-
-    function typeEffect() {
-      const currentText = textList[textIndex];
-
-      if (!deleting) {
-        typingText.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-
-        if (charIndex === currentText.length) {
-          deleting = true;
-          setTimeout(typeEffect, 1300);
-          return;
-        }
-      } else {
-        typingText.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-
-        if (charIndex === 0) {
-          deleting = false;
-          textIndex = (textIndex + 1) % textList.length;
-        }
-      }
-
-      setTimeout(typeEffect, deleting ? 45 : 85);
-    }
-
-    typeEffect();
-
     
+    let currentText = 0;
+    const typingText = document.getElementById("typingText");
+    
+    setInterval(() => {
+      currentText = (currentText + 1) % texts.length;
+      typingText.textContent = texts[currentText];
+    }, 4000);
   </script>
 </body>
 </html>

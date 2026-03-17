@@ -3,333 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <title>Order Confirmed | Om Masale</title>
 <style>
-/* ===== OM MASALE SUCCESS PAGE ===== */
+/* ===== OM MASALE CLEAN SUCCESS ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
 :root {
-  --primary-gold: #ffb347;
   --spice-orange: #ff8a00;
-  --deep-orange: #d35400;
   --accent-red: #ff6b6b;
   --text-dark: #7a3100;
   --text-light: #6b4b2a;
-  --bg-gradient: linear-gradient(135deg, #fff7e6, #ffe7cc, #fff1dc);
-  --glass-bg: rgba(255,255,255,.45);
-  --glass-border: rgba(255,255,255,.6);
-  --shadow-light: rgba(120,70,10,.2);
-  --shadow-hover: rgba(120,70,10,.35);
-  --success-gold: linear-gradient(135deg, #ffd166, #ffb347);
+  --glass-bg: rgba(255,255,255,.5);
+  --glass-border: rgba(255,255,255,.7);
+  --shadow: rgba(120,70,10,.25);
 }
 
 body {
   min-height:100vh;
-  background:
-    radial-gradient(circle at top left, rgba(255, 213, 128, 0.4), transparent 35%),
-    radial-gradient(circle at bottom right, rgba(255, 107, 107, 0.3), transparent 35%),
-    var(--bg-gradient);
+  background: linear-gradient(135deg, #fff7e6, #ffe7cc, #fff1dc);
   position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:clamp(20px,5vw,40px);
-  overflow:hidden;
+  padding: clamp(20px, 5vw, 40px);
 }
 
-/* Background Blobs */
-.bg-blur{
+/* Static Background Blobs */
+.bg-blur {
   position:absolute;
   width:320px;
   height:320px;
   border-radius:50%;
   filter:blur(80px);
-  opacity:.6;
-  animation: floatBlob 8s ease-in-out infinite;
+  opacity:.55;
 }
-.blur1{ top:-80px; left:-80px; background:var(--primary-gold); }
-.blur2{ bottom:-90px; right:-50px; background:var(--accent-red); animation-delay:2s; }
-.blur3{ top:30%; left:55%; background:#ffd166; width:220px; height:220px; animation-delay:4s; }
-
-@keyframes floatBlob{
-  0%,100%{transform:translateY(0) translateX(0) scale(1);}
-  50%{transform:translateY(-20px) translateX(15px) scale(1.08);}
-}
-
-/* Floating Spices Celebration */
-.spice-celebrate{
-  position:absolute;
-  font-size:clamp(24px,6vw,32px);
-  animation: celebrateSpice 4s linear infinite;
-  opacity:0;
-}
-@keyframes celebrateSpice{
-  0%{ transform:translateY(100vh) scale(0) rotate(0deg); opacity:0; }
-  10%{ opacity:1; }
-  90%{ opacity:1; }
-  100%{ transform:translateY(-20vh) scale(1.5) rotate(720deg); opacity:0; }
-}
+.blur1 { top:-80px; left:-80px; background:#ffb347; }
+.blur2 { bottom:-90px; right:-50px; background:#ff6b6b; }
+.blur3 { top:30%; left:55%; background:#ffd166; width:220px; height:220px; }
 
 /* Success Container */
 .success-container {
-  background:var(--glass-bg);
-  backdrop-filter:blur(30px);
-  border-radius:clamp(32px,10vw,60px);
-  box-shadow:0 40px 120px var(--shadow-light);
-  border:2px solid var(--glass-border);
-  padding:clamp(40px,12vw,80px) clamp(32px,8vw,60px);
-  text-align:center;
-  max-width:clamp(380px,90vw,600px);
-  width:100%;
-  position:relative;
-  animation: celebrateCard 1.2s cubic-bezier(0.4,0,0.2,1) .3s both;
-  transform:scale(.8) rotateX(20deg);
-}
-@keyframes celebrateCard {
-  to {
-    transform:scale(1) rotateX(0deg);
-    opacity:1;
-  }
+  background: var(--glass-bg);
+  backdrop-filter: blur(30px);
+  border-radius: 40px;
+  box-shadow: 0 40px 120px var(--shadow);
+  border: 2px solid var(--glass-border);
+  padding: clamp(40px, 12vw, 80px) clamp(32px, 8vw, 60px);
+  text-align: center;
+  max-width: clamp(380px, 90vw, 600px);
+  width: 100%;
 }
 
 /* Success Checkmark */
 .checkmark {
-  width:clamp(100px,30vw,160px);
-  height:clamp(100px,30vw,160px);
-  margin:0 auto clamp(24px,8vw,40px);
-  background:var(--success-gold);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  box-shadow:0 0 60px rgba(255,209,102,.7);
-  animation: successPulse 2s infinite;
+  width: clamp(100px, 30vw, 160px);
+  height: clamp(100px, 30vw, 160px);
+  margin: 0 auto clamp(24px, 8vw, 40px);
+  background: linear-gradient(135deg, #ffd166, #ffb347);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 60px rgba(255,209,102,.7);
 }
-@keyframes successPulse {
-  0%,100%{ 
-    box-shadow:0 0 40px rgba(255,209,102,.6), 0 0 80px rgba(255,165,0,.3); 
-  }
-  50%{ 
-    box-shadow:0 0 80px rgba(255,209,102,.9), 0 0 120px rgba(255,165,0,.5); 
-  }
-}
+
 .checkmark i {
-  font-size:clamp(36px,12vw,64px);
-  color:#fff;
-  text-shadow:0 4px 16px rgba(0,0,0,.4);
-  z-index:2;
-  animation: checkBounce 1s ease;
-}
-@keyframes checkBounce {
-  0%{ transform:scale(0) rotate(-180deg); }
-  50%{ transform:scale(1.2); }
-  100%{ transform:scale(1) rotate(0deg); }
-}
-.checkmark::before {
-  content:'';
-  position:absolute;
-  width:70%;
-  height:70%;
-  background:var(--success-gold);
-  border-radius:50%;
-  animation: rotateGlow 4s linear infinite;
-  z-index:1;
-}
-@keyframes rotateGlow {
-  from { transform:rotate(0deg); }
-  to { transform:rotate(360deg); }
+  font-size: clamp(36px, 12vw, 64px);
+  color: #fff;
+  text-shadow: 0 4px 16px rgba(0,0,0,.4);
 }
 
 /* Success Title */
 .success-title {
-  font-size:clamp(28px,10vw,48px);
-  font-weight:800;
-  background:linear-gradient(135deg,var(--deep-orange),var(--spice-orange));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  margin-bottom:clamp(12px,4vw,24px);
-  line-height:1.1;
+  font-size: clamp(28px, 10vw, 48px);
+  font-weight: 800;
+  background: linear-gradient(135deg, #d35400, var(--spice-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: clamp(12px, 4vw, 24px);
+  line-height: 1.1;
 }
 
 /* Success Message */
 .success-message {
-  font-size:clamp(16px,4vw,22px);
-  color:var(--text-dark);
-  margin-bottom:clamp(32px,10vw,60px);
-  opacity:.95;
-  font-weight:600;
-  max-width:90%;
-  margin-left:auto;
-  margin-right:auto;
-  line-height:1.6;
+  font-size: clamp(16px, 4vw, 22px);
+  color: var(--text-dark);
+  margin-bottom: clamp(32px, 10vw, 60px);
+  opacity: .95;
+  font-weight: 600;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 /* Order Details */
 .order-details {
-  background:linear-gradient(135deg,rgba(255,213,67,.2),rgba(255,107,107,.15));
-  border:3px solid rgba(255,138,0,.4);
-  border-radius:clamp(20px,6vw,32px);
-  padding:clamp(24px,6vw,36px);
-  margin:clamp(32px,10vw,60px) 0;
-  backdrop-filter:blur(20px);
+  background: linear-gradient(135deg, rgba(255,213,67,.2), rgba(255,107,107,.15));
+  border: 3px solid rgba(255,138,0,.4);
+  border-radius: 25px;
+  padding: clamp(24px, 6vw, 36px);
+  margin: clamp(32px, 10vw, 60px) 0;
+  backdrop-filter: blur(20px);
 }
+
 .order-details h3 {
-  font-size:clamp(18px,5vw,24px);
-  font-weight:800;
-  color:var(--text-dark);
-  margin-bottom:clamp(20px,5vw,28px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
+  font-size: clamp(18px, 5vw, 24px);
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: clamp(20px, 5vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
+
 .order-info {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:clamp(12px,3vw,20px);
-  font-size:clamp(14px,3.5vw,16px);
-  text-align:center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: clamp(12px, 3vw, 20px);
+  font-size: clamp(14px, 3.5vw, 16px);
+  text-align: center;
 }
-.order-info span:first-child {
-  font-weight:700;
-  color:var(--text-light);
-  display:block;
-  margin-bottom:4px;
+
+.order-info div span:first-child {
+  font-weight: 700;
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 4px;
 }
-.order-info span:last-child {
-  color:var(--spice-orange);
-  font-weight:700;
+
+.order-info div span:last-child {
+  color: var(--spice-orange);
+  font-weight: 700;
 }
 
 /* CTA Buttons */
 .cta-buttons {
-  display:flex;
-  gap:clamp(12px,4vw,24px);
-  flex-wrap:wrap;
-  justify-content:center;
-  margin-top:clamp(24px,8vw,40px);
+  display: flex;
+  gap: clamp(12px, 4vw, 24px);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: clamp(24px, 8vw, 40px);
 }
+
+.btn-primary, .btn-secondary {
+  padding: clamp(16px, 4vw, 22px) clamp(28px, 8vw, 40px);
+  border-radius: 30px;
+  font-weight: 800;
+  font-size: clamp(15px, 4vw, 18px);
+  box-shadow: 0 20px 60px rgba(255,138,0,.5);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  flex: 1;
+  min-width: 160px;
+  transition: all .3s ease;
+}
+
 .btn-primary {
-  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
-  color:#fff;
-  padding:clamp(16px,4vw,22px) clamp(28px,8vw,40px);
-  border-radius:clamp(24px,8vw,36px);
-  font-weight:800;
-  font-size:clamp(15px,4vw,18px);
-  box-shadow:0 20px 60px rgba(255,138,0,.5);
-  transition:all .4s cubic-bezier(0.4,0,0.2,1);
-  border:none;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  text-decoration:none;
-  position:relative;
-  overflow:hidden;
-  text-transform:uppercase;
-  letter-spacing:.5px;
-  flex:1;
-  min-width:160px;
+  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
+  color: #fff;
 }
-.btn-primary::before {
-  content:'';
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
-  transition:left .8s;
-}
-.btn-primary:hover::before { left:100%; }
+
 .btn-primary:hover {
-  transform:translateY(-6px) scale(1.05);
-  box-shadow:0 35px 100px rgba(255,138,0,.7);
+  transform: translateY(-3px);
+  box-shadow: 0 30px 80px rgba(255,138,0,.7);
 }
+
 .btn-secondary {
-  background:linear-gradient(135deg,var(--deep-orange),var(--spice-orange));
-  color:#fff;
-  padding:clamp(16px,4vw,22px) clamp(24px,7vw,36px);
-  border-radius:clamp(24px,8vw,36px);
-  font-weight:700;
-  font-size:clamp(15px,4vw,18px);
-  box-shadow:0 15px 50px rgba(255,138,0,.4);
-  transition:all .3s cubic-bezier(0.4,0,0.2,1);
-  border:none;
-  cursor:pointer;
-  text-decoration:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  flex:1;
-  min-width:160px;
+  background: linear-gradient(135deg, #d35400, var(--spice-orange));
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 15px 50px rgba(255,138,0,.4);
 }
+
 .btn-secondary:hover {
-  transform:translateY(-4px) scale(1.03);
-  box-shadow:0 25px 70px rgba(255,138,0,.6);
+  transform: translateY(-2px);
+  box-shadow: 0 25px 70px rgba(255,138,0,.6);
 }
 
 /* MOBILE PERFECTION */
 @media (max-width: 768px) {
-  body { padding:clamp(12px,4vw,24px); }
+  body { padding: clamp(12px, 4vw, 24px); }
   .success-container { 
-    padding:clamp(32px,10vw,60px) clamp(24px,8vw,48px);
-    margin:clamp(12px,4vw,24px);
+    padding: clamp(32px, 10vw, 60px) clamp(24px, 8vw, 48px);
+    margin: clamp(12px, 4vw, 24px);
   }
   .cta-buttons { 
-    flex-direction:column; 
-    gap:clamp(16px,5vw,24px);
+    flex-direction: column; 
+    gap: clamp(16px, 5vw, 24px);
   }
-  .btn-primary, .btn-secondary { width:100%; }
+  .btn-primary, .btn-secondary { width: 100%; }
   .order-info { 
-    grid-template-columns:1fr; 
-    gap:clamp(16px,5vw,24px); 
-    text-align:center;
+    grid-template-columns: 1fr; 
+    gap: clamp(16px, 5vw, 24px); 
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
-  .checkmark { margin-bottom:clamp(20px,8vw,32px); }
-  .success-title { line-height:1; }
+  .checkmark { margin-bottom: clamp(20px, 8vw, 32px); }
+  .success-title { line-height: 1; }
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-  body { align-items:flex-start; padding-top:20px; }
-  .success-container { margin:20px; }
-}
-
-/* High DPI */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .success-container { backdrop-filter:blur(40px); }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  * { animation:none !important; transition:none !important; }
+  body { align-items: flex-start; padding-top: 20px; }
+  .success-container { margin: 20px; }
 }
 </style>
 </head>
 <body>
-<!-- Background Magic -->
+<!-- Static Background -->
 <div class="bg-blur blur1"></div>
 <div class="bg-blur blur2"></div>
 <div class="bg-blur blur3"></div>
-
-<!-- Celebration Spices -->
-<div class="spice-celebrate" style="left:10%; animation-delay:0s;">🌶️</div>
-<div class="spice-celebrate" style="left:25%; animation-delay:.5s;">✨</div>
-<div class="spice-celebrate" style="left:40%; animation-delay:1s;">🌿</div>
-<div class="spice-celebrate" style="left:60%; animation-delay:1.5s;">🧡</div>
-<div class="spice-celebrate" style="left:75%; animation-delay:2s;">🌶️</div>
-<div class="spice-celebrate" style="left:90%; animation-delay:2.5s;">✨</div>
 
 <div class="success-container">
   <div class="checkmark">
@@ -371,39 +266,5 @@ body {
     </a>
   </div>
 </div>
-
-<script>
-// Enhanced celebration effects
-setTimeout(() => {
-  // Success shake animation
-  document.querySelector('.success-container').style.animation = 
-    'celebrateCard 0.6s cubic-bezier(0.4,0,0.2,1), shake 0.5s ease .2s';
-}, 500);
-
-// Dynamic confetti spices
-setTimeout(() => {
-  for(let i = 0; i < 12; i++) {
-    setTimeout(() => {
-      const spice = document.createElement('div');
-      spice.className = 'spice-celebrate';
-      spice.innerHTML = ['🌶️','✨','🌿','🧡'][Math.floor(Math.random()*4)];
-      spice.style.left = Math.random() * 100 + '%';
-      spice.style.animationDelay = Math.random() * 1 + 's';
-      spice.style.animationDuration = (Math.random() * 2 + 3) + 's';
-      document.body.appendChild(spice);
-      
-      setTimeout(() => spice.remove(), 5000);
-    }, i * 150);
-  }
-}, 800);
-</script>
-
-<style>
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
-</style>
 </body>
 </html>
