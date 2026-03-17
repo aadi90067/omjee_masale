@@ -3,284 +3,362 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <title>Secure Checkout | Om Masale</title>
 <style>
-/* ===== RESET & GLOBAL ===== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ===== OM MASALE THEME - PERFECT MATCH ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
 :root {
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --success-gradient: linear-gradient(135deg, #10b981, #059669);
-  --warning-gradient: linear-gradient(135deg, #f59e0b, #d97706);
-  --glass-bg: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.25);
-  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-xl: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+  --primary-gold: #ffb347;
+  --spice-orange: #ff8a00;
+  --deep-orange: #d35400;
+  --accent-red: #ff6b6b;
+  --text-dark: #7a3100;
+  --text-light: #6b4b2a;
+  --bg-gradient: linear-gradient(135deg, #fff7e6, #ffe7cc, #fff1dc);
+  --glass-bg: rgba(255,255,255,.45);
+  --glass-border: rgba(255,255,255,.6);
+  --shadow-light: rgba(120,70,10,.2);
+  --shadow-hover: rgba(120,70,10,.35);
 }
+
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f3f4f6 100%);
-  color: #1f2937;
-  min-height: 100vh;
-  padding: 1rem;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 213, 128, 0.35), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(255, 107, 107, 0.25), transparent 35%),
+    var(--bg-gradient);
+  position:relative;
+  padding:clamp(10px,3vw,20px);
 }
 
-/* ===== HEADER ===== */
+/* Background Blobs */
+.bg-blur{
+  position:absolute;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.55;
+  animation: floatBlob 8s ease-in-out infinite;
+}
+.blur1{ top:-80px; left:-80px; background:var(--primary-gold); }
+.blur2{ bottom:-90px; right:-50px; background:var(--accent-red); animation-delay:2s; }
+.blur3{ top:30%; left:55%; background:#ffd166; width:220px; height:220px; animation-delay:4s; }
+
+@keyframes floatBlob{
+  0%,100%{transform:translateY(0) translateX(0) scale(1);}
+  50%{transform:translateY(-20px) translateX(15px) scale(1.08);}
+}
+
+/* Header */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(25px);
-  box-shadow: var(--shadow-lg);
-  border-radius: 24px;
-  margin-bottom: 2rem;
-  border: 1px solid var(--glass-border);
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:clamp(12px,3vw,20px) clamp(15px,5vw,30px);
+  background:var(--glass-bg);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius:clamp(20px,6vw,32px);
+  margin-bottom:clamp(20px,6vw,40px);
+  box-shadow:0 15px 45px var(--shadow-light);
 }
+
 .logo {
-  font-weight: 800;
-  font-size: 1.75rem;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-weight:800;
+  font-size:clamp(18px,5vw,24px);
+  background:linear-gradient(135deg,var(--deep-orange),var(--spice-orange));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
+
 .back-btn {
-  background: var(--primary-gradient);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
+  color:#fff;
+  border:none;
+  padding:clamp(10px,2.5vw,14px) clamp(18px,4vw,24px);
+  border-radius:25px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:0 10px 30px rgba(255,138,0,.35);
+  font-size:clamp(13px,3vw,15px);
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
+
 .back-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+  transform:translateY(-3px);
+  box-shadow:0 18px 45px rgba(255,138,0,.5);
 }
 
-/* ===== CHECKOUT CONTAINER ===== */
+/* Main Checkout Container */
 .checkout-container {
-  max-width: 600px;
-  margin: 0 auto;
-  background: var(--glass-bg);
-  backdrop-filter: blur(30px);
-  border-radius: 32px;
-  box-shadow: var(--shadow-xl);
-  border: 1px solid var(--glass-border);
-  overflow: hidden;
-  animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width:clamp(350px,90vw,650px);
+  margin:0 auto;
+  background:var(--glass-bg);
+  backdrop-filter:blur(25px);
+  border:1px solid var(--glass-border);
+  border-radius:clamp(24px,8vw,40px);
+  box-shadow:0 25px 70px var(--shadow-light);
+  overflow:hidden;
+  animation: slideUp 0.8s cubic-bezier(0.4,0,0.2,1);
 }
+
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(40px) scale(.95); }
+  to { opacity:1; transform:translateY(0) scale(1); }
 }
 
-/* ===== PROGRESS BAR ===== */
+/* Progress Section */
 .progress-section {
-  background: rgba(16, 185, 129, 0.1);
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--glass-border);
+  background:linear-gradient(135deg,rgba(255,213,67,.2),rgba(255,107,107,.15));
+  padding:clamp(20px,5vw,30px);
+  border-bottom:1px solid var(--glass-border);
+  text-align:center;
 }
+
+.progress-title {
+  font-size:clamp(16px,4vw,20px);
+  font-weight:700;
+  color:var(--text-dark);
+  margin-bottom:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
 .progress-bar {
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
+  width:100%;
+  height:10px;
+  background:rgba(255,255,255,.4);
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
 }
+
 .progress-fill {
-  height: 100%;
-  background: var(--success-gradient);
-  width: 75%;
-  border-radius: 10px;
-  transition: width 0.5s ease;
-  position: relative;
+  height:100%;
+  background:linear-gradient(90deg,var(--spice-orange),var(--accent-red));
+  width:80%;
+  border-radius:12px;
+  position:relative;
+  animation: progressMove 2s ease-in-out infinite;
 }
+
 .progress-fill::after {
-  content: '3/4 Complete';
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: white;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  content:'3/4 Complete';
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:clamp(11px,2vw,13px);
+  font-weight:600;
+  color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.4);
 }
 
-/* ===== ORDER SUMMARY ===== */
+@keyframes progressMove {
+  0%,100%{box-shadow:0 0 10px rgba(255,138,0,.8);}
+  50%{box-shadow:0 0 20px rgba(255,138,0,1);}
+}
+
+/* Order Summary */
 .order-summary {
-  background: var(--success-gradient);
-  color: white;
-  padding: 1.75rem;
-  text-align: center;
+  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
+  color:#fff;
+  padding:clamp(25px,6vw,35px);
+  text-align:center;
 }
+
 .order-total {
-  font-size: 2.25rem;
-  font-weight: 800;
-  margin-bottom: 0.25rem;
-  text-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+  font-size:clamp(28px,8vw,42px);
+  font-weight:800;
+  margin-bottom:5px;
+  text-shadow:0 4px 15px rgba(0,0,0,.3);
 }
+
 .order-label {
-  font-size: 1rem;
-  opacity: 0.9;
-  font-weight: 500;
+  font-size:clamp(14px,3vw,16px);
+  opacity:.95;
+  font-weight:600;
+  margin-bottom:15px;
 }
+
 .security-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  margin-top: 1rem;
-  opacity: 0.9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:clamp(12px,2.5vw,14px);
+  opacity:.9;
 }
 
-/* ===== FORM CONTAINER ===== */
+/* Form Container */
 .form-container {
-  padding: 2.5rem;
+  padding:clamp(25px,6vw,40px);
 }
 
-/* ===== FORM FIELDS ===== */
+/* Form Groups */
 .form-group {
-  position: relative;
-  margin-bottom: 2rem;
+  position:relative;
+  margin-bottom:clamp(24px,6vw,32px);
 }
+
 .form-group label {
-  position: absolute;
-  top: 1rem;
-  left: 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #6b7280;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  background: var(--glass-bg);
-  padding: 0 0.5rem;
+  position:absolute;
+  top:18px;
+  left:22px;
+  font-size:clamp(13px,2.5vw,15px);
+  font-weight:600;
+  color:var(--text-light);
+  pointer-events:none;
+  transition:all .3s cubic-bezier(0.4,0,0.2,1);
+  background:var(--glass-bg);
+  padding:0 8px;
+  border-radius:8px;
 }
+
 .form-group input:focus + label,
 .form-group input:valid + label,
 .form-group textarea:focus + label,
 .form-group textarea:valid + label {
-  top: -0.5rem;
-  left: 1rem;
-  font-size: 0.75rem;
-  color: #3b82f6;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  top:-8px;
+  left:16px;
+  font-size:12px;
+  color:var(--spice-orange);
+  background:#fff;
+  box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
-.form-input {
-  width: 100%;
-  padding: 1.25rem 1.5rem 1.25rem;
-  border: 2px solid rgba(59, 130, 246, 0.2);
-  border-radius: 20px;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(15px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: inherit;
+
+.form-input, .form-textarea {
+  width:100%;
+  padding:18px 22px 18px;
+  border:2px solid rgba(255,138,0,.3);
+  border-radius:20px;
+  font-size:clamp(15px,3.5vw,17px);
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(15px);
+  transition:all .3s cubic-bezier(0.4,0,0.2,1);
+  font-family:inherit;
+  font-weight:500;
 }
-.form-input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), var(--shadow-lg);
-  transform: translateY(-2px);
+
+.form-input:focus, .form-textarea:focus {
+  outline:none;
+  border-color:var(--spice-orange);
+  box-shadow:0 0 0 4px rgba(255,138,0,.15), 0 15px 40px var(--shadow-light);
+  transform:translateY(-2px);
 }
-.form-input.valid {
-  border-color: #10b981;
+
+.form-input.valid, .form-textarea.valid {
+  border-color:var(--spice-orange);
 }
-.form-input.error {
-  border-color: #ef4444;
-}
-.textarea-group {
-  position: relative;
-}
+
 .form-textarea {
-  resize: vertical;
-  min-height: 120px;
-  padding-top: 1.25rem;
+  resize:vertical;
+  min-height:clamp(100px,25vh,140px);
 }
 
-/* ===== PLACE ORDER BUTTON ===== */
+/* Place Order Button */
 .place-order-btn {
-  width: 100%;
-  padding: 1.5rem 2rem;
-  background: var(--success-gradient);
-  color: white;
-  border: none;
-  border-radius: 28px;
-  font-size: 1.25rem;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-xl);
-  position: relative;
-  overflow: hidden;
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  width:100%;
+  padding:clamp(16px,4vw,22px) clamp(24px,6vw,32px);
+  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
+  color:#fff;
+  border:none;
+  border-radius:25px;
+  font-size:clamp(16px,4vw,18px);
+  font-weight:700;
+  cursor:pointer;
+  transition:all .4s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:0 20px 50px rgba(255,138,0,.4);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  margin-top:10px;
 }
+
 .place-order-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  transition: left 0.7s;
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+  transition:left .7s;
 }
-.place-order-btn:hover::before { left: 100%; }
+
+.place-order-btn:hover::before { left:100%; }
 .place-order-btn:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 40px 80px rgba(16, 185, 129, 0.5);
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 30px 70px rgba(255,138,0,.6);
 }
+
 .place-order-btn:active {
-  transform: translateY(-2px) scale(1);
+  transform:translateY(-2px) scale(1);
 }
 
-/* ===== MOBILE RESPONSIVE ===== */
-@media (max-width: 768px) {
-  body { padding: 0.5rem; }
-  header { padding: 1rem; margin-bottom: 1rem; }
-  .logo { font-size: 1.5rem; }
-  .checkout-container { margin: 0; border-radius: 24px; }
-  .form-container { padding: 1.5rem; }
-  .order-summary { padding: 1.25rem; }
-  .order-total { font-size: 2rem; }
-}
-
+/* PERFECT RESPONSIVE - ALL DEVICES */
 @media (max-width: 480px) {
-  .progress-section { padding: 1rem; }
-  .form-group { margin-bottom: 1.5rem; }
-  .form-input, .form-textarea { padding: 1rem; font-size: 1rem; }
+  body { padding:8px; }
+  header { margin-bottom:20px; padding:12px 16px; }
+  .checkout-container { margin:0; border-radius:20px; }
+  .form-container { padding:20px 18px; }
+  .progress-section, .order-summary { padding:20px 18px; }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .checkout-container { max-width:500px; }
+  .form-container { padding:30px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .checkout-container { margin:10px; }
+  .form-container { padding:20px; }
+  .form-textarea { min-height:100px; }
+}
+
+/* High DPI */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .checkout-container, header { backdrop-filter:blur(30px); }
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
+  * { animation:none !important; transition:none !important; }
 }
 </style>
 </head>
 <body>
+<!-- Background Effects -->
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+<div class="bg-blur blur3"></div>
+
 <header>
   <div class="logo">
-    <i class="fas fa-spa"></i> Om Masale
+    <i class="fas fa-pepper-hot"></i> Om Masale
   </div>
   <button class="back-btn" onclick="history.back()">
     <i class="fas fa-arrow-left"></i> Back to Cart
@@ -290,7 +368,7 @@ header {
 <div class="checkout-container">
   <!-- Progress Bar -->
   <div class="progress-section">
-    <div style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem;">
+    <div class="progress-title">
       <i class="fas fa-shipping-fast"></i> Delivery Details
     </div>
     <div class="progress-bar">
@@ -318,12 +396,12 @@ header {
     </div>
 
     <div class="form-group">
-      <input type="tel" name="phone" class="form-input" placeholder="+91" required>
+      <input type="tel" name="phone" class="form-input" placeholder="+91 " required>
       <label>Phone Number</label>
     </div>
 
-    <div class="form-group textarea-group">
-      <textarea name="address" class="form-input form-textarea" required></textarea>
+    <div class="form-group">
+      <textarea name="address" class="form-input form-textarea" required placeholder="House number, street, locality, city, pincode..."></textarea>
       <label>Complete Address</label>
     </div>
 
@@ -335,10 +413,12 @@ header {
 </div>
 
 <script>
-// Floating label animation + validation
+// Floating label + validation - Perfect UX
 document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
   input.addEventListener('blur', function() {
-    if (this.value) this.classList.add('valid');
+    if (this.value.trim()) {
+      this.classList.add('valid');
+    }
   });
   
   input.addEventListener('focus', function() {
@@ -348,6 +428,13 @@ document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
   input.addEventListener('blur', function() {
     this.parentElement.classList.remove('focused');
   });
+});
+
+// Phone number formatting
+document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\D/g,'');
+  if(value.length > 10) value = value.slice(0,10);
+  e.target.value = value;
 });
 </script>
 </body>

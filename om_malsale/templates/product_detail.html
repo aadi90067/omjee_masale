@@ -3,326 +3,499 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <title>{{p.name}} | Om Masale</title>
 <style>
-/* ===== RESET & GLOBAL ===== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ===== OM MASALE PERFECT PRODUCT PAGE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+:root {
+  --primary-gold: #ffb347;
+  --spice-orange: #ff8a00;
+  --deep-orange: #d35400;
+  --accent-red: #ff6b6b;
+  --text-dark: #7a3100;
+  --text-light: #6b4b2a;
+  --bg-gradient: linear-gradient(135deg, #fff7e6, #ffe7cc, #fff1dc);
+  --glass-bg: rgba(255,255,255,.45);
+  --glass-border: rgba(255,255,255,.6);
+  --shadow-light: rgba(120,70,10,.2);
+  --shadow-hover: rgba(120,70,10,.35);
+}
+
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  color: #1f2937;
-  line-height: 1.6;
-  overflow-x: hidden;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 213, 128, 0.35), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(255, 107, 107, 0.25), transparent 35%),
+    var(--bg-gradient);
+  position:relative;
+  overflow-x:hidden;
 }
 
-/* ===== HEADER ===== */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+/* Background Blobs */
+.bg-blur{
+  position:absolute;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.55;
+  animation: floatBlob 8s ease-in-out infinite;
 }
-.logo {
-  font-weight: 700;
-  font-size: 1.5rem;
-  background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.cart-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-.cart-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+.blur1{ top:-80px; left:-80px; background:var(--primary-gold); }
+.blur2{ bottom:-90px; right:-50px; background:var(--accent-red); animation-delay:2s; }
+.blur3{ top:30%; left:55%; background:#ffd166; width:220px; height:220px; animation-delay:4s; }
+
+@keyframes floatBlob{
+  0%,100%{transform:translateY(0) translateX(0) scale(1);}
+  50%{transform:translateY(-20px) translateX(15px) scale(1.08);}
 }
 
-/* ===== BREADCRUMB ===== */
+/* Breadcrumb */
 .breadcrumb {
-  padding: 1rem 2rem;
-  font-size: 0.875rem;
-  color: #6b7280;
+  padding:clamp(12px,3vw,20px) clamp(20px,6vw,40px);
+  font-size:clamp(13px,2.5vw,15px);
+  color:var(--text-light);
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
-.breadcrumb a { color: #3b82f6; text-decoration: none; }
-.breadcrumb a:hover { text-decoration: underline; }
 
-/* ===== PAGE LAYOUT ===== */
+.breadcrumb a { 
+  color:var(--spice-orange); 
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s ease;
+}
+
+.breadcrumb a:hover { 
+  text-shadow:0 2px 8px rgba(255,138,0,.4);
+  transform:translateX(4px);
+}
+
+/* Header */
+header {
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:clamp(12px,3vw,20px) clamp(15px,5vw,30px);
+  background:var(--glass-bg);
+  backdrop-filter:blur(25px);
+  border:1px solid var(--glass-border);
+  border-radius:clamp(20px,6vw,32px);
+  margin:0 clamp(15px,5vw,30px) clamp(20px,6vw,40px);
+  box-shadow:0 15px 50px var(--shadow-light);
+}
+
+.logo {
+  font-weight:800;
+  font-size:clamp(18px,5vw,24px);
+  background:linear-gradient(135deg,var(--deep-orange),var(--spice-orange));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.cart-btn {
+  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
+  color:#fff;
+  padding:clamp(10px,2.5vw,14px) clamp(18px,4vw,24px);
+  border-radius:25px;
+  font-size:clamp(13px,3vw,15px);
+  font-weight:600;
+  text-decoration:none;
+  transition:.3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:0 10px 30px rgba(255,138,0,.35);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.cart-btn:hover {
+  transform:translateY(-3px);
+  box-shadow:0 18px 45px rgba(255,138,0,.5);
+}
+
+/* Main Container */
 .container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  max-width:clamp(350px,95vw,1200px);
+  margin:0 auto;
+  padding:clamp(20px,5vw,40px);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(24px,8vw,48px);
 }
 
-/* ===== PRODUCT IMAGE ===== */
+/* Product Image */
 .product-img {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease;
+  background:var(--glass-bg);
+  backdrop-filter:blur(20px);
+  padding:clamp(24px,8vw,40px);
+  border-radius:clamp(24px,8vw,40px);
+  box-shadow:0 25px 70px var(--shadow-light);
+  border:1px solid var(--glass-border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+  transition:all .4s cubic-bezier(0.4,0,0.2,1);
 }
-.product-img:hover { transform: scale(1.02); }
+
 .product-img::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:6px;
+  background:linear-gradient(90deg,var(--spice-orange),var(--accent-red));
+  transform:scaleX(0);
+  transition:transform .4s ease;
 }
+
+.product-img:hover::before { transform:scaleX(1); }
+
+.product-img:hover {
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 40px 100px var(--shadow-hover);
+}
+
 .product-img img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
+  width:100%;
+  max-height:clamp(250px,60vh,450px);
+  height:auto;
+  object-fit:contain;
+  transition:all .4s ease;
 }
-.product-img:hover img { transform: scale(1.05); }
 
-/* ===== DETAILS CARD ===== */
+.product-img:hover img { 
+  transform:scale(1.08) rotate(1deg); 
+}
+
+/* Details Card */
 .details {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(20px);
-  padding: 2.5rem;
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  background:var(--glass-bg);
+  backdrop-filter:blur(25px);
+  padding:clamp(28px,8vw,45px);
+  border-radius:clamp(24px,8vw,40px);
+  box-shadow:0 25px 70px var(--shadow-light);
+  border:1px solid var(--glass-border);
+  display:flex;
+  flex-direction:column;
+  gap:clamp(16px,4vw,24px);
 }
 
-/* ===== PRODUCT NAME & RATING ===== */
+/* Product Name */
 .name {
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #1e293b, #334155);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size:clamp(24px,8vw,36px);
+  font-weight:800;
+  line-height:1.2;
+  background:linear-gradient(135deg,var(--deep-orange),var(--spice-orange));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
 }
+
+/* Rating */
 .rating {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #f59e0b;
-  font-weight: 600;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--spice-orange);
+  font-weight:700;
+  font-size:clamp(14px,3vw,16px);
+  margin:8px 0;
 }
-.rating span { font-size: 1rem; }
 
-/* ===== PRICE INFO ===== */
+.rating span { 
+  color:#ffd166;
+  text-shadow:0 2px 8px rgba(255,209,102,.4);
+}
+
+/* Price Section */
 .price-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin:20px 0;
 }
+
 .mrp {
-  color: #9ca3af;
-  font-size: 0.875rem;
-  text-decoration: line-through;
+  color:var(--text-light);
+  font-size:clamp(13px,2.5vw,15px);
+  font-weight:600;
+  text-decoration:line-through;
 }
+
 .discount {
-  color: #10b981;
-  font-weight: 700;
-  font-size: 1.125rem;
+  color:var(--accent-red);
+  font-weight:800;
+  font-size:clamp(14px,3vw,16px);
+  background:rgba(255,107,107,.15);
+  padding:6px 12px;
+  border-radius:20px;
+  display:inline-block;
 }
 
-/* ===== HIGHLIGHTS ===== */
+/* Highlights */
 .highlights {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  background: rgba(16, 185, 129, 0.1);
-  padding: 1.25rem;
-  border-radius: 16px;
-  border-left: 4px solid #10b981;
+  background:linear-gradient(135deg,rgba(255,213,67,.15),rgba(255,107,107,.1));
+  padding:clamp(20px,5vw,28px);
+  border-radius:clamp(18px,5vw,28px);
+  border-left:5px solid var(--spice-orange);
+  margin:20px 0;
 }
-.highlights h4 { color: #10b981; font-size: 1rem; font-weight: 600; }
+
+.highlights h4 { 
+  color:var(--text-dark);
+  font-size:clamp(15px,3.5vw,18px);
+  font-weight:700;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
 .highlights ul {
-  list-style: none;
-  font-size: 0.875rem;
-  color: #374151;
+  list-style:none;
+  font-size:clamp(13px,2.5vw,15px);
+  color:var(--text-light);
 }
+
+.highlights li {
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
 .highlights li::before {
-  content: '✓';
-  color: #10b981;
-  font-weight: bold;
-  margin-right: 0.5rem;
+  content:'🌟';
+  font-size:18px;
 }
 
-/* ===== PACK & QTY SELECTS ===== */
-.pack-select, .qty {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* Pack Select */
+.pack-select {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
-.pack-select label, .qty label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #374151;
+
+.pack-select label {
+  font-size:clamp(14px,3vw,16px);
+  font-weight:700;
+  color:var(--text-dark);
 }
+
 .pack-select select {
-  padding: 1rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  font-size: 0.875rem;
-  background: white;
-  transition: all 0.3s ease;
+  padding:clamp(14px,4vw,20px);
+  border:2px solid rgba(255,138,0,.3);
+  border-radius:clamp(16px,5vw,24px);
+  font-size:clamp(14px,3vw,16px);
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(15px);
+  font-weight:600;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(0.4,0,0.2,1);
+  font-family:inherit;
 }
+
 .pack-select select:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline:none;
+  border-color:var(--spice-orange);
+  box-shadow:0 0 0 4px rgba(255,138,0,.15), 0 10px 30px var(--shadow-light);
+  transform:translateY(-2px);
 }
+
+/* Quantity */
 .qty {
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: rgba(59, 130, 246, 0.05);
-  border-radius: 12px;
+  display:flex;
+  align-items:center;
+  gap:clamp(12px,3vw,20px);
+  padding:clamp(16px,4vw,24px);
+  background:rgba(255,138,0,.1);
+  border-radius:clamp(16px,5vw,24px);
+  border:2px solid rgba(255,138,0,.3);
+  margin:20px 0;
 }
+
+.qty label {
+  font-size:clamp(14px,3vw,16px);
+  font-weight:700;
+  color:var(--text-dark);
+  white-space:nowrap;
+}
+
 .qty button {
-  width: 48px;
-  height: 48px;
-  border: none;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  color: white;
-  border-radius: 12px;
-  font-size: 1.25rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  width:clamp(48px,12vw,56px);
+  height:clamp(48px,12vw,56px);
+  border:none;
+  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
+  color:#fff;
+  border-radius:clamp(12px,4vw,16px);
+  font-size:clamp(18px,4.5vw,22px);
+  font-weight:800;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:0 8px 25px rgba(255,138,0,.4);
 }
+
 .qty button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  transform:translateY(-3px) scale(1.1);
+  box-shadow:0 15px 40px rgba(255,138,0,.6);
 }
+
 .qty span {
-  font-size: 1.5rem;
-  font-weight: 700;
-  min-width: 40px;
-  text-align: center;
-  color: #1f2937;
+  font-size:clamp(20px,5vw,26px);
+  font-weight:800;
+  min-width:clamp(50px,12vw,60px);
+  text-align:center;
+  color:var(--text-dark);
+  background:#fff;
+  padding:12px 20px;
+  border-radius:clamp(12px,4vw,18px);
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
-/* ===== TOTAL PRICE ===== */
+/* Total Price */
 .total-price {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #059669;
-  text-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+  font-size:clamp(28px,8vw,40px);
+  font-weight:800;
+  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin:clamp(20px,6vw,32px) 0;
+  text-align:center;
+  text-shadow:0 4px 15px rgba(255,138,0,.3);
 }
 
-/* ===== ADD TO CART BUTTON ===== */
+/* Add to Cart Button */
 .add-btn {
-  width: 100%;
-  padding: 1.25rem;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  border: none;
-  border-radius: 16px;
-  font-size: 1.125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
-  position: relative;
-  overflow: hidden;
-}
-.add-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.5s;
-}
-.add-btn:hover::before { left: 100%; }
-.add-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.5);
+  width:100%;
+  padding:clamp(18px,5vw,26px);
+  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
+  color:#fff;
+  border:none;
+  border-radius:clamp(20px,6vw,32px);
+  font-size:clamp(16px,4vw,20px);
+  font-weight:800;
+  cursor:pointer;
+  transition:all .4s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:0 25px 70px rgba(255,138,0,.45);
+  position:relative;
+  overflow:hidden;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
 }
 
-/* ===== MOBILE RESPONSIVE ===== */
+.add-btn::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+  transition:left .7s;
+}
+
+.add-btn:hover::before { left:100%; }
+.add-btn:hover {
+  transform:translateY(-6px) scale(1.03);
+  box-shadow:0 40px 100px rgba(255,138,0,.65);
+}
+
+/* RESPONSIVE PERFECTION */
 @media (max-width: 768px) {
   .container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 1rem;
+    grid-template-columns:1fr;
+    gap:clamp(24px,8vw,36px);
+    padding:clamp(16px,5vw,24px);
   }
-  header { padding: 1rem; }
-  .product-img, .details { padding: 1.5rem; }
-  .name { font-size: 1.75rem; }
-  .total-price { font-size: 1.75rem; }
-  .highlights ul { font-size: 0.75rem; }
-  .qty { flex-direction: column; gap: 0.75rem; }
+  .qty { flex-wrap:wrap; justify-content:center; }
+}
+
+@media (max-width: 480px) {
+  .header, .breadcrumb { margin:10px; }
+  .product-img, .details { margin:0 10px; }
+  .qty { flex-direction:column; gap:16px; text-align:center; }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .container { padding:15px; gap:20px; }
+  .details { padding:20px; }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  * { backdrop-filter:blur(30px); }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation:none !important; transition:none !important; }
 }
 </style>
 </head>
 <body>
-<!-- Breadcrumb Added for Realism -->
+<!-- Background Magic -->
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+<div class="bg-blur blur3"></div>
+
 <nav class="breadcrumb">
-  <a href="/">Home</a> › <a href="/products/">Masale</a> › {{p.name}}
+  <a href="/"><i class="fas fa-home"></i> Home</a> 
+  <i class="fas fa-chevron-right"></i>
+  <a href="/products/"><i class="fas fa-pepper-hot"></i> Masale</a> 
+  <i class="fas fa-chevron-right"></i>
+  {{p.name}}
 </nav>
 
 <header>
-  <div class="logo">⭐ Om Masale</div>
-  <a href="/cart/" class="cart-btn">🛒 Cart (0)</a>
+  <div class="logo">
+    <i class="fas fa-pepper-hot"></i> Om Masale
+  </div>
+  <a href="/cart/" class="cart-btn">
+    <i class="fas fa-shopping-cart"></i> Cart ({{ request.session.cart|length|default:0 }})
+  </a>
 </header>
 
 <div class="container">
   <div class="product-img">
     {% if p.image %}
     <img src="{{p.image.url}}" alt="{{p.name}}" loading="lazy">
+    {% else %}
+    <i class="fas fa-image" style="font-size:clamp(120px,40vw,300px);color:var(--text-light);opacity:.5;"></i>
     {% endif %}
   </div>
 
   <div class="details">
     <div class="name">{{p.name}}</div>
     
-    <!-- Rating Added for Realism -->
     <div class="rating">
-      <span>⭐⭐⭐⭐⭐</span> 4.8 (1,247 reviews)
+      <span>⭐⭐⭐⭐⭐</span>
+      4.8 (1,247 reviews)
     </div>
 
     <div class="price-section">
       <div class="mrp">MRP <s>₹{{p.mrp}}</s></div>
-      <div class="discount">Best Price Available - Save 25%</div>
+      <div class="discount">Save 25% - Best Price!</div>
     </div>
 
-    <!-- Highlights Added for Realism -->
     <div class="highlights">
-      <h4>Why Choose This?</h4>
+      <h4><i class="fas fa-crown"></i> Why Choose This?</h4>
       <ul>
         <li>100% Pure & Natural Spices</li>
         <li>No Preservatives or Additives</li>
@@ -332,7 +505,7 @@ header {
     </div>
 
     <div class="pack-select">
-      <label>Select Pack</label>
+      <label><i class="fas fa-box"></i> Select Pack</label>
       <select id="pack">
         <option value="1" data-price="{{p.pack1_price}}">
           1 Pack - ₹{{p.pack1_price}}
@@ -348,9 +521,9 @@ header {
 
     <div class="qty">
       <label>Quantity</label>
-      <button onclick="minus()">−</button>
+      <button onclick="minus()" title="Decrease">−</button>
       <span id="qty">1</span>
-      <button onclick="plus()">+</button>
+      <button onclick="plus()" title="Increase">+</button>
     </div>
 
     <div class="total-price">
@@ -358,12 +531,13 @@ header {
     </div>
 
     <button class="add-btn" onclick="addCart()">
-      🛒 Add To Cart
+      <i class="fas fa-shopping-cart"></i>
+      Add To Cart
     </button>
   </div>
 </div>
 
-<!-- Your Original Script (Unchanged) -->
+<!-- Original JavaScript (Enhanced) -->
 <script>
 let qty = 1
 let price = Number({{p.pack1_price}})
@@ -371,7 +545,7 @@ let price = Number({{p.pack1_price}})
 function updatePrice(){
   let pack = document.getElementById("pack")
   price = Number(pack.options[pack.selectedIndex].dataset.price)
-  document.getElementById("price").innerText = (price * qty).toFixed(2)
+  document.getElementById("price").innerText = (price * qty).toLocaleString('en-IN')
 }
 
 document.getElementById("pack").addEventListener("change", updatePrice)
@@ -402,8 +576,16 @@ function addCart(){
   })
   .then(res=>res.json())
   .then(data=>{
-    alert("Product added to cart")
+    // Success animation
+    let btn = document.querySelector('.add-btn')
+    btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+    setTimeout(()=>{
+      btn.innerHTML = '<i class="fas fa-shopping-cart"></i> Add To Cart';
+      btn.style.background = 'linear-gradient(135deg, var(--spice-orange), var(--accent-red))';
+    }, 1500)
   })
+  .catch(err=>alert("Error adding to cart"))
 }
 </script>
 </body>
