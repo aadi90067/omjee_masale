@@ -8,8 +8,17 @@ def welcome(request):
 
 
 def index(request):
-    products = Product.objects.all()
-    return render(request, "index.html", {"products": products})
+    query = request.GET.get("q", "")
+    
+    if query:
+        products = Product.objects.filter(name__icontains=query)
+    else:
+        products = Product.objects.all()
+
+    return render(request, "index.html", {
+        "products": products,
+        "query": query
+    })
 
 
 def product_detail(request, id):
