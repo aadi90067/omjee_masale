@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from .models import Product, Order
 
 
@@ -9,20 +10,26 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "phone", "short_items", "total", "created")
-    readonly_fields = ("name", "phone", "address", "items", "total", "created")
+    list_display = ("id", "name", "phone", "show_items", "total", "created")
+    readonly_fields = ("name", "phone", "address", "show_full_items", "total", "created")
 
     fieldsets = (
         ("Customer Details", {
             "fields": ("name", "phone", "address")
         }),
         ("Order Details", {
-            "fields": ("items", "total", "created")
+            "fields": ("show_full_items", "total", "created")
         }),
     )
 
-    def short_items(self, obj):
+    def show_items(self, obj):
         if obj.items:
-            return obj.items[:40] + "..." if len(obj.items) > 40 else obj.items
+            return obj.items
         return "-"
-    short_items.short_description = "Items"
+    show_items.short_description = "Items"
+
+    def show_full_items(self, obj):
+        if obj.items:
+            return format_html("<br>".join(obj.items.split("\n")))
+        return "-"
+    show_full_items.short_description = "Ordered Items"

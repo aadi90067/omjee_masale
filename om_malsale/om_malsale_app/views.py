@@ -118,7 +118,7 @@ def checkout(request):
             name=name,
             phone=phone,
             address=address,
-            items=items_text,
+            items=items_text.strip(),
             total=total
         )
 
