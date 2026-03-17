@@ -1,10 +1,11 @@
 from pathlib import Path
 import os
+import dj_database_url
 import cloudinary
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-e=1%d6fhk646lkbej#qx*v_ad_$6&*2kh!&eq8ul7k+$#k5zya'
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-local-key")
 DEBUG = False
 ALLOWED_HOSTS = ['*']
 
@@ -52,10 +53,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'om_malsale.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.config(
+        default="sqlite:///" + str(BASE_DIR / "db.sqlite3"),
+        conn_max_age=600,
+        ssl_require=False
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = []
@@ -83,11 +85,10 @@ EMAIL_HOST_USER = "omjeemasale123@gmail.com"
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
 cloudinary.config(
-    cloud_name="djpimbw9j",
-    api_key="778116741471298",
-    api_secret="AdOjGJ0cdvKKQzvrtuSOga60pk0",
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME", ""),
+    api_key=os.environ.get("CLOUDINARY_API_KEY", ""),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET", ""),
     secure=True
 )
 
