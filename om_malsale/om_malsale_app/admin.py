@@ -25,3 +25,12 @@ class OrderAdmin(admin.ModelAdmin):
         "total",
         "created",
     )
+
+    readonly_fields = (
+        "name",
+        "phone",
+        "address",
+        "items",
+        "total",
+        "created",
+    )

@@ -3,19 +3,16 @@ from django.http import JsonResponse
 from .models import Product, Order
 
 
-# HOME PAGE
 def index(request):
     products = Product.objects.all()
     return render(request, "index.html", {"products": products})
 
 
-# PRODUCT DETAIL PAGE
 def product_detail(request, id):
     p = get_object_or_404(Product, id=id)
     return render(request, "product_detail.html", {"p": p})
 
 
-# ADD TO CART
 def add_cart(request):
 
     if request.method == "POST":
@@ -58,7 +55,6 @@ def add_cart(request):
         return JsonResponse({"status": "added"})
 
 
-# CART PAGE
 def cart(request):
 
     cart = request.session.get("cart", {})
@@ -83,7 +79,6 @@ def cart(request):
     })
 
 
-# INCREASE QTY
 def increase_qty(request, key):
 
     cart = request.session.get("cart", {})
@@ -96,7 +91,6 @@ def increase_qty(request, key):
     return redirect("cart")
 
 
-# DECREASE QTY
 def decrease_qty(request, key):
 
     cart = request.session.get("cart", {})
@@ -113,7 +107,6 @@ def decrease_qty(request, key):
     return redirect("cart")
 
 
-# REMOVE ITEM
 def remove_item(request, key):
 
     cart = request.session.get("cart", {})
@@ -126,7 +119,6 @@ def remove_item(request, key):
     return redirect("cart")
 
 
-# CHECKOUT
 def checkout(request):
 
     cart = request.session.get("cart", {})

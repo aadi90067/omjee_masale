@@ -15,6 +15,9 @@ ALLOWED_HOSTS = ['*']
 
 # INSTALLED APPS
 INSTALLED_APPS = [
+
+    "jazzmin",   # ⭐ MUST BE FIRST
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,6 +32,10 @@ INSTALLED_APPS = [
 # MIDDLEWARE
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # ⭐ IMPORTANT FOR RENDER STATIC FILES
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -51,7 +58,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request',  # ⭐ required for Jazzmin
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -74,8 +81,7 @@ DATABASES = {
 
 
 # PASSWORD VALIDATION
-AUTH_PASSWORD_VALIDATORS = [
-]
+AUTH_PASSWORD_VALIDATORS = []
 
 
 # INTERNATIONAL SETTINGS
@@ -88,7 +94,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# STATIC FILES
+# STATIC FILES (VERY IMPORTANT FOR DEPLOY)
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -97,8 +103,11 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# ⭐ WhiteNoise config
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# MEDIA FILES (Images)
+
+# MEDIA FILES (IMAGES FIX)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -107,17 +116,35 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# EMAIL SETTINGS
+# EMAIL SETTINGS (you can ignore for now)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
 EMAIL_HOST = "smtp.gmail.com"
-
 EMAIL_PORT = 587
-
 EMAIL_USE_TLS = True
-
 EMAIL_HOST_USER = "omjeemasale123@gmail.com"
-
 EMAIL_HOST_PASSWORD = "eczn ygmj ynic apzw"
-
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# ⭐ JAZZMIN SETTINGS (ADMIN DESIGN)
+JAZZMIN_SETTINGS = {
+
+    "site_title": "Om Masale Admin",
+    "site_header": "Om Masale Dashboard",
+    "site_brand": "Om Masale",
+
+    "welcome_sign": "Welcome to Om Masale Admin",
+
+    "copyright": "Om Masale",
+
+    "topmenu_links": [
+        {"name": "Home", "url": "/", "permissions": ["auth.view_user"]},
+    ],
+
+    "icons": {
+        "om_malsale_app.Product": "fas fa-pepper-hot",
+        "om_malsale_app.Order": "fas fa-shopping-cart",
+    },
+
+    "order_with_respect_to": ["om_malsale_app"],
+}
