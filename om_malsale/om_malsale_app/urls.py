@@ -20,4 +20,6 @@ path("remove/<str:key>/",views.remove_item,name="remove"),
 
 path("checkout/",views.checkout,name="checkout"),
 
+path('my-orders/', views.track_orders, name="track_orders"),
+
 ]

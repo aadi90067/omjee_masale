@@ -6,6 +6,7 @@ from .models import Product, Order
 def welcome(request):
     return render(request, "welcome.html")
 
+
 def index(request):
     products = Product.objects.all()
     return render(request, "index.html", {"products": products})
@@ -18,7 +19,6 @@ def product_detail(request, id):
 
 def add_cart(request):
     if request.method == "POST":
-
         pid = request.POST.get("pid")
         pack = request.POST.get("pack")
         qty = int(request.POST.get("qty"))
@@ -50,7 +50,10 @@ def add_cart(request):
             }
 
         request.session["cart"] = cart
+        request.session.modified = True
         return JsonResponse({"status": "added"})
+
+    return JsonResponse({"status": "invalid request"})
 
 
 def cart(request):
@@ -60,10 +63,11 @@ def cart(request):
 
     for key, item in cart.items():
         subtotal = item["price"] * item["qty"]
-        item["subtotal"] = subtotal
-        item["key"] = key
+        item_data = item.copy()
+        item_data["subtotal"] = subtotal
+        item_data["key"] = key
         total += subtotal
-        items.append(item)
+        items.append(item_data)
 
     return render(request, "cart.html", {
         "items": items,
@@ -75,7 +79,8 @@ def increase_qty(request, key):
     cart = request.session.get("cart", {})
     if key in cart:
         cart[key]["qty"] += 1
-    request.session["cart"] = cart
+        request.session["cart"] = cart
+        request.session.modified = True
     return redirect("cart")
 
 
@@ -86,7 +91,10 @@ def decrease_qty(request, key):
             cart[key]["qty"] -= 1
         else:
             del cart[key]
-    request.session["cart"] = cart
+
+        request.session["cart"] = cart
+        request.session.modified = True
+
     return redirect("cart")
 
 
@@ -94,7 +102,8 @@ def remove_item(request, key):
     cart = request.session.get("cart", {})
     if key in cart:
         del cart[key]
-    request.session["cart"] = cart
+        request.session["cart"] = cart
+        request.session.modified = True
     return redirect("cart")
 
 
@@ -125,7 +134,36 @@ def checkout(request):
             total=total
         )
 
+        request.session["last_order_name"] = name
+        request.session["last_order_phone"] = phone
         request.session["cart"] = {}
-        return render(request, "success.html")
+        request.session.modified = True
+
+        return redirect("track_orders")
 
     return render(request, "checkout.html", {"total": total})
+
+
+def track_orders(request):
+    orders = None
+
+    if request.method == "POST":
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+
+        orders = Order.objects.filter(
+            name__iexact=name,
+            phone=phone
+        ).order_by("-created")
+
+    else:
+        last_name = request.session.get("last_order_name")
+        last_phone = request.session.get("last_order_phone")
+
+        if last_name and last_phone:
+            orders = Order.objects.filter(
+                name__iexact=last_name,
+                phone=last_phone
+            ).order_by("-created")
+
+    return render(request, "track_orders.html", {"orders": orders})
