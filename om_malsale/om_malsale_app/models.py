@@ -1,10 +1,10 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class Product(models.Model):
-
     name = models.CharField(max_length=200)
-    image = models.ImageField(upload_to="products/")
+    image = CloudinaryField('image')
     mrp = models.FloatField()
 
     pack1_price = models.FloatField()
@@ -24,7 +24,6 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-
     name = models.CharField(max_length=200)
     phone = models.CharField(max_length=20)
     address = models.TextField()
