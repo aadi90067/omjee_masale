@@ -235,12 +235,10 @@ header{
   font-size:15px;
   font-weight:700;
   color:var(--spice-orange);
-  flex-wrap:wrap;
 }
 
 .rating span{
   color:#ffcc33;
-  font-size:18px;
 }
 
 .price-section{
@@ -497,9 +495,9 @@ header{
 <div class="bg-blur blur3"></div>
 
 <nav class="breadcrumb">
-  <a href="/"><i class="fas fa-home"></i> Home</a>
+  <a href="/"><i class="fas fa-home"></i> Home</a> 
   <i class="fas fa-chevron-right"></i>
-  <a href="/products/"><i class="fas fa-pepper-hot"></i> Masale</a>
+  <a href="/products/"><i class="fas fa-pepper-hot"></i> Masale</a> 
   <i class="fas fa-chevron-right"></i>
   {{p.name}}
 </nav>
@@ -534,15 +532,15 @@ header{
 
   <div class="details">
     <div class="name">{{p.name}}</div>
-
+    
     <div class="rating">
-      <span>{{ p.rating_stars }}</span>
-      {{ p.rating }} ({{ p.review_count }} reviews)
+      <span>⭐⭐⭐⭐⭐</span>
+      4.8 (1,247 reviews)
     </div>
 
     <div class="price-section">
       <div class="mrp">MRP <s>₹{{p.mrp}}</s></div>
-      <div class="discount">{{ p.full_discount_text }}</div>
+      <div class="discount">Save 25% - Best Price!</div>
     </div>
 
     <div class="highlights">
@@ -572,9 +570,9 @@ header{
 
     <div class="qty">
       <label>Quantity</label>
-      <button type="button" onclick="minus()" title="Decrease">−</button>
+      <button onclick="minus()" title="Decrease">−</button>
       <span id="qty">1</span>
-      <button type="button" onclick="plus()" title="Increase">+</button>
+      <button onclick="plus()" title="Increase">+</button>
     </div>
 
     <div class="total-price">
@@ -590,7 +588,7 @@ header{
 
 <script>
 let qty = 1;
-let price = Number({{ p.pack1_price|default:0 }});
+let price = Number({{p.pack1_price}});
 
 function updatePrice(){
   let pack = document.getElementById("pack");
