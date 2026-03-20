@@ -8,12 +8,12 @@ def welcome(request):
 
 
 def index(request):
-    query = request.GET.get("q", "")
-    
+    query = request.GET.get("q", "").strip()
+
     if query:
         products = Product.objects.filter(name__icontains=query)
     else:
-        products = Product.objects.all()
+        products = Product.objects.all().order_by("-id")
 
     return render(request, "index.html", {
         "products": products,
@@ -30,9 +30,17 @@ def add_cart(request):
     if request.method == "POST":
         pid = request.POST.get("pid")
         pack = request.POST.get("pack")
-        qty = int(request.POST.get("qty"))
+        qty = request.POST.get("qty", "1")
 
-        product = Product.objects.get(id=pid)
+        try:
+            qty = int(qty)
+        except ValueError:
+            qty = 1
+
+        if qty < 1:
+            qty = 1
+
+        product = get_object_or_404(Product, id=pid)
         cart = request.session.get("cart", {})
 
         if pack == "1":
@@ -51,26 +59,33 @@ def add_cart(request):
             cart[key]["qty"] += qty
         else:
             cart[key] = {
+                "product_id": product.id,
                 "name": product.name,
                 "image": product.image.url if product.image else "",
-                "price": price,
+                "price": float(price),
                 "qty": qty,
                 "pack": pack_name
             }
 
         request.session["cart"] = cart
         request.session.modified = True
-        return JsonResponse({"status": "added"})
 
-    return JsonResponse({"status": "invalid request"})
+        cart_count = sum(item["qty"] for item in cart.values())
+
+        return JsonResponse({
+            "status": "added",
+            "cart_count": cart_count
+        })
+
+    return JsonResponse({"status": "invalid request"}, status=400)
 
 
 def cart(request):
-    cart = request.session.get("cart", {})
+    cart_data = request.session.get("cart", {})
     items = []
     total = 0
 
-    for key, item in cart.items():
+    for key, item in cart_data.items():
         subtotal = item["price"] * item["qty"]
         item_data = item.copy()
         item_data["subtotal"] = subtotal
@@ -86,15 +101,18 @@ def cart(request):
 
 def increase_qty(request, key):
     cart = request.session.get("cart", {})
+
     if key in cart:
         cart[key]["qty"] += 1
         request.session["cart"] = cart
         request.session.modified = True
+
     return redirect("cart")
 
 
 def decrease_qty(request, key):
     cart = request.session.get("cart", {})
+
     if key in cart:
         if cart[key]["qty"] > 1:
             cart[key]["qty"] -= 1
@@ -109,10 +127,12 @@ def decrease_qty(request, key):
 
 def remove_item(request, key):
     cart = request.session.get("cart", {})
+
     if key in cart:
         del cart[key]
         request.session["cart"] = cart
         request.session.modified = True
+
     return redirect("cart")
 
 
@@ -131,39 +151,43 @@ def checkout(request):
         items_text += f"{item['name']} ({item['pack']}) x {item['qty']} = ₹{subtotal}\n"
 
     if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        address = request.POST.get("address")
+        name = request.POST.get("name", "").strip()
+        phone = request.POST.get("phone", "").strip()
+        address = request.POST.get("address", "").strip()
 
-        Order.objects.create(
-            name=name,
-            phone=phone,
-            address=address,
-            items=items_text.strip(),
-            total=total
-        )
+        if name and phone and address:
+            Order.objects.create(
+                name=name,
+                phone=phone,
+                address=address,
+                items=items_text.strip(),
+                total=total
+            )
 
-        request.session["last_order_name"] = name
-        request.session["last_order_phone"] = phone
-        request.session["cart"] = {}
-        request.session.modified = True
+            request.session["last_order_name"] = name
+            request.session["last_order_phone"] = phone
+            request.session["cart"] = {}
+            request.session.modified = True
 
-        return redirect("track_orders")
+            return redirect("track_orders")
 
-    return render(request, "checkout.html", {"total": total})
+    return render(request, "checkout.html", {
+        "total": total
+    })
 
 
 def track_orders(request):
     orders = None
 
     if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
+        name = request.POST.get("name", "").strip()
+        phone = request.POST.get("phone", "").strip()
 
-        orders = Order.objects.filter(
-            name__iexact=name,
-            phone=phone
-        ).order_by("-created")
+        if name and phone:
+            orders = Order.objects.filter(
+                name__iexact=name,
+                phone=phone
+            ).order_by("-created")
 
     else:
         last_name = request.session.get("last_order_name")
@@ -175,4 +199,6 @@ def track_orders(request):
                 phone=last_phone
             ).order_by("-created")
 
-    return render(request, "track_orders.html", {"orders": orders})
+    return render(request, "track_orders.html", {
+        "orders": orders
+    })
