@@ -335,9 +335,7 @@ header {
   <div class="header-right">
     <form method="GET" action="{% url 'home' %}" class="search-bar">
       <input type="text" name="q" placeholder="Search masale..." value="{{ query }}">
-      <button type="submit" class="search-btn">
-        <i class="fas fa-search"></i> Search
-      </button>
+
       {% if query %}
       <a href="{% url 'home' %}" class="clear-btn">
         <i class="fas fa-times"></i> Clear
