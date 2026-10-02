@@ -34,13 +34,15 @@ DEBUG = os.environ.get(
     "True"
 ).lower() == "true"
 
+
+# =========================================================
+# ALLOWED HOSTS
+# =========================================================
+
 ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.environ.get(
-        "ALLOWED_HOSTS",
-        "127.0.0.1,localhost"
-    ).split(",")
-    if host.strip()
+    "127.0.0.1",
+    "localhost",
+    "omjeemasale-production.up.railway.app",
 ]
 
 
@@ -120,6 +122,8 @@ TEMPLATES = [
                 "django.template.context_processors.debug",
 
                 "django.template.context_processors.request",
+
+                "django.contrib.auth.context_processors.auth",
 
                 "django.contrib.auth.context_processors.auth",
 
@@ -262,14 +266,7 @@ cloudinary.config(
 
 CSRF_TRUSTED_ORIGINS = [
 
-    origin.strip()
-
-    for origin in os.environ.get(
-        "CSRF_TRUSTED_ORIGINS",
-        ""
-    ).split(",")
-
-    if origin.strip()
+    "https://omjeemasale-production.up.railway.app",
 ]
 
 
