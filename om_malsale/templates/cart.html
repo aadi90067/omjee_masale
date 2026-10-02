@@ -3,437 +3,827 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
+
 <title>Your Cart | Om Masale</title>
+
 <style>
-/* ===== OM MASALE CLEAN & FAST ===== */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-:root {
-  --spice-orange: #ff8a00;
-  --accent-red: #ff6b6b;
-  --text-dark: #7a3100;
-  --text-light: #6b4b2a;
-  --glass-bg: rgba(255,255,255,.5);
-  --glass-border: rgba(255,255,255,.7);
-  --shadow: rgba(120,70,10,.25);
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
-body {
+:root{
+  --spice-orange:#ff8a00;
+  --accent-red:#ff6b6b;
+  --text-dark:#7a3100;
+  --text-light:#6b4b2a;
+  --glass-bg:rgba(255,255,255,.5);
+  --glass-border:rgba(255,255,255,.7);
+  --shadow:rgba(120,70,10,.25);
+}
+
+body{
   min-height:100vh;
-  background: linear-gradient(135deg, #fff7e6, #ffe7cc, #fff1dc);
+  background:linear-gradient(
+    135deg,
+    #fff7e6,
+    #ffe7cc,
+    #fff1dc
+  );
   position:relative;
-  padding: clamp(10px, 3vw, 20px);
+  padding:clamp(10px,3vw,20px);
 }
 
-/* Static Background Blobs */
-.bg-blur {
+/* Background */
+
+.bg-blur{
   position:absolute;
   width:320px;
   height:320px;
   border-radius:50%;
   filter:blur(80px);
   opacity:.55;
+  pointer-events:none;
 }
-.blur1 { top:-80px; left:-80px; background:#ffb347; }
-.blur2 { bottom:-90px; right:-50px; background:#ff6b6b; }
-.blur3 { top:30%; left:55%; background:#ffd166; width:220px; height:220px; }
+
+.blur1{
+  top:-80px;
+  left:-80px;
+  background:#ffb347;
+}
+
+.blur2{
+  bottom:-90px;
+  right:-50px;
+  background:#ff6b6b;
+}
+
+.blur3{
+  top:30%;
+  left:55%;
+  background:#ffd166;
+  width:220px;
+  height:220px;
+}
 
 /* Header */
-header {
+
+header{
   position:sticky;
   top:0;
   z-index:100;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding: clamp(12px, 3vw, 20px) clamp(15px, 5vw, 30px);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 25px;
-  margin: clamp(15px, 5vw, 30px) auto;
-  display: block;
-  max-width: clamp(350px, 95vw, 1200px);
-  box-shadow: 0 15px 45px var(--shadow);
+  gap:15px;
+
+  padding:
+    clamp(12px,3vw,20px)
+    clamp(15px,5vw,30px);
+
+  background:var(--glass-bg);
+  backdrop-filter:blur(20px);
+
+  border:1px solid var(--glass-border);
+  border-radius:25px;
+
+  margin:
+    clamp(15px,5vw,30px)
+    auto;
+
+  max-width:1200px;
+
+  box-shadow:0 15px 45px var(--shadow);
 }
 
-.logo {
+.logo{
   font-weight:800;
-  font-size: clamp(18px, 5vw, 24px);
-  background: linear-gradient(135deg, #d35400, var(--spice-orange));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-size:clamp(18px,5vw,24px);
+
+  background:linear-gradient(
+    135deg,
+    #d35400,
+    var(--spice-orange)
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  white-space:nowrap;
 }
 
-.back-btn {
-  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
-  color: #fff;
-  border: none;
-  padding: clamp(10px, 2.5vw, 14px) clamp(18px, 4vw, 24px);
-  border-radius: 25px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: clamp(13px, 3vw, 15px);
-  box-shadow: 0 10px 30px rgba(255,138,0,.35);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  transition: all .3s ease;
+.back-btn{
+  background:linear-gradient(
+    135deg,
+    var(--spice-orange),
+    var(--accent-red)
+  );
+
+  color:#fff;
+  border:none;
+
+  padding:
+    clamp(10px,2.5vw,14px)
+    clamp(18px,4vw,24px);
+
+  border-radius:25px;
+
+  font-weight:600;
+  cursor:pointer;
+
+  font-size:clamp(13px,3vw,15px);
+
+  box-shadow:0 10px 30px rgba(255,138,0,.35);
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  transition:.3s ease;
 }
 
-.back-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(255,138,0,.5);
+.back-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 15px 40px rgba(255,138,0,.5);
 }
 
 /* Container */
-.container {
-  max-width: clamp(350px, 95vw, 1200px);
-  margin: 0 auto;
-  padding: clamp(0px, 2vw, 20px) 0;
+
+.container{
+  max-width:1200px;
+  margin:0 auto;
 }
 
-/* Total Bar */
-.total-bar {
-  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
-  color: #fff;
-  padding: clamp(20px, 5vw, 28px) clamp(24px, 6vw, 36px);
-  border-radius: 25px;
-  font-size: clamp(18px, 4vw, 24px);
-  font-weight: 800;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: clamp(24px, 6vw, 36px);
-  box-shadow: 0 25px 70px rgba(255,138,0,.4);
-  max-width: clamp(350px, 95vw, 1200px);
-  margin-left: auto;
-  margin-right: auto;
+/* Total bar */
+
+.total-bar{
+  background:linear-gradient(
+    135deg,
+    var(--spice-orange),
+    var(--accent-red)
+  );
+
+  color:#fff;
+
+  padding:
+    clamp(20px,5vw,28px)
+    clamp(24px,6vw,36px);
+
+  border-radius:25px;
+
+  font-size:clamp(18px,4vw,24px);
+
+  font-weight:800;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:clamp(24px,6vw,36px);
+
+  box-shadow:0 25px 70px rgba(255,138,0,.4);
 }
 
-.total-bar span:first-child::before {
-  content: '🛒 ';
+.total-items::before{
+  content:'🛒 ';
 }
 
-/* Cart Item */
-.item {
-  display: flex;
-  gap: clamp(16px, 4vw, 24px);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  padding: clamp(20px, 5vw, 28px);
-  border-radius: 25px;
-  margin-bottom: clamp(20px, 5vw, 28px);
-  box-shadow: 0 20px 60px var(--shadow);
-  border: 1px solid var(--glass-border);
-  max-width: clamp(350px, 95vw, 1200px);
-  margin-left: auto;
-  margin-right: auto;
-  transition: all .3s ease;
+/* Cart item */
+
+.item{
+  display:flex;
+
+  gap:clamp(16px,4vw,24px);
+
+  background:var(--glass-bg);
+
+  backdrop-filter:blur(20px);
+
+  padding:clamp(20px,5vw,28px);
+
+  border-radius:25px;
+
+  margin-bottom:clamp(20px,5vw,28px);
+
+  box-shadow:0 20px 60px var(--shadow);
+
+  border:1px solid var(--glass-border);
+
+  transition:.3s ease;
 }
 
-.item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 30px 80px var(--shadow);
+.item:hover{
+  transform:translateY(-5px);
+  box-shadow:0 30px 80px var(--shadow);
 }
 
-.item img {
-  width: clamp(80px, 20vw, 110px);
-  height: clamp(80px, 20vw, 110px);
-  object-fit: contain;
-  background: linear-gradient(135deg, rgba(255,213,67,.2), rgba(255,107,107,.15));
-  border-radius: 15px;
-  padding: clamp(12px, 3vw, 18px);
-  box-shadow: 0 12px 35px rgba(0,0,0,.15);
+/* Image */
+
+.item img{
+  width:clamp(80px,20vw,110px);
+  height:clamp(80px,20vw,110px);
+
+  object-fit:contain;
+
+  background:linear-gradient(
+    135deg,
+    rgba(255,213,67,.2),
+    rgba(255,107,107,.15)
+  );
+
+  border-radius:15px;
+
+  padding:clamp(12px,3vw,18px);
+
+  box-shadow:0 12px 35px rgba(0,0,0,.15);
+
+  flex-shrink:0;
 }
 
-/* Item Details */
-.details {
-  flex: 1;
-  min-width: 0;
+/* Product details */
+
+.details{
+  flex:1;
+  min-width:0;
 }
 
-.name {
-  font-weight: 800;
-  font-size: clamp(16px, 4vw, 20px);
-  line-height: 1.3;
-  margin-bottom: 8px;
-  color: var(--text-dark);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.name{
+  font-weight:800;
+
+  font-size:clamp(16px,4vw,20px);
+
+  line-height:1.3;
+
+  margin-bottom:8px;
+
+  color:var(--text-dark);
+
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
 }
 
-.pack {
-  font-size: clamp(12px, 2.5vw, 14px);
-  color: var(--text-light);
-  margin-bottom: 12px;
+/* Pack */
+
+.pack{
+  font-size:clamp(13px,2.5vw,15px);
+
+  color:var(--text-light);
+
+  margin-bottom:10px;
+
+  font-weight:600;
 }
 
-.pack::before { content: '📦 '; }
-
-.price {
-  margin-bottom: 16px;
-  font-weight: 800;
-  font-size: clamp(16px, 3.5vw, 20px);
-  color: var(--spice-orange);
+.pack::before{
+  content:'📦 ';
 }
 
-/* Quantity Controls */
-.qty {
-  display: flex;
-  align-items: center;
-  gap: clamp(12px, 3vw, 18px);
-  margin-bottom: 16px;
-  background: rgba(255,138,0,.1);
-  padding: clamp(12px, 3vw, 18px);
-  border-radius: 15px;
-  border: 2px solid rgba(255,138,0,.3);
+/* Price */
+
+.price{
+  margin-bottom:16px;
+
+  font-weight:800;
+
+  font-size:clamp(16px,3.5vw,20px);
+
+  color:var(--spice-orange);
 }
 
-.qty button {
-  width: clamp(42px, 10vw, 50px);
-  height: clamp(42px, 10vw, 50px);
-  border: none;
-  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
-  color: #fff;
-  border-radius: 12px;
-  font-size: clamp(16px, 4vw, 20px);
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 8px 25px rgba(255,138,0,.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all .3s ease;
+/* Quantity */
+
+.qty{
+  display:flex;
+
+  align-items:center;
+
+  gap:clamp(12px,3vw,18px);
+
+  margin-bottom:16px;
+
+  background:rgba(255,138,0,.1);
+
+  padding:clamp(12px,3vw,18px);
+
+  border-radius:15px;
+
+  border:2px solid rgba(255,138,0,.3);
+
+  width:max-content;
 }
 
-.qty button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(255,138,0,.6);
+.qty a{
+  text-decoration:none;
 }
 
-.qty span {
-  font-size: clamp(18px, 4vw, 22px);
-  font-weight: 800;
-  min-width: clamp(40px, 9vw, 48px);
-  text-align: center;
-  color: var(--text-dark);
-  background: #fff;
-  padding: 8px 16px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,.15);
+.qty button{
+  width:clamp(42px,10vw,50px);
+  height:clamp(42px,10vw,50px);
+
+  border:none;
+
+  background:linear-gradient(
+    135deg,
+    var(--spice-orange),
+    var(--accent-red)
+  );
+
+  color:#fff;
+
+  border-radius:12px;
+
+  font-size:clamp(16px,4vw,20px);
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:.3s ease;
 }
 
-/* Remove Button */
-.remove {
-  background: linear-gradient(135deg, var(--accent-red), #e74c3c);
-  color: #fff;
-  border: none;
-  padding: clamp(10px, 2.5vw, 14px) clamp(16px, 4vw, 22px);
-  border-radius: 15px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: clamp(13px, 2.5vw, 15px);
-  box-shadow: 0 8px 25px rgba(255,107,107,.4);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  justify-content: center;
-  transition: all .3s ease;
+.qty button:hover{
+  transform:translateY(-2px);
 }
 
-.remove::before { content: '🗑️ '; }
+.qty span{
+  font-size:clamp(18px,4vw,22px);
 
-.remove:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(255,107,107,.6);
+  font-weight:800;
+
+  min-width:clamp(40px,9vw,48px);
+
+  text-align:center;
+
+  color:var(--text-dark);
+
+  background:#fff;
+
+  padding:8px 16px;
+
+  border-radius:12px;
+
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
+}
+
+/* Remove */
+
+.remove{
+  background:linear-gradient(
+    135deg,
+    var(--accent-red),
+    #e74c3c
+  );
+
+  color:#fff;
+
+  padding:
+    clamp(10px,2.5vw,14px)
+    clamp(16px,4vw,22px);
+
+  border-radius:15px;
+
+  font-weight:700;
+
+  font-size:clamp(13px,2.5vw,15px);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:6px;
+
+  text-decoration:none;
+
+  width:max-content;
+
+  transition:.3s ease;
+}
+
+.remove:hover{
+  transform:translateY(-2px);
 }
 
 /* Subtotal */
-.subtotal {
-  font-weight: 800;
-  font-size: clamp(18px, 4vw, 24px);
-  color: var(--spice-orange);
-  min-width: clamp(100px, 22vw, 140px);
-  text-align: center;
+
+.subtotal{
+  font-weight:800;
+
+  font-size:clamp(18px,4vw,24px);
+
+  color:var(--spice-orange);
+
+  min-width:clamp(100px,22vw,140px);
+
+  text-align:center;
+
+  align-self:center;
 }
 
-/* Checkout Button */
-.checkout {
-  margin-top: clamp(24px, 6vw, 36px);
-  width: 100%;
-  padding: clamp(18px, 4.5vw, 24px) clamp(28px, 7vw, 40px);
-  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  font-size: clamp(16px, 4vw, 20px);
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow: 0 25px 70px rgba(255,138,0,.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  text-decoration: none;
-  max-width: clamp(350px, 95vw, 1200px);
-  margin-left: auto;
-  margin-right: auto;
-  transition: all .3s ease;
+/* Checkout */
+
+.checkout{
+  margin-top:clamp(24px,6vw,36px);
+
+  width:100%;
+
+  padding:
+    clamp(18px,4.5vw,24px)
+    clamp(28px,7vw,40px);
+
+  background:linear-gradient(
+    135deg,
+    var(--spice-orange),
+    var(--accent-red)
+  );
+
+  color:#fff;
+
+  border-radius:25px;
+
+  font-size:clamp(16px,4vw,20px);
+
+  font-weight:800;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:12px;
+
+  text-transform:uppercase;
+
+  text-decoration:none;
+
+  transition:.3s ease;
+
+  box-shadow:0 25px 70px rgba(255,138,0,.45);
 }
 
-.checkout:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 35px 90px rgba(255,138,0,.65);
+.checkout:hover{
+  transform:translateY(-3px);
 }
 
-/* Empty State */
-.empty {
-  text-align: center;
-  padding: clamp(60px, 20vh, 120px) clamp(24px, 8vw, 48px);
-  color: var(--text-light);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border-radius: 25px;
-  box-shadow: 0 25px 70px var(--shadow);
-  margin: clamp(24px, 8vw, 48px) auto;
-  max-width: clamp(350px, 95vw, 500px);
+/* Empty */
+
+.empty{
+  text-align:center;
+
+  padding:
+    clamp(60px,20vh,120px)
+    clamp(24px,8vw,48px);
+
+  color:var(--text-light);
+
+  background:var(--glass-bg);
+
+  backdrop-filter:blur(20px);
+
+  border-radius:25px;
+
+  box-shadow:0 25px 70px var(--shadow);
+
+  margin:clamp(24px,8vw,48px) auto;
+
+  max-width:500px;
 }
 
-.empty h2 {
-  font-size: clamp(24px, 8vw, 36px);
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #d35400, var(--spice-orange));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.empty h2{
+  font-size:clamp(24px,8vw,36px);
+
+  margin-bottom:16px;
+
+  background:linear-gradient(
+    135deg,
+    #d35400,
+    var(--spice-orange)
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.empty p {
-  font-size: clamp(15px, 3.5vw, 18px);
-  margin-bottom: clamp(24px, 8vw, 40px);
-  opacity: .85;
+.empty p{
+  font-size:clamp(15px,3.5vw,18px);
+
+  margin-bottom:clamp(24px,8vw,40px);
+
+  opacity:.85;
 }
 
-.empty-emoji {
-  font-size: clamp(64px, 25vw, 96px);
-  margin-bottom: 20px;
-  display: block;
+.empty-emoji{
+  font-size:clamp(64px,25vw,96px);
+
+  margin-bottom:20px;
+
+  display:block;
 }
 
-.shop-btn {
-  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
-  color: #fff;
-  padding: clamp(14px, 3.5vw, 18px) clamp(24px, 6vw, 32px);
-  border-radius: 25px;
-  font-weight: 800;
-  font-size: clamp(15px, 3.5vw, 18px);
-  box-shadow: 0 15px 45px rgba(255,138,0,.45);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: all .3s ease;
+.shop-btn{
+  background:linear-gradient(
+    135deg,
+    var(--spice-orange),
+    var(--accent-red)
+  );
+
+  color:#fff;
+
+  padding:
+    clamp(14px,3.5vw,18px)
+    clamp(24px,6vw,32px);
+
+  border-radius:25px;
+
+  font-weight:800;
+
+  text-decoration:none;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:10px;
 }
 
-.shop-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 25px 70px rgba(255,138,0,.65);
-}
+/* Mobile */
 
-/* MOBILE PERFECTION */
-@media (max-width: 480px) {
-  .item { 
-    flex-direction: column; 
-    text-align: center; 
-    gap: clamp(16px, 5vw, 24px); 
+@media(max-width:600px){
+
+  .item{
+    flex-direction:column;
+    text-align:center;
+    align-items:center;
   }
-  .qty { justify-content: center; flex-wrap: wrap; }
-  .subtotal { order: -1; margin-bottom: 12px; text-align: center; }
-  .total-bar { flex-direction: column; gap: 12px; text-align: center; }
+
+  .details{
+    width:100%;
+  }
+
+  .qty{
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .remove{
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .subtotal{
+    order:-1;
+    min-width:auto;
+  }
+
+  .total-bar{
+    flex-direction:column;
+    gap:12px;
+    text-align:center;
+  }
 }
 
-@media (max-height: 500px) and (orientation: landscape) {
-  .container { padding: 15px 0; }
-  .empty { padding: 40px 20px; }
+@media(max-width:480px){
+
+  body{
+    padding:8px;
+  }
+
+  header{
+    margin-top:10px;
+    padding:12px 16px;
+  }
 }
+
 </style>
 </head>
+
 <body>
-<!-- Static Background -->
+
+<!-- Background -->
+
 <div class="bg-blur blur1"></div>
 <div class="bg-blur blur2"></div>
 <div class="bg-blur blur3"></div>
 
+
+<!-- Header -->
+
 <header>
+
   <div class="logo">
-    <i class="fas fa-pepper-hot"></i> Om Masale
+    <i class="fas fa-pepper-hot"></i>
+    Om Masale
   </div>
-  <button class="back-btn" onclick="history.back()">
-    <i class="fas fa-arrow-left"></i> Continue Shopping
+
+  <button
+    class="back-btn"
+    onclick="history.back()"
+  >
+    <i class="fas fa-arrow-left"></i>
+    Continue Shopping
   </button>
+
 </header>
 
+
+<!-- Main -->
+
 <div class="container">
+
+  <!-- Total -->
+
   <div class="total-bar">
-    <span>Total Items: {{ items|length|default:0 }}</span>
-    <span>₹{{total}}</span>
+
+    <span class="total-items">
+      Total Items: {{ items|length|default:0 }}
+    </span>
+
+    <span>
+      ₹{{ total }}
+    </span>
+
   </div>
 
+
   {% if items %}
+
     {% for i in items %}
+
     <div class="item">
-      <img src="{{i.image}}" alt="{{i.name}}" loading="lazy">
-      <div class="details">
-        <div class="name">{{i.name}}</div>
-        <div class="pack">{{i.pack}}</div>
-        <div class="price">₹{{i.price}} per unit</div>
-        <div class="qty">
-          <a href="/decrease/{{i.key}}/">
-            <button title="Decrease">-</button>
-          </a>
-          <span>{{i.qty}}</span>
-          <a href="/increase/{{i.key}}/">
-            <button title="Increase">+</button>
-          </a>
+
+      <!-- Image -->
+
+      {% if i.image %}
+
+        <img
+          src="{{ i.image }}"
+          alt="{{ i.name }}"
+          loading="lazy"
+        >
+
+      {% else %}
+
+        <div
+          style="
+            width:110px;
+            height:110px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#fff1dc;
+            border-radius:15px;
+          "
+        >
+          <i
+            class="fas fa-pepper-hot"
+            style="
+              font-size:40px;
+              color:var(--spice-orange);
+            "
+          ></i>
         </div>
-        <a href="/remove/{{i.key}}/" class="remove">Remove Item</a>
+
+      {% endif %}
+
+
+      <!-- Details -->
+
+      <div class="details">
+
+        <div class="name">
+          {{ i.name }}
+        </div>
+
+        <div class="pack">
+          Pack of 10 • {{ i.weight }}
+        </div>
+
+        <div class="price">
+          ₹{{ i.price }} per Pack of 10
+        </div>
+
+
+        <!-- Quantity -->
+
+        <div class="qty">
+
+          <a href="/decrease/{{ i.key }}/">
+            <button
+              type="button"
+              title="Decrease"
+            >
+              −
+            </button>
+          </a>
+
+          <span>
+            {{ i.qty }}
+          </span>
+
+          <a href="/increase/{{ i.key }}/">
+            <button
+              type="button"
+              title="Increase"
+            >
+              +
+            </button>
+          </a>
+
+        </div>
+
+
+        <!-- Remove -->
+
+        <a
+          href="/remove/{{ i.key }}/"
+          class="remove"
+        >
+          <i class="fas fa-trash"></i>
+          Remove Item
+        </a>
+
       </div>
-      <div class="subtotal">₹{{i.subtotal}}</div>
+
+
+      <!-- Subtotal -->
+
+      <div class="subtotal">
+        ₹{{ i.subtotal }}
+      </div>
+
     </div>
+
     {% endfor %}
 
-    <a href="/checkout/" class="checkout">
+
+    <!-- Checkout -->
+
+    <a
+      href="/checkout/"
+      class="checkout"
+    >
       <i class="fas fa-credit-card"></i>
       Proceed to Checkout
     </a>
+
+
   {% else %}
+
+    <!-- Empty cart -->
+
     <div class="empty">
-      <div class="empty-emoji">🛒</div>
-      <h2>Your Cart is Empty</h2>
-      <p>Add some delicious masale to get started!</p>
-      <a href="/" class="shop-btn">
-        <i class="fas fa-store"></i> Start Shopping
+
+      <span class="empty-emoji">
+        🛒
+      </span>
+
+      <h2>
+        Your Cart is Empty
+      </h2>
+
+      <p>
+        Add some delicious masale to get started!
+      </p>
+
+      <a
+        href="/"
+        class="shop-btn"
+      >
+        <i class="fas fa-store"></i>
+        Start Shopping
       </a>
+
     </div>
+
   {% endif %}
+
 </div>
 
-<script>
-/* No animations - just basic functionality */
-</script>
 </body>
 </html>

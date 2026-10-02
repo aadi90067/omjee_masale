@@ -22,74 +22,81 @@ def index(request):
 
 
 def product_detail(request, id):
-    p = get_object_or_404(Product, id=id)
-    return render(request, "product_detail.html", {"p": p})
+    product = get_object_or_404(Product, id=id)
+
+    return render(request, "product_detail.html", {
+        "p": product
+    })
 
 
 def add_cart(request):
-    if request.method == "POST":
-        pid = request.POST.get("pid")
-        pack = request.POST.get("pack")
-        qty = request.POST.get("qty", "1")
+    if request.method != "POST":
+        return JsonResponse(
+            {"status": "invalid request"},
+            status=400
+        )
 
-        try:
-            qty = int(qty)
-        except ValueError:
-            qty = 1
+    pid = request.POST.get("pid")
+    qty = request.POST.get("qty", "1")
 
-        if qty < 1:
-            qty = 1
+    try:
+        qty = int(qty)
+    except (ValueError, TypeError):
+        qty = 1
 
-        product = get_object_or_404(Product, id=pid)
-        cart = request.session.get("cart", {})
+    if qty < 1:
+        qty = 1
 
-        if pack == "1":
-            price = product.pack1_price
-            pack_name = "1 Pack"
-        elif pack == "3":
-            price = product.pack3_price
-            pack_name = "3 Pack"
-        else:
-            price = product.pack6_price
-            pack_name = "6 Pack"
+    product = get_object_or_404(Product, id=pid)
 
-        key = f"{pid}_{pack}"
+    cart = request.session.get("cart", {})
 
-        if key in cart:
-            cart[key]["qty"] += qty
-        else:
-            cart[key] = {
-                "product_id": product.id,
-                "name": product.name,
-                "image": product.image.url if product.image else "",
-                "price": float(price),
-                "qty": qty,
-                "pack": pack_name
-            }
+    # Only Pack of 10
+    pack_name = "Pack of 10"
+    price = product.pack10_price
 
-        request.session["cart"] = cart
-        request.session.modified = True
+    # One cart item per product
+    key = f"{product.id}_10"
 
-        cart_count = sum(item["qty"] for item in cart.values())
+    if key in cart:
+        cart[key]["qty"] += qty
+    else:
+        cart[key] = {
+            "product_id": product.id,
+            "name": product.name,
+            "image": product.image.url if product.image else "",
+            "price": float(price),
+            "qty": qty,
+            "pack": pack_name,
+            "weight": product.weight,
+        }
 
-        return JsonResponse({
-            "status": "added",
-            "cart_count": cart_count
-        })
+    request.session["cart"] = cart
+    request.session.modified = True
 
-    return JsonResponse({"status": "invalid request"}, status=400)
+    cart_count = sum(
+        item["qty"] for item in cart.values()
+    )
+
+    return JsonResponse({
+        "status": "added",
+        "cart_count": cart_count
+    })
 
 
 def cart(request):
     cart_data = request.session.get("cart", {})
+
     items = []
     total = 0
 
     for key, item in cart_data.items():
         subtotal = item["price"] * item["qty"]
+
         item_data = item.copy()
         item_data["subtotal"] = subtotal
         item_data["key"] = key
+
         total += subtotal
         items.append(item_data)
 
@@ -104,6 +111,7 @@ def increase_qty(request, key):
 
     if key in cart:
         cart[key]["qty"] += 1
+
         request.session["cart"] = cart
         request.session.modified = True
 
@@ -130,6 +138,7 @@ def remove_item(request, key):
 
     if key in cart:
         del cart[key]
+
         request.session["cart"] = cart
         request.session.modified = True
 
@@ -148,7 +157,11 @@ def checkout(request):
     for item in cart.values():
         subtotal = item["price"] * item["qty"]
         total += subtotal
-        items_text += f"{item['name']} ({item['pack']}) x {item['qty']} = ₹{subtotal}\n"
+
+        items_text += (
+            f"{item['name']} ({item['pack']}) "
+            f"x {item['qty']} = ₹{subtotal}\n"
+        )
 
     if request.method == "POST":
         name = request.POST.get("name", "").strip()
@@ -156,23 +169,44 @@ def checkout(request):
         address = request.POST.get("address", "").strip()
 
         if name and phone and address:
-            Order.objects.create(
+
+            # Create order
+            order = Order.objects.create(
                 name=name,
                 phone=phone,
                 address=address,
                 items=items_text.strip(),
-                total=total
+                total=total,
+                status="pending"
             )
 
+            # Save order information in session
+            request.session["last_order_id"] = order.id
             request.session["last_order_name"] = name
             request.session["last_order_phone"] = phone
+
+            # Clear cart after successful order
             request.session["cart"] = {}
             request.session.modified = True
 
-            return redirect("track_orders")
+            # Go to order success page
+            return redirect("order_success")
 
     return render(request, "checkout.html", {
         "total": total
+    })
+
+
+def order_success(request):
+    order_id = request.session.get("last_order_id")
+
+    if not order_id:
+        return redirect("home")
+
+    order = get_object_or_404(Order, id=order_id)
+
+    return render(request, "order_success.html", {
+        "order": order
     })
 
 

@@ -1,108 +1,331 @@
 from pathlib import Path
 import os
+
 import dj_database_url
 import cloudinary
+from dotenv import load_dotenv
+
+
+# =========================================================
+# BASE DIRECTORY
+# =========================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-local-key")
-DEBUG = False
-ALLOWED_HOSTS = ['*']
+
+# =========================================================
+# LOAD .ENV FILE
+# =========================================================
+
+load_dotenv(BASE_DIR / ".env")
+
+
+# =========================================================
+# SECURITY
+# =========================================================
+
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-local-development-key"
+)
+
+DEBUG = os.environ.get(
+    "DEBUG",
+    "True"
+).lower() == "true"
+
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get(
+        "ALLOWED_HOSTS",
+        "127.0.0.1,localhost"
+    ).split(",")
+    if host.strip()
+]
+
+
+# =========================================================
+# APPLICATIONS
+# =========================================================
 
 INSTALLED_APPS = [
+
     "jazzmin",
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'cloudinary',
-    'om_malsale_app',
+
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+
+    "cloudinary",
+
+    "om_malsale_app",
 ]
+
+
+# =========================================================
+# MIDDLEWARE
+# =========================================================
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "django.middleware.security.SecurityMiddleware",
+
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
+    "django.contrib.sessions.middleware.SessionMiddleware",
+
+    "django.middleware.common.CommonMiddleware",
+
+    "django.middleware.csrf.CsrfViewMiddleware",
+
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+
+    "django.contrib.messages.middleware.MessageMiddleware",
+
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'om_malsale.urls'
+
+# =========================================================
+# URL / WSGI
+# =========================================================
+
+ROOT_URLCONF = "om_malsale.urls"
+
+WSGI_APPLICATION = "om_malsale.wsgi.application"
+
+
+# =========================================================
+# TEMPLATES
+# =========================================================
 
 TEMPLATES = [
+
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+
+        "DIRS": [
+            BASE_DIR / "templates"
+        ],
+
+        "APP_DIRS": True,
+
+        "OPTIONS": {
+
+            "context_processors": [
+
+                "django.template.context_processors.debug",
+
+                "django.template.context_processors.request",
+
+                "django.contrib.auth.context_processors.auth",
+
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'om_malsale.wsgi.application'
+
+# =========================================================
+# DATABASE
+# =========================================================
 
 DATABASES = {
+
     "default": dj_database_url.config(
-        default="sqlite:///" + str(BASE_DIR / "db.sqlite3"),
+
+        default="sqlite:///" + str(
+            BASE_DIR / "db.sqlite3"
+        ),
+
         conn_max_age=600,
-        ssl_require=False
+
+        ssl_require=False,
     )
 }
 
+
+# =========================================================
+# PASSWORD VALIDATORS
+# =========================================================
+
 AUTH_PASSWORD_VALIDATORS = []
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Asia/Kolkata'
+
+# =========================================================
+# LANGUAGE / TIME
+# =========================================================
+
+LANGUAGE_CODE = "en-us"
+
+TIME_ZONE = "Asia/Kolkata"
+
 USE_I18N = True
+
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# =========================================================
+# STATIC FILES
+# =========================================================
+
+STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+)
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# =========================================================
+# MEDIA
+# =========================================================
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = BASE_DIR / "media"
+
+
+# =========================================================
+# DEFAULT PRIMARY KEY
+# =========================================================
+
+DEFAULT_AUTO_FIELD = (
+    "django.db.models.BigAutoField"
+)
+
+
+# =========================================================
+# EMAIL
+# =========================================================
+
+EMAIL_BACKEND = (
+    "django.core.mail.backends.smtp.EmailBackend"
+)
+
 EMAIL_HOST = "smtp.gmail.com"
+
 EMAIL_PORT = 587
+
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "omjeemasale123@gmail.com"
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+
+EMAIL_HOST_USER = os.environ.get(
+    "EMAIL_HOST_USER",
+    ""
+)
+
+EMAIL_HOST_PASSWORD = os.environ.get(
+    "EMAIL_HOST_PASSWORD",
+    ""
+)
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+
+# =========================================================
+# CLOUDINARY
+# =========================================================
+
 cloudinary.config(
-    cloud_name="djpimbw9j",
-    api_key="778116741471298",
-    api_secret="AdOjGJ0cdvKKQzvrtuSOga60pk0",
-    secure=True
+
+    cloud_name=os.environ.get(
+        "CLOUDINARY_CLOUD_NAME",
+        ""
+    ),
+
+    api_key=os.environ.get(
+        "CLOUDINARY_API_KEY",
+        ""
+    ),
+
+    api_secret=os.environ.get(
+        "CLOUDINARY_API_SECRET",
+        ""
+    ),
+
+    secure=True,
 )
+
+
+# =========================================================
+# CSRF TRUSTED ORIGINS
+# =========================================================
+
+CSRF_TRUSTED_ORIGINS = [
+
+    origin.strip()
+
+    for origin in os.environ.get(
+        "CSRF_TRUSTED_ORIGINS",
+        ""
+    ).split(",")
+
+    if origin.strip()
+]
+
+
+# =========================================================
+# PRODUCTION SECURITY
+# =========================================================
+
+if not DEBUG:
+
+    SECURE_PROXY_SSL_HEADER = (
+        "HTTP_X_FORWARDED_PROTO",
+        "https",
+    )
+
+    SESSION_COOKIE_SECURE = True
+
+    CSRF_COOKIE_SECURE = True
+
+
+# =========================================================
+# JAZZMIN
+# =========================================================
+
 JAZZMIN_SETTINGS = {
+
     "site_title": "Om Masale Admin",
+
     "site_header": "Om Masale Dashboard",
+
     "site_brand": "Om Masale",
+
     "welcome_sign": "Welcome to Om Masale Admin",
+
     "copyright": "Om Masale",
+
     "topmenu_links": [
-        {"name": "Home", "url": "/", "permissions": ["auth.view_user"]},
+
+        {
+            "name": "Home",
+            "url": "/",
+            "permissions": ["auth.view_user"],
+        },
+
     ],
+
     "icons": {
-        "om_malsale_app.Product": "fas fa-pepper-hot",
-        "om_malsale_app.Order": "fas fa-shopping-cart",
+
+        "om_malsale_app.Product":
+            "fas fa-pepper-hot",
+
+        "om_malsale_app.Order":
+            "fas fa-shopping-cart",
     },
-    "order_with_respect_to": ["om_malsale_app"],
+
+    "order_with_respect_to": [
+
+        "om_malsale_app",
+    ],
 }
