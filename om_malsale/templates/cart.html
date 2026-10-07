@@ -1,829 +1,1484 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-  rel="stylesheet"
->
-
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
->
-
-<title>Your Cart | Om Masale</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
-
-:root{
-  --spice-orange:#ff8a00;
-  --accent-red:#ff6b6b;
-  --text-dark:#7a3100;
-  --text-light:#6b4b2a;
-  --glass-bg:rgba(255,255,255,.5);
-  --glass-border:rgba(255,255,255,.7);
-  --shadow:rgba(120,70,10,.25);
-}
-
-body{
-  min-height:100vh;
-  background:linear-gradient(
-    135deg,
-    #fff7e6,
-    #ffe7cc,
-    #fff1dc
-  );
-  position:relative;
-  padding:clamp(10px,3vw,20px);
-}
-
-/* Background */
-
-.bg-blur{
-  position:absolute;
-  width:320px;
-  height:320px;
-  border-radius:50%;
-  filter:blur(80px);
-  opacity:.55;
-  pointer-events:none;
-}
-
-.blur1{
-  top:-80px;
-  left:-80px;
-  background:#ffb347;
-}
-
-.blur2{
-  bottom:-90px;
-  right:-50px;
-  background:#ff6b6b;
-}
-
-.blur3{
-  top:30%;
-  left:55%;
-  background:#ffd166;
-  width:220px;
-  height:220px;
-}
-
-/* Header */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:100;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-
-  padding:
-    clamp(12px,3vw,20px)
-    clamp(15px,5vw,30px);
-
-  background:var(--glass-bg);
-  backdrop-filter:blur(20px);
-
-  border:1px solid var(--glass-border);
-  border-radius:25px;
 
-  margin:
-    clamp(15px,5vw,30px)
-    auto;
+    <meta charset="UTF-8">
 
-  max-width:1200px;
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-  box-shadow:0 15px 45px var(--shadow);
-}
+    <title>Your Cart | Om Masale</title>
 
-.logo{
-  font-weight:800;
-  font-size:clamp(18px,5vw,24px);
 
-  background:linear-gradient(
-    135deg,
-    #d35400,
-    var(--spice-orange)
-  );
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-  display:flex;
-  align-items:center;
-  gap:10px;
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-  white-space:nowrap;
-}
 
-.back-btn{
-  background:linear-gradient(
-    135deg,
-    var(--spice-orange),
-    var(--accent-red)
-  );
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
 
-  color:#fff;
-  border:none;
 
-  padding:
-    clamp(10px,2.5vw,14px)
-    clamp(18px,4vw,24px);
+    <style>
 
-  border-radius:25px;
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-  font-weight:600;
-  cursor:pointer;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
 
-  font-size:clamp(13px,3vw,15px);
 
-  box-shadow:0 10px 30px rgba(255,138,0,.35);
+        /* =====================================================
+           COLORS
+        ===================================================== */
 
-  display:flex;
-  align-items:center;
-  gap:8px;
+        :root {
 
-  transition:.3s ease;
-}
+            --blue: #1565c0;
+            --blue-dark: #0d47a1;
+            --blue-light: #eaf3ff;
+            --blue-soft: #f5faff;
 
-.back-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 15px 40px rgba(255,138,0,.5);
-}
+            --navy: #15324f;
+            --text: #243447;
+            --muted: #6b7c8f;
 
-/* Container */
+            --green: #16843f;
+            --green-light: #effaf3;
 
-.container{
-  max-width:1200px;
-  margin:0 auto;
-}
+            --danger: #d9363e;
+            --danger-dark: #b4232b;
+            --danger-light: #fff1f2;
 
-/* Total bar */
+            --white: #ffffff;
+            --border: #e4ebf3;
 
-.total-bar{
-  background:linear-gradient(
-    135deg,
-    var(--spice-orange),
-    var(--accent-red)
-  );
+            --shadow:
+                0 12px 35px rgba(13, 71, 161, 0.08);
 
-  color:#fff;
+            --shadow-hover:
+                0 20px 50px rgba(13, 71, 161, 0.13);
+        }
 
-  padding:
-    clamp(20px,5vw,28px)
-    clamp(24px,6vw,36px);
 
-  border-radius:25px;
+        /* =====================================================
+           BODY
+        ===================================================== */
 
-  font-size:clamp(18px,4vw,24px);
+        html {
+            scroll-behavior: smooth;
+        }
 
-  font-weight:800;
+        body {
 
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+            min-height: 100vh;
 
-  margin-bottom:clamp(24px,6vw,36px);
+            padding:
+                clamp(8px, 2vw, 16px);
 
-  box-shadow:0 25px 70px rgba(255,138,0,.4);
-}
+            overflow-x: hidden;
 
-.total-items::before{
-  content:'🛒 ';
-}
+            color: var(--text);
 
-/* Cart item */
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(21, 101, 192, 0.09),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(66, 165, 245, 0.10),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f7fbff,
+                    #edf6ff,
+                    #ffffff
+                );
+        }
 
-.item{
-  display:flex;
 
-  gap:clamp(16px,4vw,24px);
+        /* =====================================================
+           BACKGROUND BLURS
+        ===================================================== */
 
-  background:var(--glass-bg);
+        .bg-blur {
 
-  backdrop-filter:blur(20px);
+            position: fixed;
 
-  padding:clamp(20px,5vw,28px);
+            border-radius: 50%;
 
-  border-radius:25px;
+            filter: blur(85px);
 
-  margin-bottom:clamp(20px,5vw,28px);
+            opacity: 0.23;
 
-  box-shadow:0 20px 60px var(--shadow);
+            pointer-events: none;
 
-  border:1px solid var(--glass-border);
+            z-index: 0;
+        }
 
-  transition:.3s ease;
-}
 
-.item:hover{
-  transform:translateY(-5px);
-  box-shadow:0 30px 80px var(--shadow);
-}
+        .blur1 {
 
-/* Image */
+            top: -100px;
+            left: -80px;
 
-.item img{
-  width:clamp(80px,20vw,110px);
-  height:clamp(80px,20vw,110px);
+            width: 300px;
+            height: 300px;
 
-  object-fit:contain;
+            background: #64b5f6;
+        }
 
-  background:linear-gradient(
-    135deg,
-    rgba(255,213,67,.2),
-    rgba(255,107,107,.15)
-  );
 
-  border-radius:15px;
+        .blur2 {
 
-  padding:clamp(12px,3vw,18px);
+            right: -100px;
+            bottom: -100px;
 
-  box-shadow:0 12px 35px rgba(0,0,0,.15);
+            width: 320px;
+            height: 320px;
 
-  flex-shrink:0;
-}
+            background: #90caf9;
+        }
 
-/* Product details */
 
-.details{
-  flex:1;
-  min-width:0;
-}
+        .blur3 {
 
-.name{
-  font-weight:800;
+            top: 42%;
+            left: 50%;
 
-  font-size:clamp(16px,4vw,20px);
+            width: 210px;
+            height: 210px;
 
-  line-height:1.3;
+            background: #bbdefb;
+        }
 
-  margin-bottom:8px;
 
-  color:var(--text-dark);
+        /* =====================================================
+           HEADER
+        ===================================================== */
 
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
+        header {
 
-/* Pack */
+            position: sticky;
 
-.pack{
-  font-size:clamp(13px,2.5vw,15px);
+            top: 8px;
 
-  color:var(--text-light);
+            z-index: 1000;
 
-  margin-bottom:10px;
+            width: min(1200px, 100%);
 
-  font-weight:600;
-}
+            margin:
+                0 auto
+                clamp(16px, 4vw, 26px);
 
-.pack::before{
-  content:'📦 ';
-}
+            padding:
+                13px
+                clamp(12px, 3vw, 18px);
 
-/* Price */
+            display: flex;
 
-.price{
-  margin-bottom:16px;
+            align-items: center;
 
-  font-weight:800;
+            justify-content: space-between;
 
-  font-size:clamp(16px,3.5vw,20px);
+            gap: 12px;
 
-  color:var(--spice-orange);
-}
+            flex-wrap: wrap;
 
-/* Quantity */
+            background:
+                rgba(255, 255, 255, 0.96);
 
-.qty{
-  display:flex;
+            backdrop-filter: blur(16px);
 
-  align-items:center;
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.10);
 
-  gap:clamp(12px,3vw,18px);
+            border-radius: 18px;
 
-  margin-bottom:16px;
+            box-shadow: var(--shadow);
+        }
 
-  background:rgba(255,138,0,.1);
 
-  padding:clamp(12px,3vw,18px);
+        /* =====================================================
+           LOGO
+        ===================================================== */
 
-  border-radius:15px;
+        .logo {
 
-  border:2px solid rgba(255,138,0,.3);
+            display: flex;
 
-  width:max-content;
-}
+            align-items: center;
 
-.qty a{
-  text-decoration:none;
-}
+            gap: 8px;
 
-.qty button{
-  width:clamp(42px,10vw,50px);
-  height:clamp(42px,10vw,50px);
+            color: var(--blue);
 
-  border:none;
+            font-size:
+                clamp(20px, 4vw, 27px);
 
-  background:linear-gradient(
-    135deg,
-    var(--spice-orange),
-    var(--accent-red)
-  );
+            font-weight: 800;
 
-  color:#fff;
+            white-space: nowrap;
+        }
 
-  border-radius:12px;
 
-  font-size:clamp(16px,4vw,20px);
+        .logo i {
+            font-size: 0.9em;
+        }
 
-  font-weight:700;
 
-  cursor:pointer;
+        /* =====================================================
+           CONTINUE SHOPPING
+        ===================================================== */
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+        .back-btn {
 
-  transition:.3s ease;
-}
+            display: inline-flex;
 
-.qty button:hover{
-  transform:translateY(-2px);
-}
+            align-items: center;
 
-.qty span{
-  font-size:clamp(18px,4vw,22px);
+            justify-content: center;
 
-  font-weight:800;
+            gap: 8px;
 
-  min-width:clamp(40px,9vw,48px);
+            padding:
+                10px 15px;
 
-  text-align:center;
+            min-height: 42px;
 
-  color:var(--text-dark);
+            border: none;
 
-  background:#fff;
+            border-radius: 12px;
 
-  padding:8px 16px;
+            color: #ffffff;
 
-  border-radius:12px;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
 
-  box-shadow:0 6px 20px rgba(0,0,0,.15);
-}
+            font-size: 12px;
 
-/* Remove */
+            font-weight: 700;
 
-.remove{
-  background:linear-gradient(
-    135deg,
-    var(--accent-red),
-    #e74c3c
-  );
+            cursor: pointer;
 
-  color:#fff;
+            box-shadow:
+                0 8px 20px
+                rgba(21, 101, 192, 0.18);
 
-  padding:
-    clamp(10px,2.5vw,14px)
-    clamp(16px,4vw,22px);
+            transition: 0.25s ease;
+        }
 
-  border-radius:15px;
 
-  font-weight:700;
+        .back-btn:hover {
 
-  font-size:clamp(13px,2.5vw,15px);
+            transform: translateY(-2px);
 
-  display:flex;
+            box-shadow:
+                0 12px 26px
+                rgba(21, 101, 192, 0.24);
+        }
 
-  align-items:center;
-  justify-content:center;
 
-  gap:6px;
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
 
-  text-decoration:none;
+        .container {
 
-  width:max-content;
+            position: relative;
 
-  transition:.3s ease;
-}
+            z-index: 1;
 
-.remove:hover{
-  transform:translateY(-2px);
-}
+            width: min(1200px, 100%);
 
-/* Subtotal */
+            margin: 0 auto;
+        }
 
-.subtotal{
-  font-weight:800;
 
-  font-size:clamp(18px,4vw,24px);
+        /* =====================================================
+           TOTAL BAR
+        ===================================================== */
 
-  color:var(--spice-orange);
+        .total-bar {
 
-  min-width:clamp(100px,22vw,140px);
+            display: flex;
 
-  text-align:center;
+            align-items: center;
 
-  align-self:center;
-}
+            justify-content: space-between;
 
-/* Checkout */
+            gap: 14px;
 
-.checkout{
-  margin-top:clamp(24px,6vw,36px);
+            padding:
+                clamp(18px, 4vw, 23px)
+                clamp(18px, 5vw, 30px);
 
-  width:100%;
+            margin-bottom:
+                clamp(16px, 4vw, 25px);
 
-  padding:
-    clamp(18px,4.5vw,24px)
-    clamp(28px,7vw,40px);
+            border-radius: 18px;
 
-  background:linear-gradient(
-    135deg,
-    var(--spice-orange),
-    var(--accent-red)
-  );
+            color: #ffffff;
 
-  color:#fff;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
 
-  border-radius:25px;
+            box-shadow:
+                0 18px 40px
+                rgba(21, 101, 192, 0.20);
+        }
 
-  font-size:clamp(16px,4vw,20px);
 
-  font-weight:800;
+        .total-items {
 
-  display:flex;
+            font-size:
+                clamp(13px, 3vw, 16px);
 
-  align-items:center;
-  justify-content:center;
+            font-weight: 700;
+        }
 
-  gap:12px;
 
-  text-transform:uppercase;
+        .total-items::before {
 
-  text-decoration:none;
+            content: "🛒 ";
 
-  transition:.3s ease;
+        }
 
-  box-shadow:0 25px 70px rgba(255,138,0,.45);
-}
 
-.checkout:hover{
-  transform:translateY(-3px);
-}
+        .total-amount {
 
-/* Empty */
+            font-size:
+                clamp(20px, 5vw, 28px);
 
-.empty{
-  text-align:center;
+            font-weight: 800;
 
-  padding:
-    clamp(60px,20vh,120px)
-    clamp(24px,8vw,48px);
+            white-space: nowrap;
+        }
 
-  color:var(--text-light);
 
-  background:var(--glass-bg);
+        /* =====================================================
+           CART ITEM
+        ===================================================== */
 
-  backdrop-filter:blur(20px);
+        .item {
 
-  border-radius:25px;
+            display: grid;
 
-  box-shadow:0 25px 70px var(--shadow);
+            grid-template-columns:
+                auto
+                minmax(0, 1fr)
+                auto;
 
-  margin:clamp(24px,8vw,48px) auto;
+            align-items: center;
 
-  max-width:500px;
-}
+            gap:
+                clamp(14px, 3vw, 22px);
 
-.empty h2{
-  font-size:clamp(24px,8vw,36px);
+            padding:
+                clamp(15px, 4vw, 22px);
 
-  margin-bottom:16px;
+            margin-bottom:
+                clamp(13px, 3vw, 19px);
 
-  background:linear-gradient(
-    135deg,
-    #d35400,
-    var(--spice-orange)
-  );
+            background:
+                rgba(255, 255, 255, 0.94);
 
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+            border:
+                1px solid
+                var(--border);
 
-.empty p{
-  font-size:clamp(15px,3.5vw,18px);
+            border-radius: 18px;
 
-  margin-bottom:clamp(24px,8vw,40px);
+            box-shadow: var(--shadow);
 
-  opacity:.85;
-}
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
 
-.empty-emoji{
-  font-size:clamp(64px,25vw,96px);
 
-  margin-bottom:20px;
+        .item:hover {
 
-  display:block;
-}
+            transform: translateY(-3px);
 
-.shop-btn{
-  background:linear-gradient(
-    135deg,
-    var(--spice-orange),
-    var(--accent-red)
-  );
+            box-shadow:
+                var(--shadow-hover);
+        }
 
-  color:#fff;
 
-  padding:
-    clamp(14px,3.5vw,18px)
-    clamp(24px,6vw,32px);
+        /* =====================================================
+           PRODUCT IMAGE
+        ===================================================== */
 
-  border-radius:25px;
+        .item img {
 
-  font-weight:800;
+            width:
+                clamp(78px, 16vw, 110px);
 
-  text-decoration:none;
+            height:
+                clamp(78px, 16vw, 110px);
 
-  display:inline-flex;
+            padding:
+                clamp(8px, 2vw, 13px);
 
-  align-items:center;
+            object-fit: contain;
 
-  gap:10px;
-}
+            flex-shrink: 0;
 
-/* Mobile */
+            background:
+                linear-gradient(
+                    145deg,
+                    #f8fbff,
+                    #eaf4ff
+                );
 
-@media(max-width:600px){
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.08);
 
-  .item{
-    flex-direction:column;
-    text-align:center;
-    align-items:center;
-  }
+            border-radius: 14px;
+        }
 
-  .details{
-    width:100%;
-  }
 
-  .qty{
-    margin-left:auto;
-    margin-right:auto;
-  }
+        /* =====================================================
+           FALLBACK IMAGE
+        ===================================================== */
 
-  .remove{
-    margin-left:auto;
-    margin-right:auto;
-  }
+        .fallback-image {
 
-  .subtotal{
-    order:-1;
-    min-width:auto;
-  }
+            width:
+                clamp(78px, 16vw, 110px);
 
-  .total-bar{
-    flex-direction:column;
-    gap:12px;
-    text-align:center;
-  }
-}
+            height:
+                clamp(78px, 16vw, 110px);
 
-@media(max-width:480px){
+            display: flex;
 
-  body{
-    padding:8px;
-  }
+            align-items: center;
 
-  header{
-    margin-top:10px;
-    padding:12px 16px;
-  }
-}
+            justify-content: center;
 
-</style>
+            flex-shrink: 0;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f8fbff,
+                    #eaf4ff
+                );
+
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.08);
+
+            border-radius: 14px;
+        }
+
+
+        .fallback-image i {
+
+            color: #75a6d7;
+
+            font-size:
+                clamp(28px, 7vw, 40px);
+        }
+
+
+        /* =====================================================
+           DETAILS
+        ===================================================== */
+
+        .details {
+
+            min-width: 0;
+        }
+
+
+        /* =====================================================
+           PRODUCT NAME
+        ===================================================== */
+
+        .name {
+
+            margin-bottom: 5px;
+
+            color: var(--navy);
+
+            font-size:
+                clamp(15px, 3.5vw, 19px);
+
+            font-weight: 800;
+
+            line-height: 1.35;
+
+            display: -webkit-box;
+
+            -webkit-line-clamp: 2;
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           PACK
+        ===================================================== */
+
+        .pack {
+
+            margin-bottom: 7px;
+
+            color: var(--muted);
+
+            font-size:
+                clamp(11px, 2.5vw, 13px);
+
+            font-weight: 600;
+        }
+
+
+        .pack::before {
+
+            content: "📦 ";
+
+        }
+
+
+        /* =====================================================
+           PRICE
+        ===================================================== */
+
+        .price {
+
+            margin-bottom: 13px;
+
+            color: var(--blue);
+
+            font-size:
+                clamp(14px, 3vw, 17px);
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           QUANTITY
+        ===================================================== */
+
+        .qty {
+
+            width: fit-content;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 12px;
+
+            padding: 6px;
+
+            background:
+                var(--blue-soft);
+
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.10);
+
+            border-radius: 12px;
+        }
+
+
+        .qty a {
+
+            text-decoration: none;
+        }
+
+
+        .qty button {
+
+            width: 36px;
+
+            height: 36px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            transition: 0.2s ease;
+        }
+
+
+        .qty button:hover {
+
+            transform: scale(1.05);
+        }
+
+
+        .qty span {
+
+            min-width: 40px;
+
+            padding: 7px 10px;
+
+            text-align: center;
+
+            color: var(--navy);
+
+            background: #ffffff;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           REMOVE BUTTON
+        ===================================================== */
+
+        .remove {
+
+            width: fit-content;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            padding: 8px 12px;
+
+            color:
+                var(--danger);
+
+            background:
+                var(--danger-light);
+
+            border:
+                1px solid
+                rgba(217, 54, 62, 0.10);
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            transition: 0.25s ease;
+        }
+
+
+        .remove:hover {
+
+            color: #ffffff;
+
+            background:
+                var(--danger);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           SUBTOTAL
+        ===================================================== */
+
+        .subtotal {
+
+            min-width:
+                clamp(90px, 16vw, 125px);
+
+            text-align: right;
+
+            color: var(--blue-dark);
+
+            font-size:
+                clamp(18px, 4vw, 23px);
+
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           CHECKOUT BUTTON
+        ===================================================== */
+
+        .checkout {
+
+            width: 100%;
+
+            min-height: 56px;
+
+            margin-top:
+                clamp(17px, 4vw, 24px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            padding:
+                14px 20px;
+
+            border-radius: 15px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            box-shadow:
+                0 15px 32px
+                rgba(21, 101, 192, 0.20);
+
+            text-decoration: none;
+
+            font-size:
+                clamp(14px, 3.5vw, 17px);
+
+            font-weight: 800;
+
+            transition: 0.25s ease;
+        }
+
+
+        .checkout:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 20px 40px
+                rgba(21, 101, 192, 0.27);
+        }
+
+
+        /* =====================================================
+           EMPTY CART
+        ===================================================== */
+
+        .empty {
+
+            max-width: 520px;
+
+            margin:
+                clamp(25px, 8vw, 55px)
+                auto;
+
+            padding:
+                clamp(38px, 10vw, 65px)
+                clamp(20px, 6vw, 40px);
+
+            text-align: center;
+
+            background:
+                rgba(255, 255, 255, 0.94);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 22px;
+
+            box-shadow: var(--shadow);
+        }
+
+
+        .empty-emoji {
+
+            display: block;
+
+            margin-bottom: 15px;
+
+            font-size:
+                clamp(60px, 18vw, 88px);
+        }
+
+
+        .empty h2 {
+
+            margin-bottom: 10px;
+
+            color: var(--navy);
+
+            font-size:
+                clamp(24px, 7vw, 34px);
+
+            font-weight: 800;
+        }
+
+
+        .empty p {
+
+            margin-bottom:
+                clamp(20px, 6vw, 30px);
+
+            color: var(--muted);
+
+            font-size:
+                clamp(13px, 3vw, 15px);
+
+            line-height: 1.6;
+        }
+
+
+        .shop-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            min-height: 48px;
+
+            padding:
+                12px 22px;
+
+            border-radius: 12px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            transition: 0.25s ease;
+        }
+
+
+        .shop-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(21, 101, 192, 0.22);
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .item {
+
+                grid-template-columns:
+                    auto
+                    minmax(0, 1fr);
+
+            }
+
+
+            .subtotal {
+
+                grid-column: 2;
+
+                min-width: auto;
+
+                text-align: left;
+
+                margin-top: -5px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 7px;
+            }
+
+
+            header {
+
+                top: 5px;
+
+                margin-top: 5px;
+
+                padding: 11px;
+
+                border-radius: 16px;
+            }
+
+
+            .logo {
+
+                width: 100%;
+
+                justify-content: center;
+
+                font-size: 21px;
+            }
+
+
+            .back-btn {
+
+                width: 100%;
+
+                min-height: 40px;
+
+                font-size: 11px;
+            }
+
+
+            .total-bar {
+
+                flex-direction: column;
+
+                text-align: center;
+
+                border-radius: 16px;
+
+                padding:
+                    15px;
+            }
+
+
+            .total-amount {
+
+                font-size: 23px;
+            }
+
+
+            .item {
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: center;
+
+                text-align: center;
+
+                gap: 11px;
+
+                padding: 15px;
+
+                border-radius: 16px;
+            }
+
+
+            .item img,
+            .fallback-image {
+
+                width: 105px;
+
+                height: 105px;
+            }
+
+
+            .details {
+
+                width: 100%;
+            }
+
+
+            .name {
+
+                font-size: 16px;
+            }
+
+
+            .pack {
+
+                font-size: 11px;
+            }
+
+
+            .price {
+
+                font-size: 15px;
+            }
+
+
+            .qty {
+
+                margin-left: auto;
+
+                margin-right: auto;
+            }
+
+
+            .remove {
+
+                margin-left: auto;
+
+                margin-right: auto;
+            }
+
+
+            .subtotal {
+
+                width: 100%;
+
+                text-align: center;
+
+                font-size: 21px;
+            }
+
+
+            .checkout {
+
+                min-height: 52px;
+
+                font-size: 14px;
+
+                border-radius: 13px;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL PHONE
+        ===================================================== */
+
+        @media (max-width: 380px) {
+
+            header {
+
+                padding: 10px;
+            }
+
+
+            .item {
+
+                padding: 12px;
+            }
+
+
+            .item img,
+            .fallback-image {
+
+                width: 92px;
+
+                height: 92px;
+            }
+
+
+            .qty button {
+
+                width: 34px;
+
+                height: 34px;
+            }
+
+
+            .qty span {
+
+                min-width: 37px;
+
+                padding: 6px 8px;
+            }
+
+
+            .remove {
+
+                font-size: 10px;
+            }
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            * {
+
+                transition: none !important;
+
+                scroll-behavior: auto !important;
+            }
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<!-- Background -->
 
-<div class="bg-blur blur1"></div>
-<div class="bg-blur blur2"></div>
-<div class="bg-blur blur3"></div>
+    <!-- =====================================================
+         BACKGROUND
+    ===================================================== -->
 
+    <div class="bg-blur blur1"></div>
 
-<!-- Header -->
+    <div class="bg-blur blur2"></div>
 
-<header>
-
-  <div class="logo">
-    <i class="fas fa-pepper-hot"></i>
-    Om Masale
-  </div>
-
-  <button
-    class="back-btn"
-    onclick="history.back()"
-  >
-    <i class="fas fa-arrow-left"></i>
-    Continue Shopping
-  </button>
-
-</header>
+    <div class="bg-blur blur3"></div>
 
 
-<!-- Main -->
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
 
-<div class="container">
-
-  <!-- Total -->
-
-  <div class="total-bar">
-
-    <span class="total-items">
-      Total Items: {{ items|length|default:0 }}
-    </span>
-
-    <span>
-      ₹{{ total }}
-    </span>
-
-  </div>
+    <header>
 
 
-  {% if items %}
+        <div class="logo">
 
-    {% for i in items %}
+            <i class="fas fa-pepper-hot"></i>
 
-    <div class="item">
+            Om Masale
 
-      <!-- Image -->
+        </div>
 
-      {% if i.image %}
 
-        <img
-          src="{{ i.image }}"
-          alt="{{ i.name }}"
-          loading="lazy"
+        <button
+            class="back-btn"
+            type="button"
+            onclick="history.back()"
         >
 
-      {% else %}
+            <i class="fas fa-arrow-left"></i>
 
-        <div
-          style="
-            width:110px;
-            height:110px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background:#fff1dc;
-            border-radius:15px;
-          "
-        >
-          <i
-            class="fas fa-pepper-hot"
-            style="
-              font-size:40px;
-              color:var(--spice-orange);
-            "
-          ></i>
+            Continue Shopping
+
+        </button>
+
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <div class="container">
+
+
+        <!-- =================================================
+             TOTAL BAR
+        ================================================= -->
+
+        <div class="total-bar">
+
+
+            <span class="total-items">
+
+                Total Items:
+                {{ items|length|default:0 }}
+
+            </span>
+
+
+            <span class="total-amount">
+
+                ₹{{ total }}
+
+            </span>
+
+
         </div>
 
-      {% endif %}
+
+        {% if items %}
 
 
-      <!-- Details -->
+            <!-- =================================================
+                 CART ITEMS
+            ================================================= -->
 
-      <div class="details">
-
-        <div class="name">
-          {{ i.name }}
-        </div>
-
-        <div class="pack">
-          Pack of 10 • {{ i.weight }}
-        </div>
-
-        <div class="price">
-          ₹{{ i.price }} per Pack of 10
-        </div>
+            {% for i in items %}
 
 
-        <!-- Quantity -->
+                <div class="item">
 
-        <div class="qty">
 
-          <a href="/decrease/{{ i.key }}/">
-            <button
-              type="button"
-              title="Decrease"
+                    <!-- =================================================
+                         IMAGE
+                    ================================================= -->
+
+                    {% if i.image %}
+
+                        <img
+                            src="{{ i.image }}"
+                            alt="{{ i.name }}"
+                            loading="lazy"
+                        >
+
+                    {% else %}
+
+                        <div class="fallback-image">
+
+                            <i
+                                class="fas fa-pepper-hot"
+                            ></i>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =================================================
+                         DETAILS
+                    ================================================= -->
+
+                    <div class="details">
+
+
+                        <div class="name">
+                            {{ i.name }}
+                        </div>
+
+
+                        <div class="pack">
+
+                            Pack of 10
+                            •
+                            {{ i.weight }}
+
+                        </div>
+
+
+                        <div class="price">
+
+                            ₹{{ i.price }}
+                            per Pack of 10
+
+                        </div>
+
+
+                        <!-- =================================================
+                             QUANTITY
+                        ================================================= -->
+
+                        <div class="qty">
+
+
+                            <a href="/decrease/{{ i.key }}/">
+
+                                <button
+                                    type="button"
+                                    title="Decrease"
+                                >
+                                    −
+                                </button>
+
+                            </a>
+
+
+                            <span>
+
+                                {{ i.qty }}
+
+                            </span>
+
+
+                            <a href="/increase/{{ i.key }}/">
+
+                                <button
+                                    type="button"
+                                    title="Increase"
+                                >
+                                    +
+                                </button>
+
+                            </a>
+
+
+                        </div>
+
+
+                        <!-- =================================================
+                             REMOVE
+                        ================================================= -->
+
+                        <a
+                            href="/remove/{{ i.key }}/"
+                            class="remove"
+                        >
+
+                            <i class="fas fa-trash"></i>
+
+                            Remove Item
+
+                        </a>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SUBTOTAL
+                    ================================================= -->
+
+                    <div class="subtotal">
+
+                        ₹{{ i.subtotal }}
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+            <!-- =================================================
+                 CHECKOUT
+            ================================================= -->
+
+            <a
+                href="/checkout/"
+                class="checkout"
             >
-              −
-            </button>
-          </a>
 
-          <span>
-            {{ i.qty }}
-          </span>
+                <i class="fas fa-lock"></i>
 
-          <a href="/increase/{{ i.key }}/">
-            <button
-              type="button"
-              title="Increase"
-            >
-              +
-            </button>
-          </a>
+                Proceed to Checkout
 
-        </div>
+            </a>
 
 
-        <!-- Remove -->
-
-        <a
-          href="/remove/{{ i.key }}/"
-          class="remove"
-        >
-          <i class="fas fa-trash"></i>
-          Remove Item
-        </a>
-
-      </div>
+        {% else %}
 
 
-      <!-- Subtotal -->
+            <!-- =================================================
+                 EMPTY CART
+            ================================================= -->
 
-      <div class="subtotal">
-        ₹{{ i.subtotal }}
-      </div>
+            <div class="empty">
+
+
+                <span class="empty-emoji">
+                    🛒
+                </span>
+
+
+                <h2>
+
+                    Your Cart is Empty
+
+                </h2>
+
+
+                <p>
+
+                    Add some delicious masale
+                    to get started!
+
+                </p>
+
+
+                <a
+                    href="/"
+                    class="shop-btn"
+                >
+
+                    <i class="fas fa-store"></i>
+
+                    Start Shopping
+
+                </a>
+
+
+            </div>
+
+
+        {% endif %}
+
 
     </div>
 
-    {% endfor %}
-
-
-    <!-- Checkout -->
-
-    <a
-      href="/checkout/"
-      class="checkout"
-    >
-      <i class="fas fa-credit-card"></i>
-      Proceed to Checkout
-    </a>
-
-
-  {% else %}
-
-    <!-- Empty cart -->
-
-    <div class="empty">
-
-      <span class="empty-emoji">
-        🛒
-      </span>
-
-      <h2>
-        Your Cart is Empty
-      </h2>
-
-      <p>
-        Add some delicious masale to get started!
-      </p>
-
-      <a
-        href="/"
-        class="shop-btn"
-      >
-        <i class="fas fa-store"></i>
-        Start Shopping
-      </a>
-
-    </div>
-
-  {% endif %}
-
-</div>
 
 </body>
+
 </html>

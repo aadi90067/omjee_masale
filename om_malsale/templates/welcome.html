@@ -1,325 +1,1168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome | Om Masale</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    body{
-      min-height:100vh;
-      background:
-        radial-gradient(circle at top left, rgba(255, 213, 128, 0.35), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(255, 107, 107, 0.25), transparent 35%),
-        linear-gradient(135deg, #fff7e6, #ffe7cc, #fff1dc);
-      position:relative;
-      padding:20px;
-    }
+    <title>Welcome | Om Masale</title>
 
-    .bg-blur{
-      position:absolute;
-      width:320px;
-      height:320px;
-      border-radius:50%;
-      filter:blur(80px);
-      opacity:.55;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-    .blur1{ top:-80px; left:-80px; background:#ffb347; }
-    .blur2{ bottom:-90px; right:-50px; background:#ff6b6b; }
-    .blur3{ top:30%; left:55%; background:#ffd166; width:220px; height:220px; }
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-    .wrapper{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      z-index:2;
-      max-width:1200px;
-      margin:0 auto;
-    }
+    <style>
 
-    .card{
-      width:100%;
-      max-width:980px;
-      background:rgba(255,255,255,.42);
-      border:1px solid rgba(255,255,255,.6);
-      box-shadow:0 25px 60px rgba(120, 70, 10, 0.18);
-      backdrop-filter:blur(18px);
-      border-radius:32px;
-      overflow:hidden;
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:0;
-    }
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-    .left{
-      padding:clamp(40px,8vw,60px) clamp(30px,6vw,50px);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
 
-    .badge{
-      display:inline-flex;
-      width:max-content;
-      align-items:center;
-      gap:10px;
-      background:linear-gradient(135deg,#ff9f43,#ff6b6b);
-      color:#fff;
-      padding:12px 20px;
-      border-radius:999px;
-      font-size:clamp(14px,2.5vw,16px);
-      font-weight:600;
-      box-shadow:0 10px 25px rgba(255,107,107,.28);
-      margin-bottom:22px;
-    }
 
-    .title{
-      font-size:clamp(36px,8vw,56px);
-      line-height:1.05;
-      font-weight:800;
-      color:#7a3100;
-      margin-bottom:16px;
-    }
+        /* =====================================================
+           ROOT COLORS
+        ===================================================== */
 
-    .title span{
-      display:block;
-      background:linear-gradient(135deg,#d35400,#ff6b00,#b33939);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-    }
+        :root {
+            --blue: #1565c0;
+            --blue-dark: #0d47a1;
+            --blue-light: #eaf3ff;
 
-    .subtitle{
-      font-size:clamp(16px,3vw,18px);
-      color:#6b4b2a;
-      line-height:1.8;
-      margin-bottom:28px;
-      max-width:560px;
-    }
+            --navy: #12345b;
+            --text: #243447;
+            --muted: #64748b;
 
-    .typing{
-      color:#a84300;
-      font-weight:700;
-      min-height:clamp(28px,5vw,34px);
-      font-size:clamp(18px,4vw,20px);
-      margin-bottom:30px;
-      font-style:italic;
-    }
+            --white: #ffffff;
+            --soft: #f7fbff;
 
-    .buttons{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap;
-      margin-bottom:24px;
-    }
+            --border: rgba(21, 101, 192, 0.10);
 
-    .btn{
-      text-decoration:none;
-      padding:clamp(14px,3vw,16px) clamp(20px,4vw,24px);
-      border-radius:16px;
-      font-weight:700;
-      font-size:clamp(14px,3vw,15px);
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      transition:all .3s ease;
-    }
+            --shadow:
+                0 25px 70px rgba(13, 71, 161, 0.12);
 
-    .btn-primary{
-      background:linear-gradient(135deg,#ff8a00,#ff5e62);
-      color:#fff;
-      box-shadow:0 14px 30px rgba(255, 102, 0, .25);
-    }
+            --shadow-small:
+                0 12px 30px rgba(13, 71, 161, 0.10);
+        }
 
-    .btn-primary:hover{
-      transform:translateY(-2px);
-      box-shadow:0 18px 36px rgba(255, 102, 0, .35);
-    }
 
-    .btn-secondary{
-      background:rgba(255,255,255,.65);
-      color:#8b3d00;
-      border:1px solid rgba(255,255,255,.8);
-    }
+        /* =====================================================
+           BODY
+        ===================================================== */
 
-    .btn-secondary:hover{
-      transform:translateY(-2px);
-      background:#fff;
-    }
+        html {
+            min-height: 100%;
+            scroll-behavior: smooth;
+        }
 
-    .right{
-      position:relative;
-      min-height:clamp(350px,70vh,580px);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:clamp(30px,6vw,40px) clamp(20px,4vw,25px);
-      background:linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.3));
-    }
+        body {
+            min-height: 100vh;
 
-    .circle{
-      width:clamp(220px,45vw,320px);
-      height:clamp(220px,45vw,320px);
-      border-radius:50%;
-      background:radial-gradient(circle at 30% 30%, #fff3cd, #ffcf7d 55%, #ff8f5a 100%);
-      box-shadow:
-        inset -18px -20px 45px rgba(160, 70, 10, .18),
-        0 30px 60px rgba(190, 90, 0, .22);
-      position:absolute;
-    }
+            padding: 18px;
 
-    .masala-bowl{
-      position:relative;
-      z-index:3;
-      width:clamp(200px,40vw,270px);
-      height:clamp(200px,40vw,270px);
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 50% 45%, #ffcf66 0 18%, #f39c12 18% 30%, #c0392b 30% 42%, #8e4400 42% 52%, #e67e22 52% 63%, #9b2d00 63% 75%, #704214 75% 100%);
-      border:12px solid #fff6ec;
-      box-shadow:
-        0 25px 45px rgba(0,0,0,.18),
-        inset 0 8px 12px rgba(255,255,255,.25);
-    }
+            overflow-x: hidden;
 
-    .masala-bowl::before{
-      content:"";
-      position:absolute;
-      inset:-18px;
-      border-radius:50%;
-      border:2px dashed rgba(255,132,0,.35);
-    }
+            color: var(--text);
 
-    .masala-bowl::after{
-      content:"✨";
-      position:absolute;
-      top:18px;
-      right:20px;
-      font-size:clamp(20px,5vw,28px);
-    }
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(21, 101, 192, 0.12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 85%,
+                    rgba(66, 165, 245, 0.14),
+                    transparent 32%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f5faff 0%,
+                    #eef6ff 50%,
+                    #ffffff 100%
+                );
+        }
 
-    .mini-card{
-      position:absolute;
-      z-index:4;
-      background:rgba(255,255,255,.75);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.65);
-      border-radius:18px;
-      padding:12px 16px;
-      box-shadow:0 12px 25px rgba(0,0,0,.09);
-      color:#7a3100;
-      font-size:clamp(12px,2.5vw,14px);
-      font-weight:700;
-    }
 
-    .mini1{ top:70px; left:28px; }
-    .mini2{ bottom:95px; right:24px; }
-    .mini3{ bottom:28px; left:58px; }
+        /* =====================================================
+           BACKGROUND BLURS
+        ===================================================== */
 
-    .footer-note{
-      margin-top:24px;
-      color:#8d5a2b;
-      font-size:clamp(13px,2.5vw,14px);
-      font-weight:500;
-      text-align:center;
-    }
+        .bg-blur {
+            position: fixed;
 
-    /* MOBILE PERFECTION */
-    @media(max-width:900px){
-      .card{ grid-template-columns:1fr; }
-      .right{ min-height:400px; }
-      .left{ padding:40px 30px 30px; }
-    }
+            width: 300px;
+            height: 300px;
 
-    @media(max-width:520px){
-      body{ padding:15px; }
-      .title{ font-size:clamp(28px,9vw,36px); }
-      .subtitle{ font-size:clamp(14px,4vw,16px); }
-      .masala-bowl{ width:clamp(180px,45vw,220px); height:clamp(180px,45vw,220px); }
-      .circle{ width:clamp(200px,50vw,260px); height:clamp(200px,50vw,260px); }
-      .mini-card{ padding:10px 12px; font-size:12px; }
-      .buttons{ flex-direction:column; }
-      .btn{ width:100%; justify-content:center; }
-    }
+            border-radius: 50%;
 
-    @media(max-width:360px){
-      .wrapper{ padding:10px; }
-      .card{ border-radius:25px; }
-    }
-  </style>
+            filter: blur(85px);
+
+            opacity: 0.25;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        .blur1 {
+            top: -100px;
+            left: -80px;
+
+            background: #64b5f6;
+        }
+
+        .blur2 {
+            right: -100px;
+            bottom: -90px;
+
+            background: #90caf9;
+        }
+
+        .blur3 {
+            top: 32%;
+            left: 52%;
+
+            width: 220px;
+            height: 220px;
+
+            background: #bbdefb;
+        }
+
+
+        /* =====================================================
+           MAIN WRAPPER
+        ===================================================== */
+
+        .wrapper {
+            min-height: calc(100vh - 36px);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+        }
+
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .card {
+            width: min(1080px, 100%);
+
+            min-height: 620px;
+
+            display: grid;
+
+            grid-template-columns: 1.08fr 0.92fr;
+
+            overflow: hidden;
+
+            background:
+                rgba(255, 255, 255, 0.88);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.9);
+
+            border-radius: 32px;
+
+            box-shadow: var(--shadow);
+
+            backdrop-filter: blur(18px);
+        }
+
+
+        /* =====================================================
+           LEFT SECTION
+        ===================================================== */
+
+        .left {
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            padding:
+                clamp(38px, 6vw, 72px)
+                clamp(26px, 6vw, 65px);
+        }
+
+
+        /* =====================================================
+           BADGE
+        ===================================================== */
+
+        .badge {
+            width: fit-content;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            margin-bottom: 22px;
+
+            padding: 10px 17px;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1565c0,
+                    #42a5f5
+                );
+
+            color: #ffffff;
+
+            font-size:
+                clamp(12px, 2vw, 14px);
+
+            font-weight: 600;
+
+            box-shadow:
+                0 10px 25px
+                rgba(21, 101, 192, 0.18);
+        }
+
+
+        /* =====================================================
+           TITLE
+        ===================================================== */
+
+        .title {
+            margin-bottom: 17px;
+
+            color: var(--navy);
+
+            font-size:
+                clamp(34px, 6vw, 58px);
+
+            line-height: 1.02;
+
+            font-weight: 800;
+
+            letter-spacing: -1.5px;
+        }
+
+        .title span {
+            display: block;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d47a1,
+                    #1565c0,
+                    #42a5f5
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        /* =====================================================
+           SUBTITLE
+        ===================================================== */
+
+        .subtitle {
+            max-width: 620px;
+
+            margin-bottom: 24px;
+
+            color: #526579;
+
+            font-size:
+                clamp(14px, 2.5vw, 17px);
+
+            line-height: 1.85;
+
+            font-weight: 400;
+        }
+
+
+        /* =====================================================
+           TYPING / ROTATING TEXT
+        ===================================================== */
+
+        .typing {
+            min-height: 32px;
+
+            margin-bottom: 28px;
+
+            color: var(--blue-dark);
+
+            font-size:
+                clamp(16px, 3vw, 20px);
+
+            line-height: 1.5;
+
+            font-weight: 700;
+
+            font-style: italic;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .buttons {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            min-height: 52px;
+
+            padding:
+                14px 21px;
+
+            border-radius: 14px;
+
+            font-size:
+                clamp(13px, 2vw, 15px);
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .btn-primary {
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1565c0,
+                    #0d47a1
+                );
+
+            box-shadow:
+                0 12px 28px
+                rgba(21, 101, 192, 0.24);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 17px 34px
+                rgba(21, 101, 192, 0.30);
+        }
+
+
+        .btn-secondary {
+            color: var(--blue-dark);
+
+            background: #ffffff;
+
+            border:
+                1px solid rgba(21, 101, 192, 0.13);
+
+            box-shadow: var(--shadow-small);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+
+            background: var(--blue-light);
+        }
+
+
+        /* =====================================================
+           FOOTER NOTE
+        ===================================================== */
+
+        .footer-note {
+            margin-top: 4px;
+
+            color: #7b8da1;
+
+            font-size:
+                clamp(11px, 2vw, 13px);
+
+            font-weight: 500;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           RIGHT VISUAL SECTION
+        ===================================================== */
+
+        .right {
+            position: relative;
+
+            min-height: 620px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 28px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #eef6ff,
+                    #dcecff
+                );
+        }
+
+
+        /* =====================================================
+           MAIN CIRCLE
+        ===================================================== */
+
+        .circle {
+            position: absolute;
+
+            width:
+                clamp(230px, 34vw, 350px);
+
+            height:
+                clamp(230px, 34vw, 350px);
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 30% 25%,
+                    #ffffff 0%,
+                    #e3f2fd 35%,
+                    #90caf9 68%,
+                    #42a5f5 100%
+                );
+
+            box-shadow:
+                inset -18px -25px 50px
+                rgba(13, 71, 161, 0.12),
+
+                0 30px 65px
+                rgba(21, 101, 192, 0.16);
+        }
+
+
+        /* =====================================================
+           MASALA BOWL
+        ===================================================== */
+
+        .masala-bowl {
+            position: relative;
+
+            z-index: 3;
+
+            width:
+                clamp(190px, 30vw, 275px);
+
+            height:
+                clamp(190px, 30vw, 275px);
+
+            border-radius: 50%;
+
+            border:
+                12px solid #ffffff;
+
+            background:
+                radial-gradient(
+                    circle at 50% 44%,
+                    #f7d774 0 15%,
+                    #dfb52a 15% 26%,
+                    #bf5a1b 26% 38%,
+                    #8d3f14 38% 49%,
+                    #c66a1a 49% 61%,
+                    #8c2e13 61% 75%,
+                    #613312 75% 100%
+                );
+
+            box-shadow:
+                0 25px 55px
+                rgba(35, 48, 60, 0.18),
+
+                inset 0 8px 12px
+                rgba(255, 255, 255, 0.25);
+        }
+
+
+        .masala-bowl::before {
+            content: "";
+
+            position: absolute;
+
+            inset: -18px;
+
+            border-radius: 50%;
+
+            border:
+                2px dashed
+                rgba(21, 101, 192, 0.30);
+        }
+
+
+        .masala-bowl::after {
+            content: "✨";
+
+            position: absolute;
+
+            top: 15px;
+            right: 18px;
+
+            font-size:
+                clamp(19px, 4vw, 27px);
+        }
+
+
+        /* =====================================================
+           FLOATING MINI CARDS
+        ===================================================== */
+
+        .mini-card {
+            position: absolute;
+
+            z-index: 4;
+
+            padding: 11px 14px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255, 255, 255, 0.86);
+
+            backdrop-filter: blur(10px);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.9);
+
+            box-shadow:
+                0 12px 28px
+                rgba(21, 101, 192, 0.10);
+
+            color: #24405f;
+
+            font-size:
+                clamp(11px, 2vw, 13px);
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            animation:
+                floatCard 4s ease-in-out infinite;
+        }
+
+
+        .mini1 {
+            top: 80px;
+            left: 26px;
+
+            animation-delay: 0s;
+        }
+
+        .mini2 {
+            right: 25px;
+            bottom: 125px;
+
+            animation-delay: 0.8s;
+        }
+
+        .mini3 {
+            left: 52px;
+            bottom: 42px;
+
+            animation-delay: 1.5s;
+        }
+
+
+        @keyframes floatCard {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-7px);
+            }
+        }
+
+
+        /* =====================================================
+           DECORATIVE DOTS
+        ===================================================== */
+
+        .dot {
+            position: absolute;
+
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: rgba(21, 101, 192, 0.24);
+        }
+
+        .dot1 {
+            top: 18%;
+            right: 13%;
+        }
+
+        .dot2 {
+            top: 68%;
+            left: 11%;
+
+            width: 7px;
+            height: 7px;
+        }
+
+        .dot3 {
+            top: 24%;
+            left: 14%;
+
+            width: 6px;
+            height: 6px;
+        }
+
+
+        /* =====================================================
+           LARGE TABLET
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            body {
+                padding: 14px;
+            }
+
+            .card {
+                grid-template-columns: 1fr 0.85fr;
+            }
+
+            .right {
+                min-height: 590px;
+            }
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            body {
+                padding: 12px;
+            }
+
+            .wrapper {
+                min-height: auto;
+
+                padding: 10px 0;
+            }
+
+            .card {
+                min-height: auto;
+
+                grid-template-columns: 1fr;
+
+                border-radius: 27px;
+            }
+
+            .left {
+                padding:
+                    45px 30px 35px;
+            }
+
+            .right {
+                min-height: 430px;
+
+                border-top:
+                    1px solid
+                    rgba(21, 101, 192, 0.08);
+            }
+
+            .mini1 {
+                top: 55px;
+                left: 24px;
+            }
+
+            .mini2 {
+                right: 24px;
+                bottom: 85px;
+            }
+
+            .mini3 {
+                left: 35px;
+                bottom: 28px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 9px;
+            }
+
+            .wrapper {
+                padding: 5px 0;
+            }
+
+            .card {
+                border-radius: 23px;
+            }
+
+            .left {
+                padding:
+                    32px 20px 27px;
+            }
+
+            .badge {
+                margin-bottom: 17px;
+
+                padding: 8px 13px;
+
+                font-size: 11px;
+            }
+
+            .title {
+                margin-bottom: 13px;
+
+                font-size:
+                    clamp(31px, 11vw, 43px);
+
+                letter-spacing: -0.8px;
+            }
+
+            .subtitle {
+                margin-bottom: 20px;
+
+                font-size: 13px;
+
+                line-height: 1.75;
+            }
+
+            .typing {
+                margin-bottom: 21px;
+
+                font-size: 16px;
+
+                min-height: 27px;
+            }
+
+            .buttons {
+                width: 100%;
+
+                flex-direction: column;
+
+                gap: 9px;
+
+                margin-bottom: 16px;
+            }
+
+            .btn {
+                width: 100%;
+
+                min-height: 49px;
+
+                padding: 12px 16px;
+            }
+
+            .footer-note {
+                text-align: center;
+
+                font-size: 11px;
+            }
+
+            .right {
+                min-height: 355px;
+
+                padding: 20px;
+            }
+
+            .circle {
+                width:
+                    clamp(205px, 62vw, 255px);
+
+                height:
+                    clamp(205px, 62vw, 255px);
+            }
+
+            .masala-bowl {
+                width:
+                    clamp(170px, 52vw, 215px);
+
+                height:
+                    clamp(170px, 52vw, 215px);
+
+                border-width: 9px;
+            }
+
+            .mini-card {
+                padding:
+                    8px 10px;
+
+                font-size: 10px;
+            }
+
+            .mini1 {
+                top: 35px;
+                left: 13px;
+            }
+
+            .mini2 {
+                right: 12px;
+                bottom: 65px;
+            }
+
+            .mini3 {
+                left: 20px;
+                bottom: 22px;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL PHONE
+        ===================================================== */
+
+        @media (max-width: 380px) {
+
+            body {
+                padding: 7px;
+            }
+
+            .card {
+                border-radius: 20px;
+            }
+
+            .left {
+                padding:
+                    27px 16px 23px;
+            }
+
+            .title {
+                font-size: 29px;
+            }
+
+            .subtitle {
+                font-size: 12px;
+            }
+
+            .right {
+                min-height: 320px;
+            }
+
+            .mini-card {
+                font-size: 9px;
+
+                padding:
+                    7px 9px;
+            }
+
+            .mini1 {
+                top: 26px;
+            }
+
+            .mini2 {
+                bottom: 55px;
+            }
+
+            .mini3 {
+                bottom: 16px;
+            }
+        }
+
+
+        /* =====================================================
+           LANDSCAPE PHONE
+        ===================================================== */
+
+        @media (
+            max-height: 520px
+        ) and (
+            orientation: landscape
+        ) {
+
+            body {
+                padding: 8px;
+            }
+
+            .wrapper {
+                min-height: auto;
+            }
+
+            .card {
+                grid-template-columns: 1fr 0.8fr;
+            }
+
+            .left {
+                padding:
+                    25px 22px;
+            }
+
+            .right {
+                min-height: 450px;
+            }
+
+            .title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 12px;
+
+                line-height: 1.5;
+            }
+
+            .typing {
+                font-size: 14px;
+
+                margin-bottom: 15px;
+            }
+
+            .buttons {
+                margin-bottom: 12px;
+            }
+
+            .btn {
+                min-height: 43px;
+
+                padding: 9px 13px;
+            }
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+    </style>
 </head>
+
+
 <body>
-  <!-- Background Blobs (Static) -->
-  <div class="bg-blur blur1"></div>
-  <div class="bg-blur blur2"></div>
-  <div class="bg-blur blur3"></div>
 
-  <div class="wrapper">
-    <div class="card">
-      <div class="left">
-        <div class="badge">🌼 Welcome to Pure Taste</div>
+    <!-- =====================================================
+         BACKGROUND BLURS
+    ===================================================== -->
 
-        <div class="title">
-          Welcome to
-          <span>Om Masale</span>
+    <div class="bg-blur blur1"></div>
+    <div class="bg-blur blur2"></div>
+    <div class="bg-blur blur3"></div>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <div class="wrapper">
+
+        <div class="card">
+
+
+            <!-- =================================================
+                 LEFT CONTENT
+            ================================================= -->
+
+            <div class="left">
+
+                <div class="badge">
+                    🌿 Welcome to Pure Taste
+                </div>
+
+
+                <div class="title">
+
+                    Welcome to
+
+                    <span>
+                        Om Masale
+                    </span>
+
+                </div>
+
+
+                <div class="subtitle">
+
+                    Har khane mein pyaar,
+                    har masale mein khushboo.
+
+                    Om Masale brings the warmth of home,
+                    the richness of tradition,
+                    and the real taste of Indian spices
+                    to your kitchen.
+
+                </div>
+
+
+                <div
+                    class="typing"
+                    id="typingText"
+                >
+                    Fresh Spices, Lovely Welcome ✨
+                </div>
+
+
+                <div class="buttons">
+
+                    <a
+                        href="/home/"
+                        class="btn btn-primary"
+                    >
+                        🌶️
+                        Explore Products
+                    </a>
+
+                </div>
+
+
+                <div class="footer-note">
+
+                    Made with purity, packed with love,
+                    served with happiness ✨
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT VISUAL
+            ================================================= -->
+
+            <div class="right">
+
+                <div class="dot dot1"></div>
+                <div class="dot dot2"></div>
+                <div class="dot dot3"></div>
+
+
+                <div class="circle"></div>
+
+
+                <div class="masala-bowl"></div>
+
+
+                <div class="mini-card mini1">
+                    🌿 Pure Ingredients
+                </div>
+
+
+                <div class="mini-card mini2">
+                    🔥 Rich Aroma
+                </div>
+
+
+                <div class="mini-card mini3">
+                    ❤️ Homemade Feel
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="subtitle">
-          Har khane mein pyaar, har masale mein khushboo. 
-          Om Masale brings the warmth of home, the richness of tradition,
-          and the real taste of Indian spices to your kitchen.
-        </div>
-
-        <div class="typing" id="typingText">Fresh Spices, Lovely Welcome ✨</div>
-
-        <div class="buttons">
-          <a href="/home/" class="btn btn-primary">🌶️ Explore Products</a>       
-        </div>
-
-        <div class="footer-note">
-          Made with purity, packed with love, served with happiness ✨
-        </div>
-      </div>
-
-      <div class="right">
-        <div class="circle"></div>
-        <div class="masala-bowl"></div>
-
-        <div class="mini-card mini1">🌿 Pure Ingredients</div>
-        <div class="mini-card mini2">🔥 Rich Aroma</div>
-        <div class="mini-card mini3">❤️ Homemade Feel</div>
-      </div>
     </div>
-  </div>
 
-  <script>
-    // Simple static text rotation (no typing animation)
-    const texts = [
-      "Fresh Spices, Lovely Welcome ✨",
-      "Pure Taste for Every Kitchen 🌶️", 
-      "Khushboo jo dil jeet le ❤️",
-      "Apne ghar jaisa swaad 💛"
-    ];
-    
-    let currentText = 0;
-    const typingText = document.getElementById("typingText");
-    
-    setInterval(() => {
-      currentText = (currentText + 1) % texts.length;
-      typingText.textContent = texts[currentText];
-    }, 4000);
-  </script>
+
+    <!-- =====================================================
+         TEXT ROTATION
+    ===================================================== -->
+
+    <script>
+
+        const texts = [
+            "Fresh Spices, Lovely Welcome ✨",
+            "Pure Taste for Every Kitchen 🌶️",
+            "Khushboo jo dil jeet le ❤️",
+            "Apne ghar jaisa swaad 💙"
+        ];
+
+        let currentText = 0;
+
+        const typingText =
+            document.getElementById("typingText");
+
+
+        setInterval(() => {
+
+            currentText =
+                (currentText + 1)
+                % texts.length;
+
+            typingText.textContent =
+                texts[currentText];
+
+        }, 4000);
+
+    </script>
+
 </body>
 </html>

@@ -1,810 +1,1752 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<title>{{ p.name }} | Om Masale</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
-
-:root{
-  --spice-orange:#ff8a00;
-  --accent-red:#ff6b6b;
-  --dark:#7a3100;
-  --light:#6b4b2a;
-  --glass:rgba(255,255,255,.55);
-  --glass-border:rgba(255,255,255,.7);
-  --shadow:rgba(120,70,10,.18);
-}
-
-body{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at top left,rgba(255,179,71,.35),transparent 30%),
-    radial-gradient(circle at bottom right,rgba(255,107,107,.25),transparent 30%),
-    linear-gradient(135deg,#fff8ec,#ffe8cf,#fff3e3);
-  position:relative;
-  padding:16px;
-  color:var(--dark);
-  overflow-x:hidden;
-}
-
-.bg-blur{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(90px);
-  opacity:.45;
-  z-index:0;
-}
-
-.blur1{
-  top:-80px;
-  left:-80px;
-  width:300px;
-  height:300px;
-  background:#ffb347;
-}
-
-.blur2{
-  bottom:-80px;
-  right:-50px;
-  width:300px;
-  height:300px;
-  background:#ff6b6b;
-}
-
-.blur3{
-  top:35%;
-  left:50%;
-  width:200px;
-  height:200px;
-  background:#ffd166;
-}
-
-.breadcrumb,
-header,
-.container{
-  position:relative;
-  z-index:1;
-}
-
-/* Breadcrumb */
-
-.breadcrumb{
-  max-width:1200px;
-  margin:0 auto 18px;
-  padding:14px 18px;
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:8px;
-  font-size:14px;
-  color:var(--light);
-}
-
-.breadcrumb a{
-  color:var(--spice-orange);
-  text-decoration:none;
-  font-weight:600;
-}
-
-.breadcrumb a:hover{
-  color:#d96f00;
-}
-
-/* Header */
-
-header{
-  max-width:1200px;
-  margin:0 auto 28px;
-  padding:16px 22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  background:var(--glass);
-  backdrop-filter:blur(18px);
-  border:1px solid var(--glass-border);
-  border-radius:22px;
-  box-shadow:0 18px 45px var(--shadow);
-  position:sticky;
-  top:10px;
-}
-
-.logo{
-  font-size:24px;
-  font-weight:800;
-  background:linear-gradient(135deg,#d35400,var(--spice-orange));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  white-space:nowrap;
-}
-
-.header-actions{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.orders-btn{
-  text-decoration:none;
-  color:var(--dark);
-  background:rgba(255,255,255,.75);
-  border:1px solid rgba(255,138,0,.18);
-  padding:11px 16px;
-  border-radius:16px;
-  font-weight:600;
-}
-
-.cart-btn{
-  text-decoration:none;
-  color:#fff;
-  background:linear-gradient(135deg,var(--spice-orange),var(--accent-red));
-  padding:11px 18px;
-  border-radius:18px;
-  font-weight:700;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.cart-count{
-  min-width:24px;
-  height:24px;
-  padding:0 7px;
-  border-radius:999px;
-  background:#fff;
-  color:var(--accent-red);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  font-weight:800;
-}
-
-/* Main */
-
-.container{
-  max-width:1200px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:34px;
-  align-items:start;
-}
-
-.product-img,
-.details{
-  background:var(--glass);
-  backdrop-filter:blur(22px);
-  border:1px solid var(--glass-border);
-  border-radius:26px;
-  box-shadow:0 24px 60px var(--shadow);
-}
-
-/* Image */
-
-.product-img{
-  padding:34px;
-  min-height:520px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.product-img img{
-  width:100%;
-  max-height:430px;
-  object-fit:contain;
-  display:block;
-}
-
-/* Details */
-
-.details{
-  padding:34px;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-
-.name{
-  font-size:34px;
-  font-weight:800;
-  line-height:1.2;
-  background:linear-gradient(135deg,#d35400,var(--spice-orange));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.rating{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:15px;
-  font-weight:700;
-  color:var(--spice-orange);
-}
-
-.rating span{
-  color:#ffcc33;
-}
-
-/* Product Info */
-
-.product-info{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.info-box{
-  background:rgba(255,255,255,.75);
-  border:1px solid rgba(255,138,0,.18);
-  border-radius:16px;
-  padding:12px 18px;
-}
-
-.info-label{
-  font-size:12px;
-  color:var(--light);
-  font-weight:600;
-}
-
-.info-value{
-  font-size:18px;
-  font-weight:800;
-}
-
-/* Price */
-
-.price-section{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.mrp{
-  color:var(--light);
-  font-size:16px;
-  font-weight:600;
-}
-
-.sale-price{
-  font-size:32px;
-  font-weight:800;
-  color:var(--spice-orange);
-}
-
-.discount{
-  display:inline-block;
-  width:max-content;
-  color:#fff;
-  background:linear-gradient(135deg,#ff7b54,#ff4d6d);
-  padding:7px 14px;
-  border-radius:999px;
-  font-size:14px;
-  font-weight:700;
-}
-
-/* Pack 10 */
-
-.pack-box{
-  padding:22px;
-  border-radius:20px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,213,67,.20),
-    rgba(255,138,0,.10)
-  );
-  border:2px solid rgba(255,138,0,.18);
-}
-
-.pack-box h3{
-  font-size:20px;
-  margin-bottom:8px;
-}
-
-.pack-price{
-  font-size:32px;
-  font-weight:800;
-  color:var(--spice-orange);
-}
-
-.pack-box p{
-  margin-top:5px;
-  color:var(--light);
-  font-size:14px;
-}
-
-/* Highlights */
-
-.highlights{
-  padding:22px;
-  border-radius:20px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,213,67,.18),
-    rgba(255,138,0,.08)
-  );
-  border-left:5px solid var(--spice-orange);
-}
-
-.highlights h4{
-  margin-bottom:12px;
-  font-size:18px;
-}
-
-.highlights ul{
-  list-style:none;
-}
-
-.highlights li{
-  margin-bottom:9px;
-  font-size:15px;
-  color:var(--light);
-}
-
-.highlights li::before{
-  content:"🌟";
-  margin-right:10px;
-}
-
-/* Quantity */
-
-.qty{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:18px;
-  background:rgba(255,138,0,.08);
-  border:2px solid rgba(255,138,0,.18);
-  border-radius:20px;
-}
-
-.qty label{
-  font-size:16px;
-  font-weight:700;
-}
-
-.qty button{
-  width:50px;
-  height:50px;
-  border:none;
-  border-radius:14px;
-  color:#fff;
-  cursor:pointer;
-  font-size:22px;
-  font-weight:800;
-  background:linear-gradient(
-    135deg,
-    var(--spice-orange),
-    var(--accent-red)
-  );
-}
-
-.qty span{
-  min-width:58px;
-  text-align:center;
-  font-size:23px;
-  font-weight:800;
-  background:#fff;
-  padding:10px 16px;
-  border-radius:14px;
-}
-
-/* Total */
-
-.total-price{
-  text-align:center;
-  font-size:38px;
-  font-weight:800;
-  margin:8px 0;
-  background:linear-gradient(
-    135deg,
-    var(--spice-orange),
-    var(--accent-red)
-  );
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-/* Button */
-
-.add-btn{
-  width:100%;
-  border:none;
-  padding:20px;
-  border-radius:22px;
-  color:#fff;
-  cursor:pointer;
-  font-size:18px;
-  font-weight:800;
-  text-transform:uppercase;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  background:linear-gradient(
-    135deg,
-    var(--spice-orange),
-    var(--accent-red)
-  );
-}
-
-/* Mobile */
-
-@media(max-width:900px){
-  .container{
-    grid-template-columns:1fr;
-  }
-
-  .product-img{
-    min-height:auto;
-  }
-}
-
-@media(max-width:600px){
-  body{
-    padding:10px;
-  }
-
-  header{
-    padding:14px;
-  }
-
-  .details,
-  .product-img{
-    padding:20px;
-  }
-
-  .name{
-    font-size:27px;
-  }
-
-  .sale-price{
-    font-size:27px;
-  }
-
-  .total-price{
-    font-size:31px;
-  }
-
-  .qty{
-    justify-content:center;
-    flex-wrap:wrap;
-  }
-}
-
-@media(max-width:420px){
-  .qty{
-    flex-direction:column;
-  }
-}
-</style>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <title>{{ p.name }} | Om Masale</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+
+        /* =====================================================
+           COLORS
+        ===================================================== */
+
+        :root {
+            --blue: #1565c0;
+            --blue-dark: #0d47a1;
+            --blue-light: #eaf3ff;
+            --blue-soft: #f5faff;
+
+            --navy: #15324f;
+            --text: #243447;
+            --muted: #6b7c8f;
+
+            --green: #16843f;
+            --green-light: #effaf3;
+
+            --white: #ffffff;
+            --border: #e6edf5;
+
+            --shadow:
+                0 12px 35px rgba(13, 71, 161, 0.08);
+
+            --shadow-hover:
+                0 20px 50px rgba(13, 71, 161, 0.13);
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            padding: 14px;
+
+            overflow-x: hidden;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(21, 101, 192, 0.08),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(66, 165, 245, 0.10),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f7fbff,
+                    #edf6ff,
+                    #ffffff
+                );
+        }
+
+
+        /* =====================================================
+           BACKGROUND DECORATION
+        ===================================================== */
+
+        .bg-blur {
+            position: fixed;
+
+            border-radius: 50%;
+
+            filter: blur(85px);
+
+            opacity: 0.24;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .blur1 {
+            top: -100px;
+            left: -80px;
+
+            width: 300px;
+            height: 300px;
+
+            background: #64b5f6;
+        }
+
+
+        .blur2 {
+            right: -100px;
+            bottom: -100px;
+
+            width: 320px;
+            height: 320px;
+
+            background: #90caf9;
+        }
+
+
+        .blur3 {
+            top: 40%;
+            left: 48%;
+
+            width: 220px;
+            height: 220px;
+
+            background: #bbdefb;
+        }
+
+
+        /* =====================================================
+           BREADCRUMB
+        ===================================================== */
+
+        .breadcrumb {
+            position: relative;
+            z-index: 2;
+
+            width: min(1200px, 100%);
+
+            margin: 0 auto 14px;
+
+            padding: 10px 4px;
+
+            display: flex;
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+
+        .breadcrumb a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            color: var(--blue);
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+
+        .breadcrumb a:hover {
+            color: var(--blue-dark);
+        }
+
+
+        .breadcrumb i.fa-chevron-right {
+            color: #a5b4c4;
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+            position: sticky;
+
+            top: 10px;
+
+            z-index: 1000;
+
+            width: min(1200px, 100%);
+
+            margin: 0 auto 22px;
+
+            padding: 14px 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 14px;
+
+            flex-wrap: wrap;
+
+            background:
+                rgba(255, 255, 255, 0.95);
+
+            backdrop-filter: blur(16px);
+
+            border:
+                1px solid rgba(21, 101, 192, 0.10);
+
+            border-radius: 18px;
+
+            box-shadow: var(--shadow);
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: var(--blue);
+
+            font-size:
+                clamp(20px, 4vw, 26px);
+
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        .logo i {
+            font-size: 0.9em;
+        }
+
+
+        /* =====================================================
+           HEADER ACTIONS
+        ===================================================== */
+
+        .header-actions {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .orders-btn,
+        .cart-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            padding: 11px 14px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            transition: 0.25s ease;
+
+            white-space: nowrap;
+        }
+
+
+        .orders-btn {
+            color: var(--blue-dark);
+
+            background:
+                var(--blue-light);
+
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.10);
+        }
+
+
+        .orders-btn:hover {
+            background: #dcecff;
+
+            transform: translateY(-2px);
+        }
+
+
+        .cart-btn {
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            box-shadow:
+                0 8px 20px
+                rgba(21, 101, 192, 0.18);
+        }
+
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(21, 101, 192, 0.25);
+        }
+
+
+        .cart-count {
+            min-width: 22px;
+
+            height: 22px;
+
+            padding: 0 6px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 999px;
+
+            background: #ffffff;
+
+            color: var(--blue-dark);
+
+            font-size: 11px;
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           MAIN PRODUCT LAYOUT
+        ===================================================== */
+
+        .container {
+            position: relative;
+
+            z-index: 1;
+
+            width: min(1200px, 100%);
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 0.95fr)
+                minmax(0, 1.05fr);
+
+            gap: 24px;
+
+            align-items: start;
+        }
+
+
+        /* =====================================================
+           SHARED PANEL
+        ===================================================== */
+
+        .product-img,
+        .details {
+            background:
+                rgba(255, 255, 255, 0.92);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 22px;
+
+            box-shadow: var(--shadow);
+
+            transition:
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        .product-img:hover,
+        .details:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+
+        /* =====================================================
+           IMAGE PANEL
+        ===================================================== */
+
+        .product-img {
+            min-height: 520px;
+
+            padding: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #f4f9ff
+                );
+        }
+
+
+        .product-img img {
+            width: 100%;
+
+            max-height: 470px;
+
+            object-fit: contain;
+
+            display: block;
+
+            filter:
+                drop-shadow(
+                    0 18px 20px
+                    rgba(13, 71, 161, 0.10)
+                );
+        }
+
+
+        /* =====================================================
+           DETAILS
+        ===================================================== */
+
+        .details {
+            padding: 28px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+        }
+
+
+        /* =====================================================
+           PRODUCT NAME
+        ===================================================== */
+
+        .name {
+            font-size:
+                clamp(26px, 4vw, 38px);
+
+            line-height: 1.15;
+
+            font-weight: 800;
+
+            color: var(--navy);
+
+            letter-spacing: -0.5px;
+        }
+
+
+        /* =====================================================
+           RATING
+        ===================================================== */
+
+        .rating {
+            display: flex;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            color: #52677c;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .rating span {
+            color: #f4b400;
+
+            letter-spacing: 1px;
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           PRODUCT INFO
+        ===================================================== */
+
+        .product-info {
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .info-box {
+            min-width: 115px;
+
+            padding: 11px 15px;
+
+            border-radius: 12px;
+
+            background:
+                var(--blue-soft);
+
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.09);
+        }
+
+
+        .info-label {
+            margin-bottom: 2px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .info-value {
+            color: var(--blue-dark);
+
+            font-size: 16px;
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           PRICE
+        ===================================================== */
+
+        .price-section {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+            padding: 4px 0;
+        }
+
+
+        .mrp {
+            color: var(--muted);
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .sale-price {
+            color: var(--blue);
+
+            font-size:
+                clamp(27px, 4vw, 35px);
+
+            line-height: 1.2;
+
+            font-weight: 800;
+        }
+
+
+        .discount {
+            width: fit-content;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 6px 11px;
+
+            border-radius: 999px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #16843f,
+                    #21a65a
+                );
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           PACK OF 10
+        ===================================================== */
+
+        .pack-box {
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #edf6ff,
+                    #f7fbff
+                );
+
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.13);
+        }
+
+
+        .pack-box h3 {
+            margin-bottom: 5px;
+
+            color: var(--navy);
+
+            font-size: 17px;
+
+            font-weight: 700;
+        }
+
+
+        .pack-box h3 i {
+            color: var(--blue);
+
+            margin-right: 5px;
+        }
+
+
+        .pack-price {
+            color: var(--blue-dark);
+
+            font-size:
+                clamp(27px, 4vw, 34px);
+
+            line-height: 1.15;
+
+            font-weight: 800;
+        }
+
+
+        .pack-box p {
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           HIGHLIGHTS
+        ===================================================== */
+
+        .highlights {
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background:
+                var(--green-light);
+
+            border:
+                1px solid #d9f0e1;
+
+            border-left:
+                4px solid
+                var(--green);
+        }
+
+
+        .highlights h4 {
+            margin-bottom: 10px;
+
+            color: #244434;
+
+            font-size: 16px;
+        }
+
+
+        .highlights h4 i {
+            color: var(--green);
+
+            margin-right: 5px;
+        }
+
+
+        .highlights ul {
+            list-style: none;
+        }
+
+
+        .highlights li {
+            position: relative;
+
+            padding-left: 21px;
+
+            margin-bottom: 7px;
+
+            color: #547062;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        .highlights li::before {
+            content: "✓";
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            color: var(--green);
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           QUANTITY
+        ===================================================== */
+
+        .qty {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            background:
+                #f7fbff;
+
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.12);
+        }
+
+
+        .qty label {
+            color: var(--navy);
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .qty-controls {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+
+        .qty button {
+            width: 42px;
+
+            height: 42px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            cursor: pointer;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            transition: 0.2s ease;
+        }
+
+
+        .qty button:hover {
+            transform: scale(1.05);
+        }
+
+
+        .qty span {
+            min-width: 48px;
+
+            padding: 9px 12px;
+
+            text-align: center;
+
+            color: var(--navy);
+
+            background: #ffffff;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            font-size: 18px;
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           TOTAL
+        ===================================================== */
+
+        .total-price {
+            padding: 8px;
+
+            text-align: center;
+
+            color: var(--blue-dark);
+
+            font-size:
+                clamp(27px, 5vw, 38px);
+
+            line-height: 1.2;
+
+            font-weight: 800;
+        }
+
+
+        .total-price small {
+            display: block;
+
+            margin-bottom: 2px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        /* =====================================================
+           ADD TO CART
+        ===================================================== */
+
+        .add-btn {
+            width: 100%;
+
+            min-height: 55px;
+
+            padding: 15px 18px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.2px;
+
+            box-shadow:
+                0 12px 28px
+                rgba(21, 101, 192, 0.20);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 16px 34px
+                rgba(21, 101, 192, 0.28);
+        }
+
+
+        .add-btn:active {
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            body {
+                padding: 10px;
+            }
+
+
+            .container {
+                grid-template-columns: 1fr;
+
+                gap: 16px;
+            }
+
+
+            .product-img {
+                min-height: 390px;
+            }
+
+
+            .product-img img {
+                max-height: 350px;
+            }
+
+
+            .details {
+                padding: 23px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 8px;
+            }
+
+
+            .breadcrumb {
+                padding: 6px 2px;
+
+                margin-bottom: 9px;
+
+                font-size: 11px;
+            }
+
+
+            header {
+                top: 6px;
+
+                padding: 11px;
+
+                margin-bottom: 14px;
+
+                border-radius: 16px;
+            }
+
+
+            .logo {
+                width: 100%;
+
+                justify-content: center;
+
+                font-size: 21px;
+            }
+
+
+            .header-actions {
+                width: 100%;
+
+                gap: 7px;
+            }
+
+
+            .orders-btn,
+            .cart-btn {
+                flex: 1;
+
+                min-height: 42px;
+
+                padding: 9px 8px;
+
+                font-size: 11px;
+            }
+
+
+            .container {
+                gap: 12px;
+            }
+
+
+            .product-img {
+                min-height: 310px;
+
+                padding: 18px;
+
+                border-radius: 18px;
+            }
+
+
+            .product-img img {
+                max-height: 285px;
+            }
+
+
+            .details {
+                padding: 17px;
+
+                gap: 13px;
+
+                border-radius: 18px;
+            }
+
+
+            .name {
+                font-size: 25px;
+            }
+
+
+            .rating {
+                font-size: 11px;
+            }
+
+
+            .rating span {
+                font-size: 13px;
+            }
+
+
+            .info-box {
+                flex: 1;
+
+                min-width: 95px;
+
+                padding: 10px 12px;
+            }
+
+
+            .sale-price {
+                font-size: 27px;
+            }
+
+
+            .pack-box {
+                padding: 15px;
+
+                border-radius: 14px;
+            }
+
+
+            .pack-price {
+                font-size: 27px;
+            }
+
+
+            .highlights {
+                padding: 14px;
+
+                border-radius: 14px;
+            }
+
+
+            .highlights li {
+                font-size: 12px;
+            }
+
+
+            .qty {
+                padding: 12px;
+
+                flex-wrap: wrap;
+            }
+
+
+            .qty label {
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .qty-controls {
+                width: 100%;
+
+                justify-content: center;
+            }
+
+
+            .qty button {
+                width: 40px;
+
+                height: 40px;
+            }
+
+
+            .qty span {
+                min-width: 46px;
+            }
+
+
+            .total-price {
+                font-size: 30px;
+            }
+
+
+            .add-btn {
+                min-height: 52px;
+
+                font-size: 14px;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL PHONE
+        ===================================================== */
+
+        @media (max-width: 380px) {
+
+            body {
+                padding: 6px;
+            }
+
+
+            .details {
+                padding: 14px;
+            }
+
+
+            .product-img {
+                min-height: 275px;
+
+                padding: 12px;
+            }
+
+
+            .product-img img {
+                max-height: 250px;
+            }
+
+
+            .name {
+                font-size: 23px;
+            }
+
+
+            .orders-btn,
+            .cart-btn {
+                font-size: 10px;
+            }
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+
+                scroll-behavior: auto !important;
+            }
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<div class="bg-blur blur1"></div>
-<div class="bg-blur blur2"></div>
-<div class="bg-blur blur3"></div>
 
-<!-- Breadcrumb -->
+    <!-- =====================================================
+         BACKGROUND
+    ===================================================== -->
 
-<nav class="breadcrumb">
+    <div class="bg-blur blur1"></div>
+    <div class="bg-blur blur2"></div>
+    <div class="bg-blur blur3"></div>
 
-  <a href="/">
-    <i class="fas fa-home"></i> Home
-  </a>
 
-  <i class="fas fa-chevron-right"></i>
+    <!-- =====================================================
+         BREADCRUMB
+    ===================================================== -->
 
-  <a href="/products/">
-    <i class="fas fa-pepper-hot"></i> Masale
-  </a>
+    <nav class="breadcrumb">
 
-  <i class="fas fa-chevron-right"></i>
+        <a href="/">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
 
-  {{ p.name }}
+        <i class="fas fa-chevron-right"></i>
 
-</nav>
+        <a href="/products/">
+            <i class="fas fa-pepper-hot"></i>
+            Masale
+        </a>
 
-<!-- Header -->
+        <i class="fas fa-chevron-right"></i>
 
-<header>
-
-  <div class="logo">
-    <i class="fas fa-pepper-hot"></i> Om Masale
-  </div>
-
-  <div class="header-actions">
-
-    <a class="orders-btn" href="/my-orders/">
-      <i class="fas fa-box"></i> My Orders
-    </a>
-
-    <a href="/cart/" class="cart-btn">
-      <i class="fas fa-shopping-cart"></i> Cart
-
-      {% if request.session.cart|length %}
-        <span class="cart-count">
-          {{ request.session.cart|length }}
+        <span>
+            {{ p.name }}
         </span>
-      {% endif %}
 
-    </a>
+    </nav>
 
-  </div>
 
-</header>
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
 
-<!-- Product -->
+    <header>
 
-<div class="container">
-
-  <!-- Image -->
-
-  <div class="product-img">
-
-    {% if p.image %}
-
-      <img
-        src="{{ p.image.url }}"
-        alt="{{ p.name }}"
-        loading="lazy"
-      >
-
-    {% else %}
-
-      <i
-        class="fas fa-image"
-        style="font-size:140px;color:var(--light);opacity:.45;"
-      ></i>
-
-    {% endif %}
-
-  </div>
-
-  <!-- Details -->
-
-  <div class="details">
-
-    <div class="name">
-      {{ p.name }}
-    </div>
-
-    <!-- Rating -->
-
-    <div class="rating">
-
-      <span>⭐⭐⭐⭐⭐</span>
-
-      {{ p.rating }}
-      ({{ p.review_count }} reviews)
-
-    </div>
-
-    <!-- Weight -->
-
-    <div class="product-info">
-
-      <div class="info-box">
-
-        <div class="info-label">
-          Weight
+        <div class="logo">
+            <i class="fas fa-pepper-hot"></i>
+            Om Masale
         </div>
 
-        <div class="info-value">
-          {{ p.weight }}
+
+        <div class="header-actions">
+
+            <a
+                class="orders-btn"
+                href="/my-orders/"
+            >
+
+                <i class="fas fa-box"></i>
+
+                My Orders
+
+            </a>
+
+
+            <a
+                href="/cart/"
+                class="cart-btn"
+            >
+
+                <i class="fas fa-shopping-cart"></i>
+
+                Cart
+
+
+                {% if request.session.cart|length %}
+
+                    <span class="cart-count">
+                        {{ request.session.cart|length }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
         </div>
 
-      </div>
+    </header>
 
-    </div>
 
-    <!-- Price -->
+    <!-- =====================================================
+         PRODUCT SECTION
+    ===================================================== -->
 
-    <div class="price-section">
+    <div class="container">
 
-      <div class="mrp">
-        MRP <s>₹{{ p.mrp }}</s>
-      </div>
 
-      <div class="sale-price">
-        Our Price ₹{{ p.sale_price }}
-      </div>
+        <!-- =================================================
+             IMAGE
+        ================================================= -->
 
-      {% if p.discount_percent %}
-        <div class="discount">
-          Save {{ p.discount_percent }}% - {{ p.discount_text }}
+        <div class="product-img">
+
+            {% if p.image %}
+
+                <img
+                    src="{{ p.image.url }}"
+                    alt="{{ p.name }}"
+                    loading="lazy"
+                >
+
+            {% else %}
+
+                <i
+                    class="fas fa-image"
+                    style="
+                        font-size:120px;
+                        color:#90a4b8;
+                        opacity:.45;
+                    "
+                ></i>
+
+            {% endif %}
+
         </div>
-      {% endif %}
+
+
+        <!-- =================================================
+             DETAILS
+        ================================================= -->
+
+        <div class="details">
+
+
+            <!-- PRODUCT NAME -->
+
+            <div class="name">
+                {{ p.name }}
+            </div>
+
+
+            <!-- RATING -->
+
+            <div class="rating">
+
+                <span>
+                    ⭐⭐⭐⭐⭐
+                </span>
+
+                {{ p.rating }}
+
+                ({{ p.review_count }} reviews)
+
+            </div>
+
+
+            <!-- WEIGHT -->
+
+            <div class="product-info">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Weight
+                    </div>
+
+                    <div class="info-value">
+                        {{ p.weight }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="price-section">
+
+                <div class="mrp">
+
+                    MRP
+                    <s>₹{{ p.mrp }}</s>
+
+                </div>
+
+
+                <div class="sale-price">
+
+                    Our Price ₹{{ p.sale_price }}
+
+                </div>
+
+
+                {% if p.discount_percent %}
+
+                    <div class="discount">
+
+                        Save
+                        {{ p.discount_percent }}%
+
+                        -
+                        {{ p.discount_text }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- PACK OF 10 -->
+
+            <div class="pack-box">
+
+                <h3>
+
+                    <i class="fas fa-box"></i>
+
+                    Pack of 10
+
+                </h3>
+
+
+                <div class="pack-price">
+
+                    ₹{{ p.pack10_price }}
+
+                </div>
+
+
+                <p>
+
+                    10 × {{ p.weight }} packs
+
+                </p>
+
+            </div>
+
+
+            <!-- HIGHLIGHTS -->
+
+            <div class="highlights">
+
+                <h4>
+
+                    <i class="fas fa-shield-heart"></i>
+
+                    Why Choose This?
+
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        100% Pure & Natural Spices
+                    </li>
+
+                    <li>
+                        No Preservatives or Additives
+                    </li>
+
+                    <li>
+                        Farm Fresh - Ethically Sourced
+                    </li>
+
+                    <li>
+                        Ready in Minutes
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- QUANTITY -->
+
+            <div class="qty">
+
+                <label>
+                    Quantity
+                </label>
+
+
+                <div class="qty-controls">
+
+                    <button
+                        type="button"
+                        onclick="minus()"
+                    >
+                        −
+                    </button>
+
+
+                    <span id="qty">
+                        1
+                    </span>
+
+
+                    <button
+                        type="button"
+                        onclick="plus()"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="total-price">
+
+                <small>
+                    Total Price
+                </small>
+
+                ₹<span id="price">
+                    {{ p.pack10_price }}
+                </span>
+
+            </div>
+
+
+            <!-- ADD TO CART -->
+
+            <button
+                class="add-btn"
+                type="button"
+                onclick="addCart()"
+            >
+
+                <i class="fas fa-shopping-cart"></i>
+
+                Add To Cart
+
+            </button>
+
+
+        </div>
 
     </div>
 
-    <!-- ONLY PACK OF 10 -->
 
-    <div class="pack-box">
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
 
-      <h3>
-        <i class="fas fa-box"></i>
-        Pack of 10
-      </h3>
+    <script>
 
-      <div class="pack-price">
-        ₹{{ p.pack10_price }}
-      </div>
+        let qty = 1;
 
-      <p>
-        10 × {{ p.weight }} packs
-      </p>
 
-    </div>
+        const pack10Price =
+            Number("{{ p.pack10_price }}");
 
-    <!-- Highlights -->
 
-    <div class="highlights">
+        function updatePrice() {
 
-      <h4>
-        <i class="fas fa-crown"></i>
-        Why Choose This?
-      </h4>
+            const total =
+                pack10Price * qty;
 
-      <ul>
-        <li>100% Pure & Natural Spices</li>
-        <li>No Preservatives or Additives</li>
-        <li>Farm Fresh - Ethically Sourced</li>
-        <li>Ready in Minutes</li>
-      </ul>
 
-    </div>
+            document
+                .getElementById("price")
+                .innerText =
+                    total.toLocaleString("en-IN");
 
-    <!-- Quantity -->
+        }
 
-    <div class="qty">
 
-      <label>
-        Quantity
-      </label>
+        function plus() {
 
-      <button onclick="minus()">
-        −
-      </button>
+            qty++;
 
-      <span id="qty">
-        1
-      </span>
+            document
+                .getElementById("qty")
+                .innerText = qty;
 
-      <button onclick="plus()">
-        +
-      </button>
+            updatePrice();
 
-    </div>
+        }
 
-    <!-- Total -->
 
-    <div class="total-price">
+        function minus() {
 
-      Total ₹
-      <span id="price">
-        {{ p.pack10_price }}
-      </span>
+            if (qty > 1) {
 
-    </div>
+                qty--;
 
-    <!-- Add Cart -->
+                document
+                    .getElementById("qty")
+                    .innerText = qty;
 
-    <button class="add-btn" onclick="addCart()">
+                updatePrice();
 
-      <i class="fas fa-shopping-cart"></i>
-      Add To Cart
+            }
 
-    </button>
+        }
 
-  </div>
 
-</div>
+        function addCart() {
 
-<script>
+            fetch("/add-cart/", {
 
-let qty = 1;
+                method: "POST",
 
-const pack10Price = Number("{{ p.pack10_price }}");
+                headers: {
 
-function updatePrice(){
+                    "Content-Type":
+                        "application/x-www-form-urlencoded",
 
-  const total = pack10Price * qty;
+                    "X-CSRFToken":
+                        "{{ csrf_token }}"
 
-  document.getElementById("price").innerText =
-    total.toLocaleString("en-IN");
+                },
 
-}
+                body:
+                    `pid={{ p.id }}&qty=${qty}`
 
-function plus(){
+            })
 
-  qty++;
 
-  document.getElementById("qty").innerText = qty;
+            .then(response =>
+                response.json()
+            )
 
-  updatePrice();
 
-}
+            .then(data => {
 
-function minus(){
+                if (data.status === "added") {
 
-  if(qty > 1){
+                    const btn =
+                        document.querySelector(
+                            ".add-btn"
+                        );
 
-    qty--;
 
-    document.getElementById("qty").innerText = qty;
+                    btn.innerHTML =
+                        '<i class="fas fa-check"></i> Added!';
 
-    updatePrice();
 
-  }
+                    setTimeout(() => {
 
-}
+                        btn.innerHTML =
+                            '<i class="fas fa-shopping-cart"></i> Add To Cart';
 
-function addCart(){
+                    }, 1500);
 
-  fetch("/add-cart/", {
+                }
 
-    method:"POST",
+            })
 
-    headers:{
-      "Content-Type":"application/x-www-form-urlencoded",
-      "X-CSRFToken":"{{ csrf_token }}"
-    },
 
-    body:`pid={{ p.id }}&qty=${qty}`
+            .catch(() => {
 
-  })
+                alert(
+                    "Error adding to cart"
+                );
 
-  .then(response => response.json())
+            });
 
-  .then(data => {
+        }
 
-    if(data.status === "added"){
 
-      const btn =
-        document.querySelector(".add-btn");
+        updatePrice();
 
-      btn.innerHTML =
-        '<i class="fas fa-check"></i> Added!';
+    </script>
 
-      setTimeout(() => {
-
-        btn.innerHTML =
-          '<i class="fas fa-shopping-cart"></i> Add To Cart';
-
-      },1500);
-
-    }
-
-  })
-
-  .catch(() => {
-
-    alert("Error adding to cart");
-
-  });
-
-}
-
-updatePrice();
-
-</script>
 
 </body>
 </html>
+

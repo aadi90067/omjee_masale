@@ -1,384 +1,1367 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<title>Secure Checkout | Om Masale</title>
-<style>
-/* ===== OM MASALE THEME - CLEAN & FAST ===== */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-:root {
-  --spice-orange: #ff8a00;
-  --accent-red: #ff6b6b;
-  --text-dark: #7a3100;
-  --text-light: #6b4b2a;
-  --glass-bg: rgba(255,255,255,.5);
-  --glass-border: rgba(255,255,255,.7);
-  --shadow: rgba(120,70,10,.25);
-}
+    <meta charset="UTF-8">
 
-body {
-  min-height:100vh;
-  background: linear-gradient(135deg, #fff7e6, #ffe7cc, #fff1dc);
-  position:relative;
-  padding: clamp(10px, 3vw, 20px);
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-/* Static Background Blobs */
-.bg-blur {
-  position:absolute;
-  width:320px;
-  height:320px;
-  border-radius:50%;
-  filter:blur(80px);
-  opacity:.55;
-}
-.blur1 { top:-80px; left:-80px; background:#ffb347; }
-.blur2 { bottom:-90px; right:-50px; background:#ff6b6b; }
-.blur3 { top:30%; left:55%; background:#ffd166; width:220px; height:220px; }
+    <title>Secure Checkout | Om Masale</title>
 
-/* Header */
-header {
-  position:sticky;
-  top:0;
-  z-index:100;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding: clamp(12px, 3vw, 20px) clamp(15px, 5vw, 30px);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 25px;
-  margin-bottom: clamp(20px, 6vw, 40px);
-  box-shadow: 0 15px 45px var(--shadow);
-}
 
-.logo {
-  font-weight:800;
-  font-size: clamp(18px, 5vw, 24px);
-  background: linear-gradient(135deg, #d35400, var(--spice-orange));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    <!-- Google Font -->
 
-.back-btn {
-  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
-  color: #fff;
-  border: none;
-  padding: clamp(10px, 2.5vw, 14px) clamp(18px, 4vw, 24px);
-  border-radius: 25px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: clamp(13px, 3vw, 15px);
-  box-shadow: 0 10px 30px rgba(255,138,0,.35);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all .3s ease;
-}
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-.back-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(255,138,0,.5);
-}
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-/* Main Checkout Container */
-.checkout-container {
-  max-width: clamp(350px, 90vw, 650px);
-  margin: 0 auto;
-  background: var(--glass-bg);
-  backdrop-filter: blur(25px);
-  border: 1px solid var(--glass-border);
-  border-radius: 30px;
-  box-shadow: 0 25px 70px var(--shadow);
-  overflow: hidden;
-}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-/* Progress Section */
-.progress-section {
-  background: linear-gradient(135deg, rgba(255,213,67,.2), rgba(255,107,107,.15));
-  padding: clamp(20px, 5vw, 30px);
-  border-bottom: 1px solid var(--glass-border);
-  text-align: center;
-}
 
-.progress-title {
-  font-size: clamp(16px, 4vw, 20px);
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
+    <!-- Font Awesome -->
 
-.progress-bar {
-  width: 100%;
-  height: 10px;
-  background: rgba(255,255,255,.4);
-  border-radius: 12px;
-  overflow: hidden;
-}
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
 
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--spice-orange), var(--accent-red));
-  width: 80%;
-  border-radius: 12px;
-}
 
-.progress-fill::after {
-  content: '3/4 Complete';
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: clamp(11px, 2vw, 13px);
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 0 1px 3px rgba(0,0,0,.4);
-}
+    <style>
 
-/* Order Summary */
-.order-summary {
-  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
-  color: #fff;
-  padding: clamp(25px, 6vw, 35px);
-  text-align: center;
-}
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-.order-total {
-  font-size: clamp(28px, 8vw, 42px);
-  font-weight: 800;
-  margin-bottom: 5px;
-  text-shadow: 0 4px 15px rgba(0,0,0,.3);
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
 
-.order-label {
-  font-size: clamp(14px, 3vw, 16px);
-  opacity: .95;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
 
-.security-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: clamp(12px, 2.5vw, 14px);
-  opacity: .9;
-}
+        /* =====================================================
+           COLORS
+        ===================================================== */
 
-/* Form Container */
-.form-container {
-  padding: clamp(25px, 6vw, 40px);
-}
+        :root {
 
-/* Form Groups */
-.form-group {
-  position: relative;
-  margin-bottom: clamp(24px, 6vw, 32px);
-}
+            --blue: #1565c0;
+            --blue-dark: #0d47a1;
+            --blue-light: #eaf3ff;
+            --blue-soft: #f5faff;
 
-.form-group label {
-  position: absolute;
-  top: 18px;
-  left: 22px;
-  font-size: clamp(13px, 2.5vw, 15px);
-  font-weight: 600;
-  color: var(--text-light);
-  pointer-events: none;
-  background: var(--glass-bg);
-  padding: 0 8px;
-  border-radius: 8px;
-  transition: all .3s ease;
-}
+            --navy: #15324f;
+            --text: #243447;
+            --muted: #6b7c8f;
 
-.form-group input:focus + label,
-.form-group input:valid + label,
-.form-group textarea:focus + label,
-.form-group textarea:valid + label {
-  top: -8px;
-  left: 16px;
-  font-size: 12px;
-  color: var(--spice-orange);
-  background: #fff;
-  box-shadow: 0 3px 12px rgba(0,0,0,.15);
-}
+            --green: #16843f;
+            --green-light: #effaf3;
 
-.form-input, .form-textarea {
-  width: 100%;
-  padding: 18px 22px;
-  border: 2px solid rgba(255,138,0,.3);
-  border-radius: 20px;
-  font-size: clamp(15px, 3.5vw, 17px);
-  background: rgba(255,255,255,.85);
-  backdrop-filter: blur(15px);
-  font-family: inherit;
-  font-weight: 500;
-  transition: all .3s ease;
-}
+            --white: #ffffff;
+            --border: #e4ebf3;
 
-.form-input:focus, .form-textarea:focus {
-  outline: none;
-  border-color: var(--spice-orange);
-  box-shadow: 0 0 0 4px rgba(255,138,0,.15);
-  transform: translateY(-2px);
-}
+            --shadow:
+                0 14px 40px rgba(13, 71, 161, 0.08);
 
-.form-textarea {
-  resize: vertical;
-  min-height: clamp(100px, 25vh, 140px);
-}
+            --shadow-hover:
+                0 22px 55px rgba(13, 71, 161, 0.13);
+        }
 
-/* Place Order Button */
-.place-order-btn {
-  width: 100%;
-  padding: clamp(16px, 4vw, 22px) clamp(24px, 6vw, 32px);
-  background: linear-gradient(135deg, var(--spice-orange), var(--accent-red));
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  font-size: clamp(16px, 4vw, 18px);
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 20px 50px rgba(255,138,0,.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  margin-top: 10px;
-  transition: all .3s ease;
-  position: relative;
-  overflow: hidden;
-}
 
-.place-order-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 30px 70px rgba(255,138,0,.6);
-}
+        /* =====================================================
+           BODY
+        ===================================================== */
 
-.place-order-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
-  transition: left .7s ease;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-.place-order-btn:hover::before { left: 100%; }
+        body {
 
-/* MOBILE PERFECTION */
-@media (max-width: 480px) {
-  body { padding: 8px; }
-  header { margin-bottom: 20px; padding: 12px 16px; }
-  .checkout-container { margin: 0; border-radius: 20px; }
-  .form-container { padding: 20px 18px; }
-  .progress-section, .order-summary { padding: 20px 18px; }
-}
+            min-height: 100vh;
 
-@media (max-height: 500px) and (orientation: landscape) {
-  .checkout-container { margin: 10px; }
-  .form-container { padding: 20px; }
-  .form-textarea { min-height: 100px; }
-}
-</style>
+            padding:
+                clamp(8px, 2vw, 16px);
+
+            overflow-x: hidden;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(21, 101, 192, 0.09),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(66, 165, 245, 0.10),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f7fbff,
+                    #edf6ff,
+                    #ffffff
+                );
+        }
+
+
+        /* =====================================================
+           BACKGROUND BLURS
+        ===================================================== */
+
+        .bg-blur {
+
+            position: fixed;
+
+            border-radius: 50%;
+
+            filter: blur(85px);
+
+            opacity: 0.22;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .blur1 {
+
+            top: -100px;
+            left: -80px;
+
+            width: 300px;
+            height: 300px;
+
+            background: #64b5f6;
+        }
+
+
+        .blur2 {
+
+            right: -100px;
+            bottom: -100px;
+
+            width: 320px;
+            height: 320px;
+
+            background: #90caf9;
+        }
+
+
+        .blur3 {
+
+            top: 38%;
+            left: 52%;
+
+            width: 220px;
+            height: 220px;
+
+            background: #bbdefb;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+
+            position: sticky;
+
+            top: 8px;
+
+            z-index: 1000;
+
+            width: min(1000px, 100%);
+
+            margin:
+                0 auto
+                clamp(16px, 4vw, 24px);
+
+            padding:
+                13px
+                clamp(12px, 3vw, 18px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            background:
+                rgba(255, 255, 255, 0.96);
+
+            backdrop-filter: blur(16px);
+
+            border:
+                1px solid
+                rgba(21, 101, 192, 0.10);
+
+            border-radius: 18px;
+
+            box-shadow: var(--shadow);
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: var(--blue);
+
+            font-size:
+                clamp(20px, 4vw, 27px);
+
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        .logo i {
+            font-size: 0.9em;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+
+        .back-btn {
+
+            min-height: 42px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding:
+                10px 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 9px 22px
+                rgba(21, 101, 192, 0.18);
+
+            transition: 0.25s ease;
+        }
+
+
+        .back-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 13px 28px
+                rgba(21, 101, 192, 0.25);
+        }
+
+
+        /* =====================================================
+           MAIN CHECKOUT
+        ===================================================== */
+
+        .checkout-container {
+
+            position: relative;
+
+            z-index: 1;
+
+            width:
+                min(650px, 100%);
+
+            margin: 0 auto;
+
+            overflow: hidden;
+
+            background:
+                rgba(255, 255, 255, 0.95);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 24px;
+
+            box-shadow:
+                var(--shadow-hover);
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-section {
+
+            padding:
+                clamp(18px, 5vw, 26px);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #edf6ff,
+                    #f7fbff
+                );
+
+            border-bottom:
+                1px solid
+                var(--border);
+
+            text-align: center;
+        }
+
+
+        .progress-title {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            margin-bottom: 15px;
+
+            color: var(--navy);
+
+            font-size:
+                clamp(15px, 4vw, 19px);
+
+            font-weight: 700;
+        }
+
+
+        .progress-title i {
+
+            color: var(--blue);
+        }
+
+
+        .progress-wrap {
+
+            position: relative;
+
+            width: 100%;
+        }
+
+
+        .progress-bar {
+
+            width: 100%;
+
+            height: 9px;
+
+            overflow: hidden;
+
+            background: #dcecff;
+
+            border-radius: 999px;
+        }
+
+
+        .progress-fill {
+
+            width: 80%;
+
+            height: 100%;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--blue),
+                    #42a5f5
+                );
+        }
+
+
+        .progress-text {
+
+            margin-top: 8px;
+
+            color: var(--blue-dark);
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           ORDER SUMMARY
+        ===================================================== */
+
+        .order-summary {
+
+            padding:
+                clamp(22px, 6vw, 32px);
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            text-align: center;
+        }
+
+
+        .order-total {
+
+            margin-bottom: 4px;
+
+            font-size:
+                clamp(30px, 8vw, 43px);
+
+            line-height: 1.1;
+
+            font-weight: 800;
+
+            text-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.18);
+        }
+
+
+        .order-label {
+
+            margin-bottom: 13px;
+
+            opacity: 0.95;
+
+            font-size:
+                clamp(12px, 3vw, 14px);
+
+            font-weight: 600;
+        }
+
+
+        .security-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            padding:
+                7px 11px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.13);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.18);
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-container {
+
+            padding:
+                clamp(20px, 6vw, 34px);
+        }
+
+
+        .form-group {
+
+            position: relative;
+
+            margin-bottom:
+                clamp(19px, 5vw, 25px);
+        }
+
+
+        /* =====================================================
+           INPUTS
+        ===================================================== */
+
+        .form-input,
+        .form-textarea {
+
+            width: 100%;
+
+            padding:
+                15px 16px;
+
+            color: var(--text);
+
+            background: #ffffff;
+
+            border:
+                1.5px solid
+                #dbe6f2;
+
+            border-radius: 13px;
+
+            outline: none;
+
+            font-size:
+                clamp(13px, 3vw, 15px);
+
+            font-weight: 500;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+
+            color: #9aa8b6;
+        }
+
+
+        .form-input:focus,
+        .form-textarea:focus {
+
+            border-color:
+                var(--blue);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(21, 101, 192, 0.09);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           LABEL
+        ===================================================== */
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--navy);
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           TEXTAREA
+        ===================================================== */
+
+        .form-textarea {
+
+            resize: vertical;
+
+            min-height:
+                clamp(105px, 24vh, 145px);
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           FIELD ICONS
+        ===================================================== */
+
+        .field-icon {
+
+            position: relative;
+        }
+
+
+        .field-icon i {
+
+            position: absolute;
+
+            right: 16px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #91a4b7;
+
+            pointer-events: none;
+
+            font-size: 13px;
+        }
+
+
+        .field-icon .form-input {
+
+            padding-right: 42px;
+        }
+
+
+        /* =====================================================
+           PLACE ORDER
+        ===================================================== */
+
+        .place-order-btn {
+
+            position: relative;
+
+            width: 100%;
+
+            min-height: 56px;
+
+            margin-top: 5px;
+
+            padding:
+                15px 20px;
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-dark)
+                );
+
+            cursor: pointer;
+
+            font-size:
+                clamp(14px, 3.5vw, 16px);
+
+            font-weight: 800;
+
+            letter-spacing: 0.2px;
+
+            box-shadow:
+                0 13px 30px
+                rgba(21, 101, 192, 0.22);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .place-order-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 18px 38px
+                rgba(21, 101, 192, 0.28);
+        }
+
+
+        .place-order-btn:active {
+
+            transform: translateY(0);
+        }
+
+
+        .place-order-btn::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: -110%;
+
+            width: 70%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.30),
+                    transparent
+                );
+
+            transform: skewX(-20deg);
+
+            transition:
+                left 0.7s ease;
+        }
+
+
+        .place-order-btn:hover::before {
+
+            left: 125%;
+        }
+
+
+        /* =====================================================
+           SECURITY NOTE
+        ===================================================== */
+
+        .security-note {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 14px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            line-height: 1.5;
+
+            text-align: center;
+        }
+
+
+        .security-note i {
+
+            color: var(--green);
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .checkout-container {
+
+                border-radius: 20px;
+            }
+
+
+            header {
+
+                border-radius: 16px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 480px) {
+
+            body {
+
+                padding: 7px;
+            }
+
+
+            header {
+
+                top: 5px;
+
+                margin-top: 5px;
+
+                margin-bottom: 15px;
+
+                padding: 10px;
+            }
+
+
+            .logo {
+
+                width: 100%;
+
+                justify-content: center;
+
+                font-size: 21px;
+            }
+
+
+            .back-btn {
+
+                width: 100%;
+
+                min-height: 40px;
+
+                font-size: 11px;
+            }
+
+
+            .checkout-container {
+
+                margin: 0;
+
+                border-radius: 18px;
+            }
+
+
+            .progress-section {
+
+                padding:
+                    17px 15px;
+            }
+
+
+            .order-summary {
+
+                padding:
+                    22px 16px;
+            }
+
+
+            .form-container {
+
+                padding:
+                    18px 15px;
+            }
+
+
+            .form-group {
+
+                margin-bottom: 18px;
+            }
+
+
+            .form-input,
+            .form-textarea {
+
+                padding:
+                    14px;
+
+                border-radius: 12px;
+
+                font-size: 13px;
+            }
+
+
+            .place-order-btn {
+
+                min-height: 52px;
+
+                border-radius: 12px;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL PHONE
+        ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .progress-title {
+
+                font-size: 14px;
+            }
+
+
+            .order-total {
+
+                font-size: 29px;
+            }
+
+
+            .security-badge {
+
+                font-size: 10px;
+            }
+
+
+            .form-container {
+
+                padding:
+                    15px 12px;
+            }
+
+
+            .place-order-btn {
+
+                font-size: 13px;
+            }
+        }
+
+
+        /* =====================================================
+           LANDSCAPE MOBILE
+        ===================================================== */
+
+        @media (
+            max-height: 520px
+        ) and (
+            orientation: landscape
+        ) {
+
+            header {
+
+                position: relative;
+
+                margin-bottom: 12px;
+            }
+
+
+            .checkout-container {
+
+                margin-bottom: 15px;
+            }
+
+
+            .form-textarea {
+
+                min-height: 90px;
+            }
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            * {
+
+                transition: none !important;
+
+                scroll-behavior: auto !important;
+            }
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-<!-- Static Background -->
-<div class="bg-blur blur1"></div>
-<div class="bg-blur blur2"></div>
-<div class="bg-blur blur3"></div>
 
-<header>
-  <div class="logo">
-    <i class="fas fa-pepper-hot"></i> Om Masale
-  </div>
-  <button class="back-btn" onclick="history.back()">
-    <i class="fas fa-arrow-left"></i> Back to Cart
-  </button>
-</header>
 
-<div class="checkout-container">
-  <!-- Progress Bar -->
-  <div class="progress-section">
-    <div class="progress-title">
-      <i class="fas fa-shipping-fast"></i> Delivery Details
+    <!-- =====================================================
+         BACKGROUND
+    ===================================================== -->
+
+    <div class="bg-blur blur1"></div>
+
+    <div class="bg-blur blur2"></div>
+
+    <div class="bg-blur blur3"></div>
+
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+    <header>
+
+
+        <div class="logo">
+
+            <i class="fas fa-pepper-hot"></i>
+
+            Om Masale
+
+        </div>
+
+
+        <button
+            class="back-btn"
+            type="button"
+            onclick="history.back()"
+        >
+
+            <i class="fas fa-arrow-left"></i>
+
+            Back to Cart
+
+        </button>
+
+
+    </header>
+
+
+    <!-- =====================================================
+         CHECKOUT CONTAINER
+    ===================================================== -->
+
+    <div class="checkout-container">
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================= -->
+
+        <div class="progress-section">
+
+
+            <div class="progress-title">
+
+                <i class="fas fa-shipping-fast"></i>
+
+                Delivery Details
+
+            </div>
+
+
+            <div class="progress-wrap">
+
+                <div class="progress-bar">
+
+                    <div class="progress-fill"></div>
+
+                </div>
+
+
+                <div class="progress-text">
+
+                    Step 3 of 4
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             ORDER SUMMARY
+        ================================================= -->
+
+        <div class="order-summary">
+
+
+            <div class="order-total">
+
+                ₹{{ total }}
+
+            </div>
+
+
+            <div class="order-label">
+
+                Total Amount
+
+            </div>
+
+
+            <div class="security-badge">
+
+                <i class="fas fa-lock"></i>
+
+                Secure Checkout
+
+                <span>•</span>
+
+                Free Delivery
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             FORM
+        ================================================= -->
+
+        <form
+            method="post"
+            class="form-container"
+        >
+
+            {% csrf_token %}
+
+
+            <!-- FULL NAME -->
+
+            <div class="form-group">
+
+                <label for="name">
+
+                    Full Name
+
+                </label>
+
+
+                <div class="field-icon">
+
+                    <input
+                        id="name"
+                        type="text"
+                        name="name"
+                        class="form-input"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+
+                    <i class="fas fa-user"></i>
+
+                </div>
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+                <label for="phone">
+
+                    Phone Number
+
+                </label>
+
+
+                <div class="field-icon">
+
+                    <input
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        class="form-input"
+                        placeholder="Enter 10 digit mobile number"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                        maxlength="10"
+                        required
+                    >
+
+
+                    <i class="fas fa-phone"></i>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="form-group">
+
+                <label for="address">
+
+                    Complete Address
+
+                </label>
+
+
+                <textarea
+                    id="address"
+                    name="address"
+                    class="form-textarea"
+                    placeholder="House number, street, locality, city, pincode..."
+                    autocomplete="street-address"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- PLACE ORDER -->
+
+            <button
+                type="submit"
+                class="place-order-btn"
+            >
+
+                <i class="fas fa-check-circle"></i>
+
+                Place Order Now
+
+            </button>
+
+
+            <!-- SECURITY -->
+
+            <div class="security-note">
+
+                <i class="fas fa-shield-alt"></i>
+
+                Your information is used only to process your order.
+
+            </div>
+
+
+        </form>
+
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
-    </div>
-  </div>
 
-  <!-- Order Summary -->
-  <div class="order-summary">
-    <div class="order-total">₹{{total}}</div>
-    <div class="order-label">Total Amount</div>
-    <div class="security-badge">
-      <i class="fas fa-lock"></i>
-      Secure Checkout • Free Delivery
-    </div>
-  </div>
 
-  <!-- Form -->
-  <form method="post" class="form-container">
-    {% csrf_token %}
-    
-    <div class="form-group">
-      <input type="text" name="name" class="form-input" required>
-      <label>Full Name</label>
-    </div>
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
 
-    <div class="form-group">
-      <input type="tel" name="phone" class="form-input" placeholder="+91 " required>
-      <label>Phone Number</label>
-    </div>
+    <script>
 
-    <div class="form-group">
-      <textarea name="address" class="form-textarea" required placeholder="House number, street, locality, city, pincode..."></textarea>
-      <label>Complete Address</label>
-    </div>
+        /* =====================================================
+           PHONE NUMBER
+        ===================================================== */
 
-    <button type="submit" class="place-order-btn">
-      <i class="fas fa-check-circle"></i>
-      Place Order Now
-    </button>
-  </form>
-</div>
+        const phoneInput =
+            document.querySelector(
+                'input[name="phone"]'
+            );
 
-<script>
-// Simple form enhancements (no heavy animations)
-document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
-  input.addEventListener('blur', function() {
-    if (this.value.trim()) {
-      this.classList.add('valid');
-    }
-  });
-});
 
-// Phone number formatting
-document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
-  let value = e.target.value.replace(/\D/g,'');
-  if(value.length > 10) value = value.slice(0,10);
-  e.target.value = value;
-});
-</script>
+        if (phoneInput) {
+
+            phoneInput.addEventListener(
+                "input",
+                function () {
+
+                    let value =
+                        this.value.replace(
+                            /\D/g,
+                            ""
+                        );
+
+
+                    if (value.length > 10) {
+
+                        value =
+                            value.slice(0, 10);
+
+                    }
+
+
+                    this.value = value;
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           SIMPLE FORM VALIDATION
+        ===================================================== */
+
+        const form =
+            document.querySelector(
+                ".form-container"
+            );
+
+
+        if (form) {
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    const phone =
+                        phoneInput
+                            ? phoneInput.value.trim()
+                            : "";
+
+
+                    if (
+                        phone &&
+                        phone.length !== 10
+                    ) {
+
+                        event.preventDefault();
+
+                        alert(
+                            "Please enter a valid 10 digit phone number."
+                        );
+
+                        phoneInput.focus();
+
+                    }
+
+                }
+            );
+
+        }
+
+    </script>
+
+
 </body>
+
 </html>
