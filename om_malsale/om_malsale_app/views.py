@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from .models import Product, Order
 
 
-def welcome(request):
-    return render(request, "welcome.html")
+def home_redirect(request):
+    return redirect("home")
 
 
 def index(request):

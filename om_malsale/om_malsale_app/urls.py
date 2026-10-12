@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.welcome, name="welcome"),   # 👈 FIRST PAGE
-    path('home/', views.index, name="home"),   # 👈 PRODUCTS PAGE
+    path("", views.home_redirect, name="welcome"),
+    path("home/", views.index, name="home"),  # 👈 PRODUCTS PAGE
 
 path("product/<int:id>/",views.product_detail,name="product_detail"),
 
